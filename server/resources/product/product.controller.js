@@ -18,6 +18,8 @@ async function getProduct(req, res) {
 //Lägg till produkt
 async function addProduct(req, res, next) {
   try {
+    console.log("Request Body:", req.body);
+
     const product = new ProductModel(req.body);
     await product.save();
     res.status(201).json(product);
