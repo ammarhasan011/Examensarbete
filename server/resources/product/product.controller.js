@@ -18,6 +18,8 @@ async function getProduct(req, res) {
 //Lägg till produkt
 async function addProduct(req, res, next) {
   try {
+    console.log("Request Body:", req.body);
+
     const product = new ProductModel(req.body);
     await product.save();
     res.status(201).json(product);
@@ -41,8 +43,18 @@ async function updateProduct(req, res) {
 
 //Radera en produkt
 async function deleteProduct(req, res) {
-  await ProductModel.findOneAndDelete({ _id: req.params.id });
-  res.status(204).json(null);
+  try {
+    const deletedProduct = await ProductModel.findOneAndDelete({
+      _id: req.params.id,
+    });
+
+    if (!deletedProduct) {
+      return res.status(404).json("Product not found");
+    }
+    res.status(200).json("The product has been deleted");
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 }
 
 module.exports = {
