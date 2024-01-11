@@ -1,38 +1,39 @@
-//Hämta produkter
-GET http://localhost:3000/products/getAllProducts
+//Hämta alla produkter
+GET http://localhost:3000/api/products
 
 ###
 
 //Hämta en produkter
-GET http://localhost:3000/products/:id
+GET http://localhost:3000/api/products/65a049f94f5499c3cfbccfec
 
 ###
 
-
-//Skapa produkter 
-POST http://localhost:4000/products
+//Skapa produkt
+POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "test1",
-  "price": 100,
-  "description": "test1test1test1",
-  "image": "test1.png",
-  "inStock": 10
+  "title": "Iphone",
+  "description": "Detta är en testprodukt för att fylla på databasen.",
+  "price": 19,
+  "image": "dummy-produkt.jpg",
+  "inStock": 50
 }
 
 ###
 
 //Skapa produkter här
-PUT http://localhost:3000/products
+PUT http://localhost:3000/api/products/65a0488b6ae671c35c5e20b0
 Content-Type: application/json
 
 {
-  "title": "test1",
-  "price": 100,
-  "description": "test1test1test1",
-  "image": "test1.png",
-  "inStock": 10
+  "title": "Iphone 12",
+  "description": "en bra mobil",
+  "price": 19,
+  "image": "dummy-produkt.jpg",
+  "inStock": 50
 }
 
 ###
+
+Radera en produkt
