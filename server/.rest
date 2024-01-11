@@ -1,0 +1,38 @@
+//Hämta produkter
+GET http://localhost:3000/products/getAllProducts
+
+###
+
+//Hämta en produkter
+GET http://localhost:3000/products/:id
+
+###
+
+
+//Skapa produkter 
+POST http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "title": "test1",
+  "price": 100,
+  "description": "test1test1test1",
+  "image": "test1.png",
+  "inStock": 10
+}
+
+###
+
+//Skapa produkter här
+PUT http://localhost:3000/products
+Content-Type: application/json
+
+{
+  "title": "test1",
+  "price": 100,
+  "description": "test1test1test1",
+  "image": "test1.png",
+  "inStock": 10
+}
+
+###
