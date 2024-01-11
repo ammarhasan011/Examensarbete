@@ -21,10 +21,10 @@ const ProductModel = models.product || model("product", ProductSchema);
 
 //valideringsscheman för skapande produkter/validera inkommande data
 const ProductCreateValidationSchema = Joi.object({
-  title: Joi.String().strict().required(),
-  description: Joi.String().strict().required(),
-  price: Joi.Number().strict().required(),
-  inStock: Joi.Number().strict().required(),
+  title: Joi.string().strict().required(),
+  description: Joi.string().strict().required(),
+  price: Joi.number().strict().required(),
+  inStock: Joi.number().strict().required(),
 });
 // En schema för uppdateringar av produkter, men lägger krav på id & delete
 const ProductUpdateValidationSchema = ProductCreateValidationSchema.keys({
