@@ -10,7 +10,7 @@ GET http://localhost:3000/products/:id
 
 
 //Skapa produkter 
-POST http://localhost:3000/products
+POST http://localhost:4000/products
 Content-Type: application/json
 
 {

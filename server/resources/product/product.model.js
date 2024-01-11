@@ -18,6 +18,7 @@ const ProductSchema = new Schema(
 
 //Här skapas en Mongoose modell
 const ProductModel = models.product || model("product", ProductSchema);
+console.log("modell");
 
 //valideringsscheman för skapande produkter/validera inkommande data
 const ProductCreateValidationSchema = Joi.object({
