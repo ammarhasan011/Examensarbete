@@ -6,6 +6,8 @@ const cors = require("cors");
 const productRouter = require("./resources/product/product.router");
 
 const app = express();
+// Middleware för att tolka JSON
+app.use(express.json());
 app.use(cors());
 
 //koppling till databas som kör på port 4000
