@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 
+const productRouter = require("./resources/product/product.router");
+
 const app = express();
 
 //koppling till databas som kör på port 4000
@@ -12,8 +14,10 @@ async function connectionDB() {
     console.log("Database is up and runninnn...port4000")
   );
 }
-
 connectionDB();
+
+// Add routers
+app.use("/api", productRouter);
 
 // server
 app.listen(3000, () => console.log("Server is up and runninnn...port3000"));
