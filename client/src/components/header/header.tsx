@@ -134,7 +134,9 @@ function Header() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* logga  */}
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                <ShoppingCartSharpIcon />
+                <ShoppingCartSharpIcon
+                  sx={{ marginLeft: 2, fontSize: "2.1rem", color: "white" }}
+                />
               </IconButton>
             </Tooltip>
             <Menu
