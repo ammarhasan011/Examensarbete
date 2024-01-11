@@ -1,10 +1,12 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
+const cors = require("cors");
 
 const productRouter = require("./resources/product/product.router");
 
 const app = express();
+app.use(cors());
 
 //koppling till databas som kör på port 4000
 async function connectionDB() {
