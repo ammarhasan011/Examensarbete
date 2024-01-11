@@ -1,14 +1,14 @@
-//Hämta alla produkter
+# Hämta alla produkter
 GET http://localhost:3000/api/products
 
 ###
 
-//Hämta en produkter
-GET http://localhost:3000/api/products/65a049f94f5499c3cfbccfec
+# Hämta en produkter
+GET http://localhost:3000/api/products/65a056bcf315a133c08088cd
 
 ###
 
-//Skapa produkt
+# Skapa produkt
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
@@ -22,18 +22,23 @@ Content-Type: application/json
 
 ###
 
-//Skapa produkter här
-PUT http://localhost:3000/api/products/65a0488b6ae671c35c5e20b0
+# Skapa produkter här
+PUT http://localhost:3000/api/products/65a056bcf315a133c08088cd
 Content-Type: application/json
 
 {
-  "title": "Iphone 12",
-  "description": "en bra mobil",
-  "price": 19,
-  "image": "dummy-produkt.jpg",
-  "inStock": 50
+    "_id": "65a056bcf315a133c08088cd",
+  "title": "Iphone 125",
+  "description": "en bra mobil som är snabbbbbbb",
+  "price": 119,
+  "image": "dummy-produkft.jpg",
+  "inStock": 550
 }
 
 ###
 
-Radera en produkt
+# Radera en produkt
+DELETE http://localhost:3000/api/products/65a056bcf315a133c08088cd
+
+###
+ 
