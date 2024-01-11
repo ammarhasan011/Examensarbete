@@ -10,6 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
+import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 
 const pages = ["Hem", "Produkter"];
 
@@ -115,8 +116,22 @@ function Header() {
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
+            {/* Mina ikoner */}
+            <PersonSharpIcon
+              sx={{
+                marginRight: 1.5,
+                fontSize: "2.2rem",
+                color: "white",
+                cursor: "pointer",
+              }}
+            />
             <ShoppingCartSharpIcon
-              sx={{ marginLeft: 2, fontSize: "2.1rem", color: "white" }}
+              sx={{
+                marginLeft: 2,
+                fontSize: "1.9rem",
+                color: "white",
+                cursor: "pointer",
+              }}
             />
           </Box>
         </Toolbar>
