@@ -12,6 +12,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 
 const pages = ["Hem", "Produkter"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -133,6 +134,7 @@ function Header() {
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* logga  */}
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <ShoppingCartSharpIcon />
               </IconButton>
             </Tooltip>
             <Menu
