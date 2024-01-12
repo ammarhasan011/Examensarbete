@@ -1,7 +1,9 @@
+import Products from "./products/products";
 function Home() {
   return (
     <div>
-      <h1> Här ska jag ha produkter</h1>
+      <h1>Välkommen till vår butik</h1>
+      <Products />
     </div>
   );
 }
