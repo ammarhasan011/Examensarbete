@@ -1,8 +1,23 @@
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Header from "./components/header/header";
+import Cart from "./components/cart/cart";
+import User from "./components/user/user";
+import Home from "./components/home";
+import Products from "./components/products/products";
+import AboutUs from "./components/aboutUs/aboutUs";
+
 const App = () => {
   return (
-    <div>
-      <h1>Hello</h1>
-    </div>
+    <Router>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/products" element={<Products />} />
+        <Route path="/about-us" element={<AboutUs />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/user" element={<User />} />
+      </Routes>
+    </Router>
   );
 };
 
