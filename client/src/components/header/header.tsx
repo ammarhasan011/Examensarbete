@@ -12,8 +12,9 @@ import MenuItem from "@mui/material/MenuItem";
 
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
+import { Link } from "react-router-dom";
 
-const pages = ["Hem", "Produkter"];
+// const pages = ["Hemmmm", "Produkter"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -36,7 +37,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="#app-bar-with-responsive-menu"
+            href="#home"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -49,6 +50,21 @@ function Header() {
           >
             M Shop
           </Typography>
+
+          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
+              Hem
+            </Button>
+          </Link>
+
+          <Link
+            to="/products"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
+              Produkter
+            </Button>
+          </Link>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -79,11 +95,11 @@ function Header() {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
+              {/* {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page}</Typography>
                 </MenuItem>
-              ))}
+              ))} */}
             </Menu>
           </Box>
           <Typography
@@ -105,35 +121,42 @@ function Header() {
             M Shop
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
+            {/*   {pages.map((page) => (
+              <Link
+                to={`/${page.toLowerCase()}`}
                 key={page}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
+                style={{ textDecoration: "none", color: "white" }}
               >
-                {page}
-              </Button>
-            ))}
+                <Button sx={{ my: 2, color: "white", display: "block" }}>
+                  {page}
+                </Button>
+              </Link>
+            ))}*/}
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             {/* Mina ikoner */}
-            <PersonSharpIcon
-              sx={{
-                marginRight: 1.5,
-                fontSize: "2.2rem",
-                color: "white",
-                cursor: "pointer",
-              }}
-            />
-            <ShoppingCartSharpIcon
-              sx={{
-                marginLeft: 2,
-                fontSize: "1.9rem",
-                color: "white",
-                cursor: "pointer",
-              }}
-            />
+            <Link to="/user">
+              <PersonSharpIcon
+                sx={{
+                  marginRight: 1.5,
+                  fontSize: "2.2rem",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              />
+            </Link>
+            <Link to="/cart" style={{ textDecoration: "none", color: "white" }}>
+              <ShoppingCartSharpIcon
+                sx={{
+                  marginLeft: 2,
+                  fontSize: "1.9rem",
+                  color: "white",
+                  cursor: "pointer",
+                }}
+              />
+            </Link>
           </Box>
         </Toolbar>
       </Container>
