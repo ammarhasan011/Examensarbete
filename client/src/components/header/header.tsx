@@ -8,13 +8,10 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import MenuItem from "@mui/material/MenuItem";
 
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import { Link } from "react-router-dom";
-
-// const pages = ["Hemmmm", "Produkter"];
 
 function Header() {
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
@@ -37,7 +34,7 @@ function Header() {
             variant="h6"
             noWrap
             component="a"
-            href="#home"
+            href="/"
             sx={{
               mr: 2,
               display: { xs: "none", md: "flex" },
@@ -51,18 +48,20 @@ function Header() {
             M Shop
           </Typography>
 
-          <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
-            <Button sx={{ my: 2, color: "white", display: "block" }}>
-              Hem
-            </Button>
-          </Link>
-
           <Link
             to="/products"
             style={{ textDecoration: "none", color: "inherit" }}
           >
             <Button sx={{ my: 2, color: "white", display: "block" }}>
               Produkter
+            </Button>
+          </Link>
+          <Link
+            to="/about-us"
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
+              Om oss
             </Button>
           </Link>
 
@@ -94,13 +93,7 @@ function Header() {
               sx={{
                 display: { xs: "block", md: "none" },
               }}
-            >
-              {/* {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))} */}
-            </Menu>
+            ></Menu>
           </Box>
           <Typography
             variant="h5"
@@ -120,20 +113,7 @@ function Header() {
           >
             M Shop
           </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {/*   {pages.map((page) => (
-              <Link
-                to={`/${page.toLowerCase()}`}
-                key={page}
-                onClick={handleCloseNavMenu}
-                style={{ textDecoration: "none", color: "white" }}
-              >
-                <Button sx={{ my: 2, color: "white", display: "block" }}>
-                  {page}
-                </Button>
-              </Link>
-            ))}*/}
-          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
           <Box sx={{ flexGrow: 0 }}>
             {/* Mina ikoner */}
