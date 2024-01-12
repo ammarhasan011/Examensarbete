@@ -48,10 +48,20 @@ POST  http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-    "firstName": "Ammar1",
+    "firstName": "Ammar11",
     "lastName":"Hasan",
     "password": "12345",
-    "email": "Martin@gmail.se"
+    "email": "test1@gmail.se"
+}
+
+###
+
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "test@gmail.se",
+  "password": "12345"
 }
 
 ###
