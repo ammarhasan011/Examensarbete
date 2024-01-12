@@ -19,6 +19,7 @@ async function register(req, res) {
   console.log("created user");
 }
 async function login(req, res) {
+  console.log("Session after:", req.session);
   // Check if username and password is correct
   const existingUser = await UserModel.findOne({
     email: req.body.email,
@@ -28,6 +29,7 @@ async function login(req, res) {
     !existingUser ||
     !(await bcrypt.compare(req.body.password, existingUser.password))
   ) {
+    console.log("Before loged in user");
     return res.status(401).json("Wrong password or username");
   }
 
@@ -37,6 +39,7 @@ async function login(req, res) {
 
   // Check if user already is logged in
   if (req.session._id) {
+    console.log("loged in cookie");
     return res.status(200).json(user);
   }
 
@@ -44,6 +47,7 @@ async function login(req, res) {
   req.session = user;
   res.status(200).json(user);
   console.log("loged in user");
+  console.log("After loged in user");
 }
 
 // Logout user & remove cookie & session
