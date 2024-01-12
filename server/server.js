@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
+const cookieSession = require("cookie-session");
 
 const productRouter = require("./resources/product/product.router");
 const { userRouter } = require("./resources/user/user.router");
@@ -20,6 +21,14 @@ async function connectionDB() {
   );
 }
 connectionDB();
+
+app.use(
+  cookieSession({
+    secret: "s3cr3t",
+    maxAge: 1000 * 60 * 60 * 12,
+    httpOnly: false,
+  })
+);
 
 // Add routers
 app.use("/api", productRouter);
