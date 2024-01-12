@@ -11,5 +11,22 @@ async function register(req, res) {
   user.password = await bcrypt.hash(user.password, 10);
   await user.save();
 
-  //spara till json eller server
+  const jsonUser = user.toJSON();
+  jsonUser._id = user._id;
+  delete jsonUser.password;
+
+  res.status(201).send(jsonUser);
+}
+async function login(req, res) {
+  // Check if username and password is correct
+  const existingUser = await UserModel.findOne({
+    email: req.body.email,
+  }).select("+password");
+
+  if (
+    !existingUser ||
+    !(await bcrypt.compare(req.body.password, existingUser.password))
+  ) {
+    return res.status(401).json("Wrong password or username");
+  }
 }
