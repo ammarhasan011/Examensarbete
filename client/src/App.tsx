@@ -4,6 +4,7 @@ import Cart from "./components/cart/cart";
 import User from "./components/user/user";
 import Home from "./components/home";
 import Products from "./components/products/products";
+import AboutUs from "./components/aboutUs/aboutUs";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/about-us" element={<AboutUs />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/user" element={<User />} />
       </Routes>
