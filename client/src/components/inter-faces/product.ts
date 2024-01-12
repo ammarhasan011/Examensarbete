@@ -7,4 +7,5 @@ interface Product {
   inStock: number;
   deleted?: boolean;
 }
+
 export default Product;
