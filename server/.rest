@@ -67,7 +67,12 @@ Content-Type: application/json
 ###
 
 
- POST http://localhost:3000/api/users/logout
+DELETE http://localhost:3000/api/users/logout
 Content-Type: application/json
+
+{
+  "email": "Martin22@gmail.se",
+  "password": "12345"
+}
 
  ###
