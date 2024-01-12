@@ -16,6 +16,7 @@ async function register(req, res) {
   delete jsonUser.password;
 
   res.status(201).send(jsonUser);
+  console.log("created user");
 }
 async function login(req, res) {
   // Check if username and password is correct
@@ -42,6 +43,7 @@ async function login(req, res) {
   // Save info about the user to the session (an encrypted cookie stored on the client)
   req.session = user;
   res.status(200).json(user);
+  console.log("loged in user");
 }
 
 // Logout user & remove cookie & session
