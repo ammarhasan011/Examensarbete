@@ -15,9 +15,9 @@ const UserModel = models.user || model("user", UserSchema);
 
 //valideringsscheman för skapande Users/
 const UserCreateValidationSchema = Joi.object({
-  firstName: Joi.string().strict().require(),
-  lastName: Joi.string().strict().require(),
-  email: Joi.string().email().strict().require(),
+  firstName: Joi.string().strict().required(),
+  lastName: Joi.string().strict().required(),
+  email: Joi.string().email().strict().required(),
   password: Joi.string().strict().required(),
   isAdmin: Joi.boolean().strict(),
 });
