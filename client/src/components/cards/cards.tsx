@@ -30,7 +30,7 @@ export default function MultiActionAreaCard({
             {product.description}
           </Typography>
           <Typography variant="body1" color="text.primary">
-            Antal i lager: {product.inStock}
+            Antal i lager: {product.inStock} St
           </Typography>
           <Typography variant="h6" color="text.primary">
             Pris: {product.price} kr
