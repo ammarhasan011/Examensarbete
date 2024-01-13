@@ -3,6 +3,7 @@ import axios from "axios";
 import Product from "../inter-faces/product";
 import MultiActionAreaCard from "../cards/cards";
 
+// Creates a functional component Products using React Hook,
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
@@ -21,6 +22,7 @@ const Products = () => {
   return (
     <div>
       <h1>Produkter</h1>
+      {/* Renders a list of products using MultiActionAreaCard */}
       <div style={{ display: "flex", gap: "16px" }}>
         {products.map((product) => (
           <MultiActionAreaCard
