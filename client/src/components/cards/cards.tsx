@@ -29,7 +29,7 @@ export default function MultiActionAreaCard({
           <Typography variant="body2" color="text.secondary">
             {product.description}
           </Typography>
-          <Typography variant="body2" color="text.secondary">
+          <Typography variant="body1" color="text.primary">
             Antal i lager: {product.inStock}
           </Typography>
           <Typography variant="h6" color="text.primary">
