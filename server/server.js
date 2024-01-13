@@ -28,5 +28,7 @@ app.use(
 app.use("/api", productRouter);
 app.use("/api", userRouter);
 
+// console.log(req.session);
+
 // server
 app.listen(3000, () => console.log("Server is up and runninnn...port3000"));

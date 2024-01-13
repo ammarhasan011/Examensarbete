@@ -17,6 +17,7 @@ async function register(req, res) {
 
   res.status(201).send(jsonUser);
   console.log("created user");
+  //   console.log("Session after:", req.session);
 }
 async function login(req, res) {
   //   console.log("Session after:", req.session);
@@ -40,11 +41,13 @@ async function login(req, res) {
 
   // Check if user already is logged in
   //   if (req.session._id) {
-  if (req.session) {
+  if (req.session && req.session._id) {
     console.log("already logged in");
+    console.log(req.session);
+
     return res.status(200).json(user);
   }
-
+  req.session = null;
   // Save info about the user to the session (an encrypted cookie stored on the client)
   req.session = user;
   res.status(200).json(user);
@@ -54,12 +57,11 @@ async function login(req, res) {
 // Logout user & remove cookie & session
 async function logout(req, res) {
   if (!req.session._id) {
-    console.log("logout user before");
-
     return res.status(400).json("Cannot logout when you are not logged in");
   }
   req.session = null;
   res.status(204).json(null);
+  console.log("logged out");
 }
 
 async function authorize(req, res) {
