@@ -48,10 +48,10 @@ POST  http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-    "firstName": "Ammar11",
-    "lastName":"Hasan",
-    "password": "12345",
-    "email": "test1@gmail.se"
+    "firstName": "1",
+    "lastName":"1",
+    "password": "1",
+    "email":"2@gmail.se"
 }
 
 ###
@@ -60,8 +60,8 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "Martin22@gmail.se",
-  "password": "12345"
+  "email": "2@gmail.se",
+  "password": "1"
 }
 
 ###
@@ -71,8 +71,8 @@ DELETE http://localhost:3000/api/users/logout
 Content-Type: application/json
 
 {
-  "email": "Martin@gmail.se",
-  "password": "12345"
+  "email": "2@gmail.se",
+  "password": "1"
 }
 
 ###
