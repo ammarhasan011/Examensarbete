@@ -20,8 +20,8 @@ export default function MultiActionAreaCard({
         <CardMedia
           component="img"
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          alt="green iguana"
+          image={product.image}
+          alt={product.title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
