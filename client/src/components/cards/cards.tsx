@@ -11,7 +11,9 @@ interface MultiActionAreaCardProps {
   product: Product;
 }
 
-export default function MultiActionAreaCard() {
+export default function MultiActionAreaCard({
+  product,
+}: MultiActionAreaCardProps) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -23,11 +25,13 @@ export default function MultiActionAreaCard() {
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="div">
-            Lizard
+            {product.title}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {product.description}
+          </Typography>
+          <Typography variant="h6" color="text.primary">
+            Pris: {product.price} kr
           </Typography>
         </CardContent>
       </CardActionArea>
