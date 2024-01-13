@@ -42,3 +42,31 @@ DELETE http://localhost:3000/api/products/65a056bcf315a133c08088cd
 
 ###
  
+
+# create user
+POST  http://localhost:3000/api/users/register
+Content-Type: application/json
+
+{
+    "firstName": "ammar",
+    "lastName":"1",
+    "password": "1",
+    "email":"ammar@gmail.se"
+}
+
+###
+
+POST http://localhost:3000/api/users/login
+Content-Type: application/json
+
+{
+  "email": "ammar@gmail.se",
+  "password": "1"
+}
+
+###
+
+
+DELETE http://localhost:3000/api/users/logout
+
+###
