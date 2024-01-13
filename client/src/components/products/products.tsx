@@ -26,11 +26,12 @@ const Products = () => {
           <MultiActionAreaCard
             key={product._id}
             product={{
-              id: product._id,
+              _id: product._id,
               title: product.title,
               description: product.description,
               image: product.image,
               price: product.price,
+              inStock: product.inStock,
             }}
           />
         ))}
