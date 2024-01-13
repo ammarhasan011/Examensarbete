@@ -5,7 +5,6 @@ const { register, login, logout } = require("./user.controller");
 const userRouter = Router();
 
 userRouter
-  //   .post("/users/register", validate(UserCreateValidationSchema), register)
   .post("/users/register", register)
   .post("/users/login", login)
   .post("/users/logout", logout);
