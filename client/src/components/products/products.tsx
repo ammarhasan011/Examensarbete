@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Product from "../inter-faces/product";
+// import MultiActionAreaCard from "../cards/cards";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
 
+  //Products from database
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/products")
@@ -18,7 +20,7 @@ const Products = () => {
 
   return (
     <div>
-      <ul>
+      {/* <ul>
         {products.map((product) => (
           <li key={product._id}>
             <h3>{product.title}</h3>
@@ -27,7 +29,7 @@ const Products = () => {
             <img src={product.image} alt={product.title} />
           </li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
