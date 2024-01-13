@@ -39,12 +39,11 @@ async function login(req, res) {
   delete user.password;
 
   // Check if user already is logged in
-  if (req.session._id) {
+  //   if (req.session._id) {
+  if (req.session) {
     console.log("already logged in");
     return res.status(200).json(user);
   }
-  req.session.destroy();
-  console.log("rensar session");
 
   // Save info about the user to the session (an encrypted cookie stored on the client)
   req.session = user;
