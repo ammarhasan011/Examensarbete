@@ -4,7 +4,7 @@ GET http://localhost:3000/api/products
 ###
 
 # Hämta en produkter
-GET http://localhost:3000/api/products/65a056bcf315a133c08088cd
+GET http://localhost:3000/api/products/65a056f1f315a133c08088d7
 
 ###
 
@@ -13,22 +13,22 @@ POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "Iphone",
+  "title": "arr",
   "description": "Detta är en testprodukt för att fylla på databasen.",
   "price": 19,
-  "image": "dummy-produkt.jpg",
+  "image": "arrt.jpg",
   "inStock": 50
 }
 
 ###
 
 # Skapa produkter här
-PUT http://localhost:3000/api/products/65a056bcf315a133c08088cd
+PUT http://localhost:3000/api/products/65a2c53dd003845e61814b98
 Content-Type: application/json
 
 {
-    "_id": "65a056bcf315a133c08088cd",
-  "title": "Iphone 125",
+    "_id": "65a2c53dd003845e61814b98",
+  "title": "Iphone arr",
   "description": "en bra mobil som är snabbbbbbb",
   "price": 119,
   "image": "dummy-produkft.jpg",
@@ -38,7 +38,7 @@ Content-Type: application/json
 ###
 
 # Radera en produkt
-DELETE http://localhost:3000/api/products/65a056bcf315a133c08088cd
+DELETE http://localhost:3000/api/products/65a2c53dd003845e61814b98
 
 ###
  
@@ -60,7 +60,7 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "ammar@gmail.se",
+  "email": "2@gmail.se",
   "password": "1"
 }
 
