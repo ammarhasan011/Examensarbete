@@ -7,6 +7,6 @@ const userRouter = Router();
 userRouter
   .post("/users/register", register)
   .post("/users/login", login)
-  .post("/users/logout", logout);
+  .delete("/users/logout", logout);
 
 module.exports = { userRouter };
