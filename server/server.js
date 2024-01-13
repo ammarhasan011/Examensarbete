@@ -15,9 +15,12 @@ connectToDatabase();
 
 app.use(
   cookieSession({
-    secret: "s3cr3t",
-    maxAge: 1000 * 60 * 60 * 12,
-    httpOnly: false,
+    name: "session",
+    keys: ["aVeryS3cr3tK3y"],
+    maxAge: 1000 * 60 * 60 * 24, //24H
+    sameSite: "strict",
+    httpOnly: true,
+    secure: false,
   })
 );
 
