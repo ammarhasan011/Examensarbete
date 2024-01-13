@@ -71,8 +71,8 @@ DELETE http://localhost:3000/api/users/logout
 Content-Type: application/json
 
 {
-  "email": "Martin22@gmail.se",
+  "email": "Martin@gmail.se",
   "password": "12345"
 }
 
- ###
+###
