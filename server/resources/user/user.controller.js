@@ -17,10 +17,10 @@ async function register(req, res) {
 
   res.status(201).send(jsonUser);
   console.log("created user");
-  //   console.log("Session after:", req.session);
 }
+
 async function login(req, res) {
-  //   console.log("Session after:", req.session);
+  console.log("Before login check:", req.session);
   // Check if username and password is correct
   const existingUser = await UserModel.findOne({
     email: req.body.email,
@@ -40,10 +40,9 @@ async function login(req, res) {
   delete user.password;
 
   // Check if user already is logged in
-  //   if (req.session._id) {
-  if (req.session && req.session._id) {
+  if (req.session._id) {
     console.log("already logged in");
-    console.log(req.session);
+    console.log(req.session._id);
 
     return res.status(200).json(user);
   }
@@ -52,16 +51,18 @@ async function login(req, res) {
   req.session = user;
   res.status(200).json(user);
   console.log("Login succeeded");
+  console.log("After login check:", req.session);
 }
 
 // Logout user & remove cookie & session
 async function logout(req, res) {
+  console.log("session before logged out:", req.session);
   if (!req.session._id) {
     return res.status(400).json("Cannot logout when you are not logged in");
   }
   req.session = null;
   res.status(204).json(null);
-  console.log("logged out");
+  console.log("session after logged out:", req.session);
 }
 
 async function authorize(req, res) {
