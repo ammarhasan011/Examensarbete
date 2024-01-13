@@ -1,4 +1,3 @@
-// import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -10,7 +9,7 @@ import Product from "../inter-faces/product";
 interface MultiActionAreaCardProps {
   product: Product;
 }
-
+// dynamic card that adapts to each product
 export default function MultiActionAreaCard({
   product,
 }: MultiActionAreaCardProps) {
@@ -29,6 +28,9 @@ export default function MultiActionAreaCard({
           </Typography>
           <Typography variant="body2" color="text.secondary">
             {product.description}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Antal i lager: {product.inStock}
           </Typography>
           <Typography variant="h6" color="text.primary">
             Pris: {product.price} kr
