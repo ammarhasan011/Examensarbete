@@ -19,7 +19,7 @@ async function register(req, res) {
   console.log("created user");
 }
 async function login(req, res) {
-  console.log("Session after:", req.session);
+  //   console.log("Session after:", req.session);
   // Check if username and password is correct
   const existingUser = await UserModel.findOne({
     email: req.body.email,
@@ -33,26 +33,30 @@ async function login(req, res) {
     return res.status(401).json("Wrong password or username");
   }
 
+  //Creates a user object
   const user = existingUser.toJSON();
   user._id = existingUser._id;
   delete user.password;
 
   // Check if user already is logged in
   if (req.session._id) {
-    console.log("loged in cookie");
+    console.log("already logged in");
     return res.status(200).json(user);
   }
+  req.session.destroy();
+  console.log("rensar session");
 
   // Save info about the user to the session (an encrypted cookie stored on the client)
   req.session = user;
   res.status(200).json(user);
-  console.log("loged in user");
-  console.log("After loged in user");
+  console.log("Login succeeded");
 }
 
 // Logout user & remove cookie & session
 async function logout(req, res) {
   if (!req.session._id) {
+    console.log("logout user before");
+
     return res.status(400).json("Cannot logout when you are not logged in");
   }
   req.session = null;
