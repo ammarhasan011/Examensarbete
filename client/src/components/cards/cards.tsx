@@ -1,9 +1,15 @@
-import * as React from "react";
+// import * as React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
+
+import Product from "../inter-faces/product";
+
+interface MultiActionAreaCardProps {
+  product: Product;
+}
 
 export default function MultiActionAreaCard() {
   return (
@@ -27,7 +33,7 @@ export default function MultiActionAreaCard() {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
+          Lägg till i varukorgen
         </Button>
       </CardActions>
     </Card>
