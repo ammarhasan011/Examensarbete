@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Product from "../inter-faces/product";
-// import MultiActionAreaCard from "../cards/cards";
+import MultiActionAreaCard from "../cards/cards";
 
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -20,16 +20,21 @@ const Products = () => {
 
   return (
     <div>
-      {/* <ul>
+      <h1>Produkter</h1>
+      <div style={{ display: "flex", gap: "16px" }}>
         {products.map((product) => (
-          <li key={product._id}>
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <p>Price:{product.price} Kr</p>
-            <img src={product.image} alt={product.title} />
-          </li>
+          <MultiActionAreaCard
+            key={product._id}
+            product={{
+              id: product._id,
+              name: product.title,
+              description: product.description,
+              image: product.image,
+              price: product.price,
+            }}
+          />
         ))}
-      </ul> */}
+      </div>
     </div>
   );
 };
