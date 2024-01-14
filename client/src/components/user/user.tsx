@@ -1,8 +1,11 @@
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Grid";
+
 const User = () => {
   return (
-    <div>
-      <h1>User</h1>
-    </div>
+    <Grid>
+      <Paper>logga in</Paper>
+    </Grid>
   );
 };
 
