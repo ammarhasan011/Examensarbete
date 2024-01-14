@@ -5,8 +5,10 @@ import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Link as RouterLink } from "react-router-dom";
 
-const RegisterForm = () => {
+const SignUpForm = () => {
   const paperStyle = {
     padding: "30px 20px",
     width: 300,
@@ -22,12 +24,19 @@ const RegisterForm = () => {
     <Grid>
       <Paper elevation={20} style={paperStyle}>
         <Grid container direction="column" alignItems="center">
+          <RouterLink to="/sign-in" style={{ textDecoration: "none" }}>
+            <ArrowBackIcon
+              style={{ cursor: "pointer", marginBottom: 10, color: "inherit" }}
+            />
+          </RouterLink>
+
           <Avatar style={avatarStyle}>
             <PersonAddAltIcon />
           </Avatar>
           <h2 style={headerStyle}>Skapa konto</h2>
+
           <Typography variant="caption">
-            Fyll i formulären för att skapa ett konto.
+            Fyll i formulären för att skapa ett konto!
           </Typography>
         </Grid>
         <form action="">
@@ -58,7 +67,7 @@ const RegisterForm = () => {
           <TextField
             id="standard-basic"
             type="password"
-            label="Password"
+            label="Lösenord"
             variant="standard"
             fullWidth
             placeholder="Ange ditt lösenord"
@@ -79,4 +88,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default SignUpForm;
