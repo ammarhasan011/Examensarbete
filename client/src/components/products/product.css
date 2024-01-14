@@ -1,0 +1,13 @@
+.CardDiv {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3rem;
+    margin-bottom: 100px;
+}
+
+.Title {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+}
