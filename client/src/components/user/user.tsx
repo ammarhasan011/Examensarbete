@@ -3,8 +3,9 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import TextField from "@mui/material/TextField";
-// import { Button } from "@mui/base/Button";
 import Button from "@mui/material/Button";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 const User = () => {
   const paperStyle = {
@@ -15,7 +16,7 @@ const User = () => {
   };
 
   const avatarStyle = { backgroundColor: "#1976d2" };
-  const buttonStyle = { marginTop: 40 };
+  const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
   return (
     <Grid>
@@ -50,6 +51,13 @@ const User = () => {
         >
           Logga in
         </Button>
+        <Typography>
+          {" "}
+          Har du ett konto?
+          <Link href="#" underline="hover">
+            Registrera dig?
+          </Link>
+        </Typography>
       </Paper>
     </Grid>
   );
