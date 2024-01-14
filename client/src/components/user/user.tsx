@@ -31,6 +31,7 @@ const User = () => {
           id="standard-basic"
           label="Email"
           variant="standard"
+          placeholder="Ange ditt email"
           fullWidth
           required
         />
@@ -39,6 +40,7 @@ const User = () => {
           type="password"
           label="Password"
           variant="standard"
+          placeholder="Ange ditt lösenord"
           fullWidth
           required
         />
