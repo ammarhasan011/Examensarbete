@@ -51,7 +51,7 @@ Content-Type: application/json
     "firstName": "Admin",
     "lastName":"Admin",
     "password": "Admin",
-    "email":"Admin@gmail.se"
+    "email":"Adminn@gmail.se"
 }
 
 ###
@@ -60,7 +60,7 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "Admin@gmail.se",
+  "email": "Adminn@gmail.se",
   "password": "Admin"
 }
 

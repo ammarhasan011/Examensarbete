@@ -61,7 +61,8 @@ async function logout(req, res) {
     return res.status(400).json("Cannot logout when you are not logged in");
   }
   req.session = null;
-  res.status(204).json(null);
+  // res.status(204).json(null);
+  res.status(200).json({ message: "User logged out successfully", data: null });
   console.log("session after logged out:", req.session);
 }
 
