@@ -43,7 +43,6 @@ const SignUpForm = () => {
         <form onSubmit={handleRegistration}>
           {" "}
           <TextField
-            id="standard-basic"
             name="firstName"
             fullWidth
             label="Förnamn"
@@ -60,7 +59,6 @@ const SignUpForm = () => {
             required
           />
           <TextField
-            id="standard-basic"
             name="email"
             label="Email"
             variant="standard"
@@ -69,7 +67,6 @@ const SignUpForm = () => {
             required
           />
           <TextField
-            id="standard-basic"
             name="password"
             type="password"
             label="Lösenord"
