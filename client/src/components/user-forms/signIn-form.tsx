@@ -4,8 +4,8 @@ import Avatar from "@mui/material/Avatar";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
-import Link from "@mui/material/Link";
 import Typography from "@mui/material/Typography";
+import { Link as RouterLink } from "react-router-dom";
 
 const User = () => {
   const paperStyle = {
@@ -38,7 +38,7 @@ const User = () => {
         <TextField
           id="standard-basic"
           type="password"
-          label="Password"
+          label="Lösenord"
           variant="standard"
           placeholder="Ange ditt lösenord"
           fullWidth
@@ -54,11 +54,10 @@ const User = () => {
           Logga in
         </Button>
         <Typography>
-          {" "}
           Har du ett konto?
-          <Link href="#" underline="hover">
-            Registrera dig?
-          </Link>
+          <RouterLink to="/sign-up" style={{ textDecoration: "none" }}>
+            Registrera dig nu!
+          </RouterLink>
         </Typography>
       </Paper>
     </Grid>

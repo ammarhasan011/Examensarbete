@@ -80,8 +80,3 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
-
-// "firstName": "ammar",
-// "lastName":"1",
-// "password": "1",
-// "email":"ammar@gmail.se"
