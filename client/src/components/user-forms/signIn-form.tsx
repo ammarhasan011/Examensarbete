@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 import { handleLogin } from "../utils/signInutils";
 
-const SignIpForm = () => {
+const SignInForm = () => {
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -30,7 +30,6 @@ const SignIpForm = () => {
             <h2> logga in</h2>
           </Grid>
           <TextField
-            id="standard-basic"
             name="email"
             label="Email"
             variant="standard"
@@ -39,7 +38,6 @@ const SignIpForm = () => {
             required
           />
           <TextField
-            id="standard-basic"
             type="password"
             name="password"
             label="Lösenord"
@@ -69,4 +67,4 @@ const SignIpForm = () => {
   );
 };
 
-export default SignIpForm;
+export default SignInForm;
