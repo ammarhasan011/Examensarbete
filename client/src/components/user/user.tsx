@@ -11,13 +11,20 @@ const User = () => {
     margin: "30px auto",
   };
 
+  const avatarStyle = {
+    backgroundcolor: "pink",
+  };
+
   return (
     <Grid>
       <Paper elevation={10} style={paperStyle}>
-        <Avatar>
-          <PersonSharpIcon />
-        </Avatar>
-        <h2> logga in</h2>
+        {/* aling funkar inte  */}
+        <Grid alignItems="center">
+          <Avatar style={avatarStyle}>
+            <PersonSharpIcon />
+          </Avatar>
+          <h2> logga in</h2>
+        </Grid>
       </Paper>
     </Grid>
   );
