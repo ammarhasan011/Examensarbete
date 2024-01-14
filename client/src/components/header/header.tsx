@@ -117,7 +117,7 @@ function Header() {
 
           <Box sx={{ flexGrow: 0 }}>
             {/* Mina ikoner */}
-            <Link to="/user">
+            <Link to="/sign-in">
               <PersonSharpIcon
                 sx={{
                   marginRight: 1.5,
