@@ -4,7 +4,7 @@ GET http://localhost:3000/api/products
 ###
 
 # Hämta en produkter
-GET http://localhost:3000/api/products/65a056f1f315a133c08088d7
+GET http://localhost:3000/api/products/65a30cef8d07686270b13395
 
 ###
 
@@ -13,32 +13,32 @@ POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "arr",
-  "description": "Detta är en testprodukt för att fylla på databasen.",
-  "price": 19,
-  "image": "arrt.jpg",
-  "inStock": 50
+  "title": "JORDAN 1 (UNIVERSITY BLUE GREY) MID",
+  "description": "Nike Air Jordan 1 University Blue Grey Mid är beviset att UNC-färgen är här för att stanna. Sneakers släpptes i Augusti 2022 och består av en fräsch kombination.",
+  "price": 2699,
+  "image": "https://merchsweden.se/cdn/shop/products/aj1uncmid_720x.jpg?v=1662388230",
+  "inStock": 3
 }
 
 ###
 
 # Skapa produkter här
-PUT http://localhost:3000/api/products/65a2c53dd003845e61814b98
+PUT http://localhost:3000/api/products/65a43cf3b6b5eb64a1c459b6
 Content-Type: application/json
 
 {
-    "_id": "65a2c53dd003845e61814b98",
-  "title": "Iphone arr",
-  "description": "en bra mobil som är snabbbbbbb",
-  "price": 119,
-  "image": "dummy-produkft.jpg",
-  "inStock": 550
+    "_id": "65a43cf3b6b5eb64a1c459b6",
+  "title": "JORDAN 1 (UNIVERSITY BLUE GREY) MID",
+  "description": "Nike Air Jordan 1 University Blue Grey Mid är beviset att UNC-färgen är här för att stanna. Sneakers släpptes i Augusti 2022 och består av en fräsch kombination.",
+  "price": 2699,
+  "image": "https://merchsweden.se/cdn/shop/products/aj1uncmid_720x.jpg?v=1662388230",
+  "inStock": 5
 }
 
 ###
 
 # Radera en produkt
-DELETE http://localhost:3000/api/products/65a2c53dd003845e61814b98
+DELETE http://localhost:3000/api/products/65a43cf3b6b5eb64a1c459b6
 
 ###
  
@@ -48,10 +48,10 @@ POST  http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-    "firstName": "ammar",
-    "lastName":"1",
-    "password": "1",
-    "email":"ammar@gmail.se"
+    "firstName": "Admin",
+    "lastName":"Admin",
+    "password": "Admin",
+    "email":"Adminn@gmail.se"
 }
 
 ###
@@ -60,8 +60,8 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "2@gmail.se",
-  "password": "1"
+  "email": "Adminn@gmail.se",
+  "password": "Admin"
 }
 
 ###
