@@ -5,6 +5,7 @@ import User from "./components/user/user";
 import Home from "./components/home";
 import Products from "./components/products/products";
 import AboutUs from "./components/aboutUs/aboutUs";
+import Footer from "./components/footer/footer";
 
 const App = () => {
   return (
@@ -17,6 +18,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/user" element={<User />} />
       </Routes>
+      <Footer />
     </Router>
   );
 };
