@@ -1,7 +1,7 @@
 import axios from "axios";
 
 //Security check to avoid 'null' error
-export const handleRegistration = async (
+export const handleLogin = async (
   //types up event so React understands
   event: React.FormEvent<HTMLFormElement>
 ) => {
@@ -13,16 +13,12 @@ export const handleRegistration = async (
 
   // Typing function to tell TypeScript that this is a form element
   const target = event.target as typeof event.target & {
-    firstName: { value: string };
-    lastName: { value: string };
     email: { value: string };
     password: { value: string };
   };
 
   // Get the form data
   const formData = {
-    firstName: target.firstName.value,
-    lastName: target.lastName.value,
     email: target.email.value,
     password: target.password.value,
   };
@@ -30,7 +26,7 @@ export const handleRegistration = async (
   try {
     //Send a POST request to backend
     const response = await axios.post(
-      "http://localhost:3000/api/users/register",
+      "http://localhost:3000/api/users/login",
       formData
     );
 
