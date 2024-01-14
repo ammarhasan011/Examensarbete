@@ -9,8 +9,8 @@ function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
       {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
+      <Link color="inherit" href="http://localhost:5173/">
+        M Shop
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -28,21 +28,17 @@ export default function Footer() {
         sx={{
           display: "flex",
           flexDirection: "column",
-          minHeight: "100vh",
+          minHeight: "100px",
         }}
       >
         <CssBaseline />
-        <Container
-          component="main"
-          sx={{ mt: 8, mb: 2 }}
-          maxWidth="sm"
-        ></Container>
         <Box
           component="footer"
           sx={{
             py: 3,
             px: 2,
             mt: "auto",
+
             backgroundColor: (theme) =>
               theme.palette.mode === "light"
                 ? theme.palette.grey[200]
