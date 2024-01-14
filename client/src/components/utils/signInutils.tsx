@@ -5,6 +5,7 @@ export const handleLogin = async (
   //types up event so React understands
   event: React.FormEvent<HTMLFormElement>
 ) => {
+  // Prevent default form submission
   event.preventDefault();
 
   if (!event.target) {
