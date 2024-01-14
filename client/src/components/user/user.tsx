@@ -3,7 +3,7 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import TextField from "@mui/material/TextField";
-import "./user.css";
+import { Button } from "@mui/base/Button";
 
 const User = () => {
   const paperStyle = {
@@ -26,18 +26,20 @@ const User = () => {
         </Grid>
         <TextField
           id="standard-basic"
-          label="Username"
+          label="Email"
           variant="standard"
           fullWidth
           required
         />
         <TextField
           id="standard-basic"
+          type="password"
           label="Password"
           variant="standard"
           fullWidth
           required
         />
+        <Button type="submit">Logga in</Button>
       </Paper>
     </Grid>
   );
