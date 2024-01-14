@@ -7,7 +7,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 
-const User = () => {
+const SignIpForm = () => {
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -64,4 +64,4 @@ const User = () => {
   );
 };
 
-export default User;
+export default SignIpForm;
