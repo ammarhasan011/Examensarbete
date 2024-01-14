@@ -3,7 +3,8 @@ import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import TextField from "@mui/material/TextField";
-import { Button } from "@mui/base/Button";
+// import { Button } from "@mui/base/Button";
+import Button from "@mui/material/Button";
 
 const User = () => {
   const paperStyle = {
@@ -14,6 +15,7 @@ const User = () => {
   };
 
   const avatarStyle = { backgroundColor: "#1976d2" };
+  const buttonStyle = { marginTop: 40 };
 
   return (
     <Grid>
@@ -39,7 +41,15 @@ const User = () => {
           fullWidth
           required
         />
-        <Button type="submit">Logga in</Button>
+        <Button
+          type="submit"
+          color="primary"
+          fullWidth
+          variant="contained"
+          style={buttonStyle}
+        >
+          Logga in
+        </Button>
       </Paper>
     </Grid>
   );
