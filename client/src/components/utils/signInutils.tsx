@@ -27,10 +27,7 @@ export const handleLogin = async (
 
   try {
     //Send a POST request to backend
-    const response = await axios.post(
-      "http://localhost:3000/api/users/login",
-      formData
-    );
+    const response = await axios.post("/api/users/login", formData);
 
     // Console the data from backend
     console.log(response.data);
