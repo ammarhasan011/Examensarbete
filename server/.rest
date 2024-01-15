@@ -1,3 +1,6 @@
+# Test the CRUD's
+
+
 #Get all products
 GET http://localhost:3000/api/products
 
@@ -26,7 +29,7 @@ Content-Type: application/json
 
 
 #Uppdate a product
-PUT http://localhost:3000/api/products/65a5160df0a333a5755d188a
+PUT http://localhost:3000/api/products/65a52915ff43b7edff2156a6
 Content-Type: application/json
 
 {
@@ -42,7 +45,7 @@ Content-Type: application/json
 
 
 #Delete a product
-DELETE http://localhost:3000/api/products/65a5160df0a333a5755d188a
+DELETE http://localhost:3000/api/products/65a52915ff43b7edff2156a6
 
 ###
  

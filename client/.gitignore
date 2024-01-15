@@ -1,3 +1,4 @@
+# Ignore those files in git
 # Logs
 logs
 *.log
