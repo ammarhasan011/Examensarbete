@@ -1,3 +1,4 @@
+// product nterface defining the structure
 interface Product {
   _id: string;
   title: string;

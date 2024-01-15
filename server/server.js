@@ -1,18 +1,27 @@
+//Import required modules
 const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-const { connectToDatabase } = require("./resources/db/db");
+const { connectToDatabase } = require("./resources/db/dataBase");
 
-const productRouter = require("./resources/product/product.router");
-const { userRouter } = require("./resources/user/user.router");
+//Import routers
+const productRouter = require("./resources/product/productRouter");
+const { userRouter } = require("./resources/user/userRouter");
 
+//Create an Express application
 const app = express();
-// Middleware för att tolka JSON
+
+//Middleware to parse JSON data
 app.use(express.json());
+
+//Enable Cross
 app.use(cors());
+
+//Connect to the database
 connectToDatabase();
 
+//Configure cookie session middleware for user sessions
 app.use(
   cookieSession({
     name: "session",
@@ -24,11 +33,9 @@ app.use(
   })
 );
 
-// Add routers
+//Use routers
 app.use("/api", productRouter);
 app.use("/api", userRouter);
 
-// console.log(req.session);
-
-// server
+//Starting server
 app.listen(3000, () => console.log("Server is up and runninnn...port3000"));

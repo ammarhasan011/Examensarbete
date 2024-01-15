@@ -1,4 +1,4 @@
-import Products from "./products/products";
+import Products from "./Products/Products";
 function Home() {
   return (
     <div>

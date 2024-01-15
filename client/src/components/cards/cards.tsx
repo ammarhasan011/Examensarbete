@@ -1,11 +1,14 @@
+// Import Material-UI components and styles
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
-import Product from "../inter-faces/product";
+// Import the Product interface
+import Product from "../Interfaces/Product";
 
+// Define the props for the MultiActionAreaCard component
 interface MultiActionAreaCardProps {
   product: Product;
 }
