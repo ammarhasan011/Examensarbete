@@ -1,33 +1,20 @@
-# Hämta alla produkter
+#Get all products
 GET http://localhost:3000/api/products
 
 ###
 
-# Hämta en produkter
+
+#Get a product
 GET http://localhost:3000/api/products/65a30cef8d07686270b13395
 
 ###
 
-# Skapa produkt
+
+#Create a product 
 POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "TASMAN WEATHER HYBRID (FOREST NIGHT)",
-  "description": "UGG:s Tasman Weather Hybrid (Forest Night) kombinerar elegans med praktisk användning. Den djupa skogsgröna färgen framhäver dess sofistikerade design.",
-  "price": 4699,
-   "image": "https://merchsweden.se/cdn/shop/files/hybrid2_720x.jpg?v=1696239168",
-  "inStock": 4
-}
-
-###
-
-# Skapa produkter här
-PUT http://localhost:3000/api/products/65a50d6c25bf919c03a92778
-Content-Type: application/json
-
-{
-    "_id": "65a50d6c25bf919c03a92778",
   "title": "TASMAN WEATHER HYBRID (FOREST NIGHT)",
   "description": "UGG:s Tasman Weather Hybrid (Forest Night) kombinerar elegans med praktisk användning. Den djupa skogsgröna färgen framhäver dess sofistikerade design.",
   "price": 4699,
@@ -37,13 +24,33 @@ Content-Type: application/json
 
 ###
 
-# Radera en produkt
-DELETE http://localhost:3000/api/products/65a50d6c25bf919c03a92778
+
+#Uppdate a product
+PUT http://localhost:3000/api/products/65a5160df0a333a5755d188a
+Content-Type: application/json
+
+{
+  "_id": "65a5160df0a333a5755d188a",
+  "title": "TASMAN WEATHER HYBRID (FOREST NIGHT)",
+  "description": "UGG:s Tasman Weather Hybrid (Forest Night) kombinerar elegans med praktisk användning. Den djupa skogsgröna färgen framhäver dess sofistikerade design.",
+  "price": 4699,
+  "image": "https://merchsweden.se/cdn/shop/files/hybrid2_720x.jpg?v=1696239168",
+  "inStock": 4000
+}
+
+###
+
+
+#Delete a product
+DELETE http://localhost:3000/api/products/65a5160df0a333a5755d188a
 
 ###
  
 
-# create user
+####################################################################################################################################################
+
+
+#Create a new user
 POST  http://localhost:3000/api/users/register
 Content-Type: application/json
 
@@ -56,6 +63,8 @@ Content-Type: application/json
 
 ###
 
+
+#Login a user
 POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
@@ -67,6 +76,9 @@ Content-Type: application/json
 ###
 
 
+#Delete a user
 DELETE http://localhost:3000/api/users/logout
 
 ###
+
+####################################################################################################################################################
