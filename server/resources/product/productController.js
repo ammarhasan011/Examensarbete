@@ -1,4 +1,4 @@
-const { ProductModel } = require("./product.model");
+const { ProductModel } = require("./productModel");
 
 //Hämta alla produkter
 async function getAllProducts(req, res) {
