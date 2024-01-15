@@ -9,7 +9,12 @@ import Button from "@mui/material/Button";
 
 // ProfilePage Component
 const ProfilePage = () => {
-  const paperStyle = { padding: "30px 20px", width: 800, margin: "20px auto" };
+  const paperStyle = {
+    padding: "30px 20px",
+    width: 800,
+    margin: "20px auto",
+    height: "60vh",
+  };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
   const avatarStyle = { backgroundColor: "#1976d2" };
 
