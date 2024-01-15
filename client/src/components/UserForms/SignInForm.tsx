@@ -7,12 +7,14 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
-import { handleLogin } from "../Utils/SignInUtils";
-import { useHistory } from "react-router-dom";
+import { handleLogin } from "../Utils/SignInutils";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // SignInForm Component
 const SignInForm = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -23,19 +25,28 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
-  const handleLoginAndRedirect = async (e) => {
-    e.preventDefault();
+  const handleLoginAndRedirect = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
     await handleLogin(e);
+    e.preventDefault();
 
-    // Efter inloggning, kolla om det finns en session
-    // Om det finns, dirigera användaren till ProfilePage
-    // Annars kan du göra något annat, som att visa ett meddelande.
-    if (document.cookie.includes("session")) {
-      history.push("/");
+    const response = await axios.get("/api/users/authorize"); // eller din lämpliga endpoint för att kontrollera inloggning
+    const userIsLoggedIn = response.data._id;
+
+    if (userIsLoggedIn) {
+      navigate("/signUpForm");
     } else {
       console.log("Du är inte inloggad.");
     }
   };
+  //   if (document.cookie.includes("session._id")) {
+  //     navigate("/signUpForm");
+  //   } else {
+  //     console.log(document.cookie);
+  //     console.log("Du är inte inloggad.");
+  //   }
+  // };
 
   return (
     // Render the sign-in form
