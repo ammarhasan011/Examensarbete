@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/header/header";
-import Cart from "./components/cart/cart";
-import SignInForm from "./components/user-forms/signIn-form";
+import Header from "./components/Header/Header";
+import Cart from "./components/Cart/Cart";
+import SignInForm from "./components/UserForms/SignInForm";
 import Home from "./components/home";
-import Products from "./components/products/products";
-import AboutUs from "./components/AboutUs/aboutUs";
-import Footer from "./components/footer/footer";
-import SignUpForm from "./components/user-forms/signUp-form";
+import Products from "./components/Products/Products";
+import AboutUs from "./components/AboutUs/AboutUs";
+import Footer from "./components/Footer/Footer";
+import SignUpForm from "./components/UserForms/SignUpForm";
 
 const App = () => {
   return (

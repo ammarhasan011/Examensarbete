@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Product from "../inter-faces/product";
-import MultiActionAreaCard from "../cards/cards";
+import Product from "../Interfaces/Product";
+import MultiActionAreaCard from "../Cards/Cards";
 import "./product.css";
 
 // Creates a functional component Products using React Hook,
