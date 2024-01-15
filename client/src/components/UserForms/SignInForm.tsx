@@ -35,7 +35,7 @@ const SignInForm = () => {
     const userIsLoggedIn = response.data._id;
 
     if (userIsLoggedIn) {
-      navigate("/signUpForm");
+      navigate("../ProfilePage/ProfilePage");
     } else {
       console.log("Du är inte inloggad.");
     }
