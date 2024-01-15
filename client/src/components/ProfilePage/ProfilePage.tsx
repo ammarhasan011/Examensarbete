@@ -6,9 +6,13 @@ import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // ProfilePage Component
 const ProfilePage = () => {
+  //useNavigate-hook redirecting
+  const navigate = useNavigate();
+
   const paperStyle = {
     padding: "30px 20px",
     width: 800,
@@ -23,6 +27,31 @@ const ProfilePage = () => {
       // Skicka en DELETE-förfrågan till
       await axios.delete("/api/users/logout");
       console.log("User logged out successfully");
+    } catch (error) {
+      console.error(
+        "Logout error:",
+        (error as any).response?.data || (error as any).message
+      );
+    }
+  };
+
+  const handleLogoutAndRedirect = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    // await handleLogout(e); // Call the handleLogout function
+    e.preventDefault();
+
+    try {
+      await axios.get("/api/users/logout");
+      console.log("User logged out successfully");
+
+      const response = await axios.get("/api/users/authorize");
+      const userIsLoggedOut = !response.data._id;
+      if (userIsLoggedOut) {
+        navigate("/");
+      } else {
+        console.log("Du är inte inloggad.");
+      }
     } catch (error) {
       console.error(
         "Logout error:",
