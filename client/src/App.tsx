@@ -4,7 +4,7 @@ import Cart from "./components/cart/cart";
 import SignInForm from "./components/user-forms/signIn-form";
 import Home from "./components/home";
 import Products from "./components/products/products";
-import AboutUs from "./components/aboutUs/aboutUs";
+import AboutUs from "./components/AboutUs/aboutUs";
 import Footer from "./components/footer/footer";
 import SignUpForm from "./components/user-forms/signUp-form";
 
