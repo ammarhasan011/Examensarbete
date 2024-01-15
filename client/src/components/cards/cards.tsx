@@ -4,7 +4,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { Button, CardActionArea, CardActions } from "@mui/material";
 
-import Product from "../inter-faces/product";
+import Product from "../Interfaces/Product";
 
 interface MultiActionAreaCardProps {
   product: Product;
