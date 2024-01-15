@@ -1,3 +1,4 @@
+//Import required modules
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
 import Cart from "./components/Cart/Cart";
@@ -8,8 +9,10 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import Footer from "./components/Footer/Footer";
 import SignUpForm from "./components/UserForms/SignUpForm";
 
+// Main component representing the entire application
 const App = () => {
   return (
+    // Use React Router for navigation
     <Router>
       <Header />
       <Routes>
@@ -25,4 +28,5 @@ const App = () => {
   );
 };
 
+//Exporting App
 export default App;
