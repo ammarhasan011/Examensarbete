@@ -1,3 +1,4 @@
+//Import required modules
 const { Schema, model, models } = require("mongoose");
 const Joi = require("joi");
 
@@ -10,10 +11,10 @@ const UserSchema = new Schema({
   isAdmin: { type: Boolean, required: true, default: false },
 });
 
-//Här skapas en Mongoose modell
+//Create a Mongoose model based on the schema
 const UserModel = models.user || model("user", UserSchema);
 
-//valideringsscheman för skapande Users/
+//Validation schema for creating users
 const UserCreateValidationSchema = Joi.object({
   firstName: Joi.string().strict().required(),
   lastName: Joi.string().strict().required(),
@@ -22,4 +23,5 @@ const UserCreateValidationSchema = Joi.object({
   isAdmin: Joi.boolean().strict(),
 });
 
+//Export UserModel, UserCreateValidationSchema
 module.exports = { UserModel, UserCreateValidationSchema };
