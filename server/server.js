@@ -2,10 +2,10 @@ const express = require("express");
 const dotenv = require("dotenv").config();
 const cors = require("cors");
 const cookieSession = require("cookie-session");
-const { connectToDatabase } = require("./resources/db/db");
+const { connectToDatabase } = require("./resources/db/dataBase");
 
 const productRouter = require("./resources/product/productRouter");
-const { userRouter } = require("./resources/user/user.router");
+const { userRouter } = require("./resources/user/userRouter");
 
 const app = express();
 // Middleware för att tolka JSON

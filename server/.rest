@@ -51,7 +51,7 @@ Content-Type: application/json
     "firstName": "Admin",
     "lastName":"Admin",
     "password": "Admin",
-    "email":"Adminn@gmail.se"
+    "email":"Adminnn@gmail.se"
 }
 
 ###
