@@ -1,3 +1,4 @@
+// Import Material-UI components and styles
 import CssBaseline from "@mui/material/CssBaseline";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Box from "@mui/material/Box";
@@ -5,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 
+//Copyright funktion shows in footer.
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary">
@@ -21,8 +23,10 @@ function Copyright() {
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
+// Footer function
 export default function Footer() {
   return (
+    // Apply the default theme to the footer
     <ThemeProvider theme={defaultTheme}>
       <Box
         sx={{

@@ -1,11 +1,13 @@
+//Imports
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Product from "../Interfaces/Product";
 import MultiActionAreaCard from "../Cards/Cards";
 import "./product.css";
 
-// Creates a functional component Products using React Hook,
+// Products Component Definition
 const Products = () => {
+  // State to store the list of products
   const [products, setProducts] = useState<Product[]>([]);
 
   //Products from database
@@ -21,6 +23,7 @@ const Products = () => {
   }, []);
 
   return (
+    // Render component
     <div>
       {/* Renders a list of products using MultiActionAreaCard */}
       <h1 className="Title">Produkter</h1>

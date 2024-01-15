@@ -1,3 +1,4 @@
+// Import Material-UI components and styles
 import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -8,25 +9,29 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-
 import ShoppingCartSharpIcon from "@mui/icons-material/ShoppingCartSharp";
 import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import { Link } from "react-router-dom";
 
+// Header component
 function Header() {
+  // State to manage the navigation menu
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null
   );
 
+  // Event handler to open the navigation menu
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
 
+  // Event handler to close the navigation menu
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
   return (
+    // App bar at the top of the application
     <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
