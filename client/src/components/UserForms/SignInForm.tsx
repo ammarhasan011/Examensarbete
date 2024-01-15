@@ -8,9 +8,11 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 import { handleLogin } from "../Utils/SignInUtils";
+import { useHistory } from "react-router-dom";
 
 // SignInForm Component
 const SignInForm = () => {
+  const history = useHistory();
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -21,9 +23,23 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
+  const handleLoginAndRedirect = async (e) => {
+    e.preventDefault();
+    await handleLogin(e);
+
+    // Efter inloggning, kolla om det finns en session
+    // Om det finns, dirigera användaren till ProfilePage
+    // Annars kan du göra något annat, som att visa ett meddelande.
+    if (document.cookie.includes("session")) {
+      history.push("/");
+    } else {
+      console.log("Du är inte inloggad.");
+    }
+  };
+
   return (
     // Render the sign-in form
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLoginAndRedirect}>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid container direction="column" alignItems="center">
