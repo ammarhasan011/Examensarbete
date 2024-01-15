@@ -13,32 +13,32 @@ POST http://localhost:3000/api/products
 Content-Type: application/json
 
 {
-  "title": "JORDAN 1 (UNIVERSITY BLUE GREY) MID",
-  "description": "Nike Air Jordan 1 University Blue Grey Mid är beviset att UNC-färgen är här för att stanna. Sneakers släpptes i Augusti 2022 och består av en fräsch kombination.",
-  "price": 2699,
-  "image": "https://merchsweden.se/cdn/shop/products/aj1uncmid_720x.jpg?v=1662388230",
-  "inStock": 3
+  "title": "TASMAN WEATHER HYBRID (FOREST NIGHT)",
+  "description": "UGG:s Tasman Weather Hybrid (Forest Night) kombinerar elegans med praktisk användning. Den djupa skogsgröna färgen framhäver dess sofistikerade design.",
+  "price": 4699,
+   "image": "https://merchsweden.se/cdn/shop/files/hybrid2_720x.jpg?v=1696239168",
+  "inStock": 4
 }
 
 ###
 
 # Skapa produkter här
-PUT http://localhost:3000/api/products/65a43cf3b6b5eb64a1c459b6
+PUT http://localhost:3000/api/products/65a50d6c25bf919c03a92778
 Content-Type: application/json
 
 {
-    "_id": "65a43cf3b6b5eb64a1c459b6",
-  "title": "JORDAN 1 (UNIVERSITY BLUE GREY) MID",
-  "description": "Nike Air Jordan 1 University Blue Grey Mid är beviset att UNC-färgen är här för att stanna. Sneakers släpptes i Augusti 2022 och består av en fräsch kombination.",
-  "price": 2699,
-  "image": "https://merchsweden.se/cdn/shop/products/aj1uncmid_720x.jpg?v=1662388230",
-  "inStock": 5
+    "_id": "65a50d6c25bf919c03a92778",
+  "title": "TASMAN WEATHER HYBRID (FOREST NIGHT)",
+  "description": "UGG:s Tasman Weather Hybrid (Forest Night) kombinerar elegans med praktisk användning. Den djupa skogsgröna färgen framhäver dess sofistikerade design.",
+  "price": 4699,
+  "image": "https://merchsweden.se/cdn/shop/files/hybrid2_720x.jpg?v=1696239168",
+  "inStock": 4
 }
 
 ###
 
 # Radera en produkt
-DELETE http://localhost:3000/api/products/65a43cf3b6b5eb64a1c459b6
+DELETE http://localhost:3000/api/products/65a50d6c25bf919c03a92778
 
 ###
  

@@ -4,7 +4,7 @@ const cors = require("cors");
 const cookieSession = require("cookie-session");
 const { connectToDatabase } = require("./resources/db/db");
 
-const productRouter = require("./resources/product/product.router");
+const productRouter = require("./resources/product/productRouter");
 const { userRouter } = require("./resources/user/user.router");
 
 const app = express();
