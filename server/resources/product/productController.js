@@ -1,12 +1,13 @@
+//Import required modules
 const { ProductModel } = require("./productModel");
 
-//Hämta alla produkter
+// Function get all products
 async function getAllProducts(req, res) {
   const products = await ProductModel.find({ deleted: false });
   res.status(200).json(products);
 }
 
-//Hämta en produkt
+// Function get one products
 async function getProduct(req, res) {
   const product = await ProductModel.findOne({
     _id: req.params.id,
@@ -15,7 +16,7 @@ async function getProduct(req, res) {
   res.status(200).json(product);
 }
 
-//Lägg till produkt
+// Function create a products
 async function addProduct(req, res, next) {
   try {
     console.log("Request Body:", req.body);
@@ -28,11 +29,13 @@ async function addProduct(req, res, next) {
   }
 }
 
-//Uppdatera en produkt
+// Function to update a product
 async function updateProduct(req, res) {
   if (req.body._id !== req.params.id) {
     return res.status(400).json("Body and param id are not the same");
   }
+
+  // Find and update the product
   const product = await ProductModel.findByIdAndUpdate(
     req.params.id,
     req.body,
@@ -41,7 +44,7 @@ async function updateProduct(req, res) {
   res.status(200).json(product);
 }
 
-//Radera en produkt
+// Function to delete a product
 async function deleteProduct(req, res) {
   try {
     const deletedProduct = await ProductModel.findOneAndDelete({
@@ -57,6 +60,7 @@ async function deleteProduct(req, res) {
   }
 }
 
+// Export getAllProducts, getProduct, addProduct,updateProduct, deleteProduct
 module.exports = {
   getAllProducts,
   getProduct,

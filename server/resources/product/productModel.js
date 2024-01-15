@@ -1,8 +1,8 @@
-// Här har vi Mongoose schema för produkter, och en valideringsscheman med Joi
+//Import required modules
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
-//Mongoose schema
+//Mongoose schema, products
 const ProductSchema = new Schema(
   {
     title: { type: String, required: true },
@@ -12,15 +12,15 @@ const ProductSchema = new Schema(
     inStock: { type: Number, required: true, default: 0 },
     deleted: { type: Boolean, required: false, default: false },
   },
-  // för att undvika att Mongoose lägger till ett __V för versionsinformation
+  // To avoid Mongoose adding a __v field
   { versionKey: false }
 );
 
-//Här skapas en Mongoose modell
+// Creating a Mongoose model, products
 const ProductModel = models.product || model("product", ProductSchema);
 // console.log("modell");
 
-//valideringsscheman för skapande produkter/validera inkommande data
+// Validation schema for creating products/validating incoming data
 const ProductCreateValidationSchema = Joi.object({
   title: Joi.string().strict().required(),
   description: Joi.string().strict().required(),
@@ -28,12 +28,13 @@ const ProductCreateValidationSchema = Joi.object({
   image: Joi.string().uri().allow("image/png", "image/jpeg").required(),
   inStock: Joi.number().strict().required(),
 });
-// En schema för uppdateringar av produkter, men lägger krav på id & delete
+// Schema for updating products, with additional requirements for id & delete
 const ProductUpdateValidationSchema = ProductCreateValidationSchema.keys({
   _id: Joi.string().strict().required(),
   deleted: Joi.boolean().strict().required(),
 });
 
+// Exporting the schemas and model
 module.exports = {
   ProductSchema,
   ProductModel,
