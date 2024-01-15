@@ -13,6 +13,7 @@ import axios from "axios";
 
 // SignInForm Component
 const SignInForm = () => {
+  //useNavigate-hook redirecting
   const navigate = useNavigate();
 
   const paperStyle = {
@@ -25,28 +26,24 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
+  // Function for login and redirection
   const handleLoginAndRedirect = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    await handleLogin(e);
+    await handleLogin(e); // Call the handleLogin function
     e.preventDefault();
 
-    const response = await axios.get("/api/users/authorize"); // eller din lämpliga endpoint för att kontrollera inloggning
+    // Check if the user is logged in session._id
+    const response = await axios.get("/api/users/authorize");
     const userIsLoggedIn = response.data._id;
 
+    // If there is a session._id redirect
     if (userIsLoggedIn) {
-      navigate("../ProfilePage/ProfilePage");
+      navigate("/profile-page");
     } else {
       console.log("Du är inte inloggad.");
     }
   };
-  //   if (document.cookie.includes("session._id")) {
-  //     navigate("/signUpForm");
-  //   } else {
-  //     console.log(document.cookie);
-  //     console.log("Du är inte inloggad.");
-  //   }
-  // };
 
   return (
     // Render the sign-in form
