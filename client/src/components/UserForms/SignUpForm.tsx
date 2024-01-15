@@ -1,3 +1,4 @@
+// Import Material-UI components and styles
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -9,6 +10,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
 import { handleRegistration } from "../Utils/SignUpUtils";
 
+// SignUnForm Component
 const SignUpForm = () => {
   const paperStyle = {
     padding: "30px 20px",
@@ -22,6 +24,7 @@ const SignUpForm = () => {
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
   return (
+    // Render the sign-up form
     <Grid>
       <Paper elevation={20} style={paperStyle}>
         <Grid container direction="column" alignItems="center">

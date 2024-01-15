@@ -1,3 +1,4 @@
+// Import Material-UI components and styles
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -8,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
 import { handleLogin } from "../Utils/SignInUtils";
 
+// SignInForm Component
 const SignInForm = () => {
   const paperStyle = {
     padding: 20,
@@ -20,6 +22,7 @@ const SignInForm = () => {
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
   return (
+    // Render the sign-in form
     <form onSubmit={handleLogin}>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
