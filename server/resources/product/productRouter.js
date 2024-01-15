@@ -5,7 +5,7 @@ const {
   addProduct,
   updateProduct,
   deleteProduct,
-} = require("./product.controller");
+} = require("./productController");
 
 const productRouter = Router();
 
