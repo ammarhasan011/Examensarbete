@@ -2,7 +2,7 @@
 const { Router } = require("express");
 
 //Import controller functions for user
-const { register, login, logout } = require("./userController");
+const { register, login, logout, authorize } = require("./userController");
 
 //Import user valedation for user
 // const { UserCreateValidationSchema } = require("./user.model");
@@ -14,7 +14,8 @@ const userRouter = Router();
 userRouter
   .post("/users/register", register)
   .post("/users/login", login)
-  .delete("/users/logout", logout);
+  .delete("/users/logout", logout)
+  .get("/users/authorize", authorize);
 
 //Export userRouter
 module.exports = { userRouter };

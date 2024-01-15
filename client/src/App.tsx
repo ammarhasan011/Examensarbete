@@ -6,8 +6,9 @@ import SignInForm from "./components/UserForms/SignInForm";
 import Home from "./components/home";
 import Products from "./components/Products/Products";
 import AboutUs from "./components/AboutUs/AboutUs";
-import Footer from "./components/Footer/Footer";
+import Footer from "./components/Footer/footer";
 import SignUpForm from "./components/UserForms/SignUpForm";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
 
 // Main component representing the entire application
 const App = () => {
@@ -22,6 +23,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
+        <Route path="/profile-page" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </Router>

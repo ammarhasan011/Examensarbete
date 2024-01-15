@@ -7,10 +7,15 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
-import { handleLogin } from "../Utils/SignInUtils";
+import { handleLogin } from "../Utils/SignInutils";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 // SignInForm Component
 const SignInForm = () => {
+  //useNavigate-hook redirecting
+  const navigate = useNavigate();
+
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -21,9 +26,28 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
+  // Function for login and redirection
+  const handleLoginAndRedirect = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    await handleLogin(e); // Call the handleLogin function
+    e.preventDefault();
+
+    // Check if the user is logged in session._id
+    const response = await axios.get("/api/users/authorize");
+    const userIsLoggedIn = response.data._id;
+
+    // If there is a session._id redirect
+    if (userIsLoggedIn) {
+      navigate("/profile-page");
+    } else {
+      console.log("Du är inte inloggad.");
+    }
+  };
+
   return (
     // Render the sign-in form
-    <form onSubmit={handleLogin}>
+    <form onSubmit={handleLoginAndRedirect}>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid container direction="column" alignItems="center">
