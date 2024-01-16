@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Product from "../Interfaces/Product";
 import MultiActionAreaCard from "../Cards/Cards";
-import "./product.css";
+import "./products.css";
 
 // Products Component Definition
 const Products = () => {
