@@ -5,14 +5,15 @@ const { Router } = require("express");
 const { register, login, logout, authorize } = require("./userController");
 
 //Import user valedation for user
-const { UserCreateValidationSchema } = require("./user.model");
+const { UserCreateValidationSchema } = require("./userModel");
+const { validate } = require("../middleWeares");
 
 //Create a new router
 const userRouter = Router();
 
 //Define routes for user operations
 userRouter
-  .post("/users/register", register)
+  .post("/users/register", validate(UserCreateValidationSchema), register)
   .post("/users/login", login)
   .delete("/users/logout", logout)
   .get("/users/authorize", authorize);
