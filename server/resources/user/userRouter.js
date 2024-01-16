@@ -5,7 +5,7 @@ const { Router } = require("express");
 const { register, login, logout, authorize } = require("./userController");
 
 //Import user valedation for user
-// const { UserCreateValidationSchema } = require("./user.model");
+const { UserCreateValidationSchema } = require("./user.model");
 
 //Create a new router
 const userRouter = Router();
