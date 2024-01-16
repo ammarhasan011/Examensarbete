@@ -68,6 +68,7 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt email"
             required
+            autoComplete="username"
           />
           <TextField
             name="password"
@@ -77,6 +78,7 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt lösenord"
             required
+            autoComplete="current-password"
           />
           <Button
             type="submit"
