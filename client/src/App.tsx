@@ -1,12 +1,12 @@
 //Import required modules
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header/Header";
-import Cart from "./components/Cart/Cart";
+import Cart from "./components/Cart/cart";
 import SignInForm from "./components/UserForms/SignInForm";
 import Home from "./components/home";
 import Products from "./components/Products/Products";
 import AboutUs from "./components/AboutUs/AboutUs";
-import Footer from "./components/Footer/footer";
+import Footer from "./components/Footer/Footer";
 import SignUpForm from "./components/UserForms/SignUpForm";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 
