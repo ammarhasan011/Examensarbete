@@ -6,3 +6,7 @@ function validate(joiSchema) {
     res.status(400).json(validation.error.message);
   };
 }
+
+module.exports = {
+  validate,
+};
