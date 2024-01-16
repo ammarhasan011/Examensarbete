@@ -5,7 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
-import axios from "axios";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { handleLogoutAndRedirect } from "../Utils/AuthUtils";
 
