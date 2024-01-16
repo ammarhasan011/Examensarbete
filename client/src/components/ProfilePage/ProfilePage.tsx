@@ -4,11 +4,16 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
-
 import Button from "@mui/material/Button";
+// import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { handleLogoutAndRedirect } from "../Utils/AuthUtils";
 
 // ProfilePage Component
 const ProfilePage = () => {
+  //useNavigate-hook redirecting
+  const navigate = useNavigate();
+
   const paperStyle = {
     padding: "30px 20px",
     width: 800,
@@ -34,6 +39,7 @@ const ProfilePage = () => {
               color="primary"
               variant="contained"
               style={buttonStyle}
+              onClick={() => handleLogoutAndRedirect(navigate)}
             >
               Logga ut
             </Button>

@@ -1,4 +1,4 @@
-// Import Material-UI components and styles
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -6,15 +6,31 @@ import PersonSharpIcon from "@mui/icons-material/PersonSharp";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link as RouterLink } from "react-router-dom";
-import { handleLogin } from "../Utils/SignInutils";
-import { useNavigate } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
+import { handleLogin } from "../Utils/SignInUtils";
+import { handleLoginAndRedirect } from "../Utils/AuthUtils";
 import axios from "axios";
 
-// SignInForm Component
 const SignInForm = () => {
-  //useNavigate-hook redirecting
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if the user is already logged in, if yes redirect to profile page
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get("/api/users/authorize");
+        const userIsLoggedIn = response.data._id;
+
+        if (userIsLoggedIn) {
+          navigate("/profile-page");
+        }
+      } catch (error) {
+        console.error("Fel vid kontroll av inloggningsstatus:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
 
   const paperStyle = {
     padding: 20,
@@ -26,28 +42,16 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
-  // Function for login and redirection
-  const handleLoginAndRedirect = async (
+  const handleLoginAndRedirectLocal = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    await handleLogin(e); // Call the handleLogin function
+    await handleLogin(e);
     e.preventDefault();
-
-    // Check if the user is logged in session._id
-    const response = await axios.get("/api/users/authorize");
-    const userIsLoggedIn = response.data._id;
-
-    // If there is a session._id redirect
-    if (userIsLoggedIn) {
-      navigate("/profile-page");
-    } else {
-      console.log("Du är inte inloggad.");
-    }
+    await handleLoginAndRedirect(navigate);
   };
 
   return (
-    // Render the sign-in form
-    <form onSubmit={handleLoginAndRedirect}>
+    <form onSubmit={handleLoginAndRedirectLocal}>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid container direction="column" alignItems="center">

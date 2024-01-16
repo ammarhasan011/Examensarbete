@@ -81,7 +81,9 @@ async function logout(req, res) {
 // Function to check if a user is authorized (logged in)
 async function authorize(req, res) {
   if (!req.session._id) {
-    return res.status(401).json("You are not logged in");
+    return res
+      .status(200)
+      .json({ message: "You are not logged in", session: req.session });
   }
   res.status(200).json(req.session);
 }
