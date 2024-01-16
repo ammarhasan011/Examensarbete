@@ -1,4 +1,5 @@
 import axios from "axios";
+import { handleLogin } from "./signInutils";
 
 export const handleLogoutAndRedirect = async (navigate: any) => {
   try {
@@ -16,6 +17,32 @@ export const handleLogoutAndRedirect = async (navigate: any) => {
   } catch (error) {
     console.error(
       "Logout error:",
+      (error as any).response?.data || (error as any).message
+    );
+  }
+};
+
+// Function for login and redirection
+export const handleLoginAndRedirect = async (
+  e: React.FormEvent<HTMLFormElement>
+) => {
+  try {
+    await handleLogin(e); // Call the handleLogin function
+    e.preventDefault();
+
+    // Check if the user is logged in session._id
+    const response = await axios.get("/api/users/authorize");
+    const userIsLoggedIn = response.data._id;
+
+    // If there is a session._id redirect
+    if (userIsLoggedIn) {
+      navigate("/profile-page");
+    } else {
+      console.log("Du är inte inloggad.");
+    }
+  } catch (error) {
+    console.error(
+      "Authorize error:",
       (error as any).response?.data || (error as any).message
     );
   }
