@@ -7,9 +7,10 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink } from "react-router-dom";
-import { handleLogin } from "../Utils/SignInutils";
+// import { handleLogin } from "../Utils/SignInutils";
+import { handleLoginAndRedirect } from "../Utils/AuthUtils";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
 // SignInForm Component
 const SignInForm = () => {
@@ -26,23 +27,31 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
-  // Function for login and redirection
-  const handleLoginAndRedirect = async (
+  // // Function for login and redirection
+  // const handleLoginAndRedirect = async (
+  //   e: React.FormEvent<HTMLFormElement>
+  // ) => {
+  //   await handleLogin(e); // Call the handleLogin function
+  //   e.preventDefault();
+
+  //   // Check if the user is logged in session._id
+  //   const response = await axios.get("/api/users/authorize");
+  //   const userIsLoggedIn = response.data._id;
+
+  //   // If there is a session._id redirect
+  //   if (userIsLoggedIn) {
+  //     navigate("/profile-page");
+  //   } else {
+  //     console.log("Du är inte inloggad.");
+  //   }
+  // };
+
+  const handleLoginAndRedirectLocal = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
-    await handleLogin(e); // Call the handleLogin function
+    await handleLogin(e);
     e.preventDefault();
-
-    // Check if the user is logged in session._id
-    const response = await axios.get("/api/users/authorize");
-    const userIsLoggedIn = response.data._id;
-
-    // If there is a session._id redirect
-    if (userIsLoggedIn) {
-      navigate("/profile-page");
-    } else {
-      console.log("Du är inte inloggad.");
-    }
+    await handleLoginAndRedirect(navigate);
   };
 
   return (
