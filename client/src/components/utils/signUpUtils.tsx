@@ -1,13 +1,12 @@
 //Imports
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
+// Function to handle user registration
 export const handleRegistration = async (
-  event: React.FormEvent<HTMLFormElement>
+  event: React.FormEvent<HTMLFormElement>,
+  navigate: any
 ) => {
-  // Prevent default form submission
   event.preventDefault();
-  const navigate = useNavigate();
 
   if (!event.target) {
     return;
@@ -38,6 +37,7 @@ export const handleRegistration = async (
     const userCreated = response.data;
 
     if (userCreated) {
+      // Redirect to the sign-in page upon successful registration
       navigate("/sign-in");
     } else {
       console.log("Användaren skapades inte");
