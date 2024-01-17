@@ -47,3 +47,26 @@ export const handleLoginAndRedirect = async (navigate: any) => {
     );
   }
 };
+
+// // Function to register user and redirect
+// export const handleRegistrationAndRedirect = async (navigate: any) => {
+//   try {
+//     // Send a POST request to register the user
+//     const response = await axios.post("/api/users/register", formData);
+
+//     const userCreated = response.data;
+//     console.log("User created successfully");
+
+//     // If the user is registered, redirect to the login page
+//     if (userCreated) {
+//       navigate("/sign-in");
+//     } else {
+//       console.log("Användaren skapades inte");
+//     }
+//   } catch (error) {
+//     console.error(
+//       "User created error:",
+//       (error as any).response?.data || (error as any).message
+//     );
+//   }
+// };
