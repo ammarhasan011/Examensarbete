@@ -9,14 +9,39 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
 import { handleRegistration } from "../Utils/SignUpUtils";
+import { useState } from "react";
+import { validateEmail, validatePassword } from "../Utils/ValidationUtils";
 
 // SignUnForm Component
 const SignUpForm = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
   const paperStyle = {
     padding: "30px 20px",
     width: 300,
     height: "70vh",
     margin: "20px auto",
+  };
+
+  const handleRegistrationWithValidation = async (e) => {
+    e.preventDefault();
+
+    // Validera fälten med hjälp av de importerade valideringsfunktionerna
+    setEmailError(validateEmail(email));
+    setPasswordError(validatePassword(password));
+    // Fortsätt med registreringen här om det inte finns några valideringsfel
+    if (!emailError && !passwordError) {
+      handleRegistration({
+        firstName,
+        lastName,
+        email,
+        password,
+      });
+    }
   };
 
   const headerStyle = { margin: 0 };
@@ -43,7 +68,8 @@ const SignUpForm = () => {
             Fyll i formulären för att skapa ett konto!
           </Typography>
         </Grid>
-        <form onSubmit={handleRegistration}>
+        {/* <form onSubmit={handleRegistration}> */}
+        <form onSubmit={handleRegistrationWithValidation}>
           {" "}
           <TextField
             name="firstName"
