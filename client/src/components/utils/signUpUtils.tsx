@@ -2,9 +2,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-//Security check to avoid 'null' error
 export const handleRegistration = async (
-  //types up event so React understands
   event: React.FormEvent<HTMLFormElement>
 ) => {
   // Prevent default form submission
@@ -32,7 +30,7 @@ export const handleRegistration = async (
   };
 
   try {
-    //Send a POST request to backend
+    // Send a POST request to backend
     const response = await axios.post(
       "http://localhost:3000/api/users/register",
       formData
