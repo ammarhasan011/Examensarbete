@@ -40,7 +40,7 @@ const SignUpForm = () => {
           <h2 style={headerStyle}>Skapa konto</h2>
 
           <Typography variant="caption">
-            Fyll i formulären för att skapa ett konto!
+            Logga in efter att du har skapat ett konto!
           </Typography>
         </Grid>
         <form onSubmit={handleRegistration}>
