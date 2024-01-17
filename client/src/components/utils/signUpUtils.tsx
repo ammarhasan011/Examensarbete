@@ -1,6 +1,6 @@
 //Imports
-
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 //Security check to avoid 'null' error
 export const handleRegistration = async (
@@ -9,6 +9,7 @@ export const handleRegistration = async (
 ) => {
   // Prevent default form submission
   event.preventDefault();
+  const navigate = useNavigate();
 
   if (!event.target) {
     return;
@@ -36,7 +37,13 @@ export const handleRegistration = async (
       "http://localhost:3000/api/users/register",
       formData
     );
+    const userCreated = response.data;
 
+    if (userCreated) {
+      navigate("/sign-in");
+    } else {
+      console.log("Användaren skapades inte");
+    }
     // Console the data from backend
     console.log(response.data);
   } catch (error) {
