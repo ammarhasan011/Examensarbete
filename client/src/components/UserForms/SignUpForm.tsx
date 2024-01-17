@@ -8,7 +8,8 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
-import { handleRegistration } from "../Utils/SignUpUtils";
+// import { handleRegistration } from "../Utils/SignUpUtils";
+import { useState } from "react";
 
 // SignUnForm Component
 const SignUpForm = () => {
