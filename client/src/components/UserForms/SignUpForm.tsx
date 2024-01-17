@@ -17,7 +17,10 @@ const getFormDataFromEvent = (e: React.FormEvent<HTMLFormElement>) => {
   return formData;
 };
 const SignUpForm = () => {
-  const [validationErrors, setValidationErrors] = useState({});
+  const [validationErrors, setValidationErrors] = useState<{
+    email?: string;
+    password?: string;
+  }>({});
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -38,7 +41,7 @@ const SignUpForm = () => {
     const formData = getFormDataFromEvent(e);
 
     try {
-      const response = await fetch("/api/register", {
+      const response = await fetch("/api/users/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -51,12 +54,19 @@ const SignUpForm = () => {
       } else {
         const errorData = await response.json();
         setValidationErrors({
-          email: errorData.errors.email,
-          password: errorData.errors.password,
+          email:
+            errorData.errors?.email || "An error occurred during registration.",
+          password:
+            errorData.errors?.password ||
+            "An error occurred during registration.",
         });
       }
     } catch (error) {
       console.error("Error during registration:", error);
+      setValidationErrors({
+        email: "An unexpected error occurred during registration.",
+        password: "An unexpected error occurred during registration.",
+      });
     }
   };
 
