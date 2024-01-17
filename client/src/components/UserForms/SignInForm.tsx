@@ -66,6 +66,7 @@ const SignInForm = () => {
             variant="standard"
             placeholder="Ange ditt email"
             fullWidth
+            type="email"
             required
             autoComplete="email"
           />
