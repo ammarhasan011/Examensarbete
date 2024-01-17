@@ -22,20 +22,8 @@ const UserModel = models.user || model("user", UserSchema);
 const UserCreateValidationSchema = Joi.object({
   firstName: Joi.string().strict().required(),
   lastName: Joi.string().strict().required(),
-  // email: Joi.string().email().strict().required(),
-  email: Joi.string()
-    .email({ tlds: { allow: false } })
-    .strict()
-    .required()
-    .messages({
-      "string.email": "Email måste vara en giltig e-postadress",
-      "any.required": "Email är obligatoriskt",
-    }),
-  // password: Joi.string().strict().min(5).required(),
-  password: Joi.string().strict().min(5).required().messages({
-    "string.min": "Lösenordet måste vara minst 5 tecken långt",
-    "any.required": "Lösenord är obligatoriskt",
-  }),
+  email: Joi.string().email().strict().required(),
+  password: Joi.string().strict().min(5).required(),
   isAdmin: Joi.boolean().strict(),
 });
 
