@@ -12,6 +12,61 @@ import { handleRegistration } from "../Utils/SignUpUtils";
 
 // SignUnForm Component
 const SignUpForm = () => {
+  const [validationErrors, setValidationErrors] = useState({});
+
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+  });
+
+  const handleInputChange = (e) => {
+    // Rensa tidigare felmeddelanden vid ändring av formuläret
+    setValidationErrors({});
+
+    // Uppdatera state för inputfälten
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleRegistration = async (e) => {
+    e.preventDefault();
+
+    // Ditt befintliga kod för att hämta formulärdata
+    const formData = getFormDataFromEvent(e);
+
+    try {
+      // Skicka begäran till servern
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        // Registreringen lyckades, hantera det här
+        setValidationErrors({});
+      } else {
+        // Registreringen misslyckades, hämta valideringsfel från servern
+        const errorData = await response.json();
+        setValidationErrors({
+          email: errorData.errors.email,
+          password: errorData.errors.password,
+        });
+      }
+    } catch (error) {
+      console.error("Error during registration:", error);
+    }
+  };
+
+  const getFieldError = (fieldName) => {
+    return validationErrors[fieldName] || "";
+  };
   const paperStyle = {
     padding: "30px 20px",
     width: 300,
@@ -52,6 +107,7 @@ const SignUpForm = () => {
             variant="standard"
             placeholder="Ange ditt namn"
             required
+            onChange={handleInputChange}
           />
           <TextField
             label="Efternamn"
@@ -60,6 +116,7 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt efternamn"
             required
+            onChange={handleInputChange}
           />
           <TextField
             name="email"
@@ -68,7 +125,13 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt email"
             required
+            onChange={handleInputChange}
           />
+          {validationErrors.email && (
+            <Typography variant="caption" color="error">
+              {validationErrors.email}
+            </Typography>
+          )}
           <TextField
             name="password"
             type="password"
@@ -77,7 +140,13 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt lösenord"
             required
+            onChange={handleInputChange}
           />
+          {validationErrors.password && (
+            <Typography variant="caption" color="error">
+              {validationErrors.password}
+            </Typography>
+          )}
           <Button
             type="submit"
             variant="contained"
