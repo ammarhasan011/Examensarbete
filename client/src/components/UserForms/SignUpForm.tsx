@@ -1,4 +1,4 @@
-// Import Material-UI components and styles
+import React, { useState } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -8,13 +8,16 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
-// import { handleRegistration } from "../Utils/SignUpUtils";
-import { useState } from "react";
 
-// SignUnForm Component
+const getFormDataFromEvent = (e: React.FormEvent<HTMLFormElement>) => {
+  const formData: { [key: string]: string } = {};
+  new FormData(e.currentTarget).forEach((value, key) => {
+    formData[key] = value.toString();
+  });
+  return formData;
+};
 const SignUpForm = () => {
   const [validationErrors, setValidationErrors] = useState({});
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -22,25 +25,19 @@ const SignUpForm = () => {
     password: "",
   });
 
-  const handleInputChange = (e) => {
-    // Rensa tidigare felmeddelanden vid ändring av formuläret
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValidationErrors({});
-
-    // Uppdatera state för inputfälten
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleRegistration = async (e) => {
+  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    // Ditt befintliga kod för att hämta formulärdata
     const formData = getFormDataFromEvent(e);
 
     try {
-      // Skicka begäran till servern
       const response = await fetch("/api/register", {
         method: "POST",
         headers: {
@@ -50,10 +47,8 @@ const SignUpForm = () => {
       });
 
       if (response.ok) {
-        // Registreringen lyckades, hantera det här
         setValidationErrors({});
       } else {
-        // Registreringen misslyckades, hämta valideringsfel från servern
         const errorData = await response.json();
         setValidationErrors({
           email: errorData.errors.email,
@@ -65,9 +60,6 @@ const SignUpForm = () => {
     }
   };
 
-  const getFieldError = (fieldName) => {
-    return validationErrors[fieldName] || "";
-  };
   const paperStyle = {
     padding: "30px 20px",
     width: 300,
@@ -80,7 +72,6 @@ const SignUpForm = () => {
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
   return (
-    // Render the sign-up form
     <Grid>
       <Paper elevation={20} style={paperStyle}>
         <Grid container direction="column" alignItems="center">
@@ -100,7 +91,6 @@ const SignUpForm = () => {
           </Typography>
         </Grid>
         <form onSubmit={handleRegistration}>
-          {" "}
           <TextField
             name="firstName"
             fullWidth
