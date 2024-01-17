@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// Import Material-UI components and styles
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -8,68 +8,10 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
+import { handleRegistration } from "../Utils/SignUpUtils";
 
-const getFormDataFromEvent = (e: React.FormEvent<HTMLFormElement>) => {
-  const formData: { [key: string]: string } = {};
-  new FormData(e.currentTarget).forEach((value, key) => {
-    formData[key] = value.toString();
-  });
-  return formData;
-};
+// SignUnForm Component
 const SignUpForm = () => {
-  const [validationErrors, setValidationErrors] = useState<{
-    email?: string;
-    password?: string;
-  }>({});
-  const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    password: "",
-  });
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValidationErrors({});
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleRegistration = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = getFormDataFromEvent(e);
-
-    try {
-      const response = await fetch("/api/users/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (response.ok) {
-        setValidationErrors({});
-      } else {
-        const errorData = await response.json();
-        setValidationErrors({
-          email:
-            errorData.errors?.email || "An error occurred during registration.",
-          password:
-            errorData.errors?.password ||
-            "An error occurred during registration.",
-        });
-      }
-    } catch (error) {
-      console.error("Error during registration:", error);
-      setValidationErrors({
-        email: "An unexpected error occurred during registration.",
-        password: "An unexpected error occurred during registration.",
-      });
-    }
-  };
-
   const paperStyle = {
     padding: "30px 20px",
     width: 300,
@@ -82,6 +24,7 @@ const SignUpForm = () => {
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
   return (
+    // Render the sign-up form
     <Grid>
       <Paper elevation={20} style={paperStyle}>
         <Grid container direction="column" alignItems="center">
@@ -101,6 +44,7 @@ const SignUpForm = () => {
           </Typography>
         </Grid>
         <form onSubmit={handleRegistration}>
+          {" "}
           <TextField
             name="firstName"
             fullWidth
@@ -108,7 +52,6 @@ const SignUpForm = () => {
             variant="standard"
             placeholder="Ange ditt namn"
             required
-            onChange={handleInputChange}
           />
           <TextField
             label="Efternamn"
@@ -117,22 +60,16 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt efternamn"
             required
-            onChange={handleInputChange}
           />
           <TextField
             name="email"
             label="Email"
+            type="email"
             variant="standard"
             fullWidth
             placeholder="Ange ditt email"
             required
-            onChange={handleInputChange}
           />
-          {validationErrors.email && (
-            <Typography variant="caption" color="error">
-              {validationErrors.email}
-            </Typography>
-          )}
           <TextField
             name="password"
             type="password"
@@ -141,13 +78,7 @@ const SignUpForm = () => {
             fullWidth
             placeholder="Ange ditt lösenord"
             required
-            onChange={handleInputChange}
           />
-          {validationErrors.password && (
-            <Typography variant="caption" color="error">
-              {validationErrors.password}
-            </Typography>
-          )}
           <Button
             type="submit"
             variant="contained"
