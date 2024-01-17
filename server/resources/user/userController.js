@@ -7,7 +7,7 @@ async function register(req, res) {
   //check if user already exists
   const existingUser = await UserModel.findOne({ email: req.body.email });
   if (existingUser) {
-    return res.status(409).json("Email already registered");
+    return res.status(409).json({ error: "Email already registered" });
   }
 
   // Create a new user instance
