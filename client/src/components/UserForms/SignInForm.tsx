@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+// Imports
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -8,30 +8,9 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { handleLogin } from "../Utils/SignInUtils";
-import { handleLoginAndRedirect } from "../Utils/AuthUtils";
-import axios from "axios";
 
+// SignInForm Component
 const SignInForm = () => {
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // Check if the user is already logged in, if yes redirect to profile page
-    const checkLoginStatus = async () => {
-      try {
-        const response = await axios.get("/api/users/authorize");
-        const userIsLoggedIn = response.data._id;
-
-        if (userIsLoggedIn) {
-          navigate("/profile-page");
-        }
-      } catch (error) {
-        console.error("Fel vid kontroll av inloggningsstatus:", error);
-      }
-    };
-
-    checkLoginStatus();
-  }, [navigate]);
-
   const paperStyle = {
     padding: 20,
     height: "70vh",
@@ -42,16 +21,17 @@ const SignInForm = () => {
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
-  const handleLoginAndRedirectLocal = async (
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
-    await handleLogin(e);
-    e.preventDefault();
-    await handleLoginAndRedirect(navigate);
+  // Get the navigate function from react-router-dom
+  const navigate = useNavigate();
+
+  // Function to handle local login
+  const handleLoginLocal = async (event: React.FormEvent<HTMLFormElement>) => {
+    // Call the handleLogin function from SignInUtils and pass the navigate function
+    await handleLogin(event, navigate);
   };
 
   return (
-    <form onSubmit={handleLoginAndRedirectLocal}>
+    <form onSubmit={handleLoginLocal}>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid container direction="column" alignItems="center">
