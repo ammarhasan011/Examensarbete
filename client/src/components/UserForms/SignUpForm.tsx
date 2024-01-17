@@ -72,9 +72,10 @@ const SignUpForm = () => {
           />
           <TextField
             name="password"
-            type="password"
+            type="text"
             label="Lösenord"
             variant="standard"
+            inputProps={{ minLength: 5 }}
             fullWidth
             placeholder="Ange ditt lösenord"
             required

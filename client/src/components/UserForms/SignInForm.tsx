@@ -71,12 +71,13 @@ const SignInForm = () => {
             autoComplete="email"
           />
           <TextField
-            type="password"
+            type="text"
             name="password"
             label="Lösenord"
             variant="standard"
             placeholder="Ange ditt lösenord"
             fullWidth
+            inputProps={{ minLength: 5 }}
             required
             autoComplete="current-password"
           />
