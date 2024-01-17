@@ -59,6 +59,9 @@ const SignInForm = () => {
               <PersonSharpIcon />
             </Avatar>
             <h2> logga in</h2>
+            <Typography variant="caption">
+              Logga in efter att du har skapat ett konto!
+            </Typography>
           </Grid>
           <TextField
             name="email"
