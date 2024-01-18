@@ -9,6 +9,7 @@ import "./products.css";
 const Products = () => {
   // State to store the list of products
   const [products, setProducts] = useState<Product[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
 
   //Products from database
   useEffect(() => {
@@ -21,6 +22,13 @@ const Products = () => {
         console.error("Error fetching products", error);
       });
   }, []);
+
+  // Function to handle adding a product to the cart
+  const addToCart = (product: Product) => {
+    // Lägg till produkten i varukorgen
+    setCart((prevCart) => [...prevCart, product]);
+    console.log(`Lägg till ${product.title} i varukorgen`);
+  };
 
   return (
     // Render component
@@ -39,9 +47,16 @@ const Products = () => {
               price: product.price,
               inStock: product.inStock,
             }}
+            addToCart={addToCart}
           />
         ))}
       </div>
+      <h2>Varukorg</h2>
+      <ul>
+        {cart.map((item) => (
+          <li key={item._id}>{item.title}</li>
+        ))}
+      </ul>
     </div>
   );
 };
