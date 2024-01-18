@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { handleLogin } from "../Utils/SignInUtils";
+import { handleLoginAndRedirect } from "../Utils/AuthUtils";
 
 // SignInForm Component
 const SignInForm = () => {
@@ -26,7 +27,10 @@ const SignInForm = () => {
 
   // Function to handle local login
   const handleLoginLocal = async (event: React.FormEvent<HTMLFormElement>) => {
-    // Call the handleLogin function from SignInUtils and pass the navigate function
+    // Använd handleLoginAndRedirect från AuthUtils för inloggning och omdirigering
+    await handleLoginAndRedirect(navigate);
+
+    // Använd handleLogin från SignInUtils för att kontrollera sessionsstatus
     await handleLogin(event, navigate);
   };
 

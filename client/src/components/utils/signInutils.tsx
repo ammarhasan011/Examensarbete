@@ -53,14 +53,13 @@ export const handleLogin = async (
 // const checkUserLoginStatus = async () => {
 //   try {
 //     const response = await axios.get("/api/users/authorize");
-//     const userIsLoggedIn = response.data._id;
-//     return userIsLoggedIn;
+//     return response.data._id || null;
 //   } catch (error) {
 //     console.error(
 //       "Authorize error:",
 //       (error as any).response?.data || (error as any).message
 //     );
-//     return false;
+//     return null;
 //   }
 // };
 
@@ -69,20 +68,17 @@ export const handleLogin = async (
 //   event: React.FormEvent<HTMLFormElement>,
 //   navigate: any
 // ) => {
-//   // Prevent default form submission
 //   event.preventDefault();
 
 //   if (!event.target) {
 //     return;
 //   }
 
-//   // Typing function to tell TypeScript that this is a form element
 //   const target = event.target as typeof event.target & {
 //     email: { value: string };
 //     password: { value: string };
 //   };
 
-//   // Get the form data
 //   const formData = {
 //     email: target.email.value,
 //     password: target.password.value,
@@ -109,7 +105,16 @@ export const handleLogin = async (
 //     } else {
 //       console.log("Du är inte inloggad.");
 //     }
-//     // Console the data from backend
+
+//     // Check login status after handling login
+//     const authUserIsLoggedIn = await checkUserLoginStatus();
+
+//     if (authUserIsLoggedIn) {
+//       navigate("/profile-page");
+//     } else {
+//       console.log("Autentisering misslyckades efter inloggning.");
+//     }
+
 //     console.log(response.data);
 //   } catch (error) {
 //     console.error(error);
