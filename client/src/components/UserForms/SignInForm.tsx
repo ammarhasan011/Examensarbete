@@ -1,4 +1,5 @@
 // Imports
+import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
@@ -9,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { handleLogin } from "../Utils/SignInUtils";
 import { handleLoginAndRedirect } from "../Utils/AuthUtils";
+import axios from "axios";
 
 // SignInForm Component
 const SignInForm = () => {
@@ -25,17 +27,34 @@ const SignInForm = () => {
   // Get the navigate function from react-router-dom
   const navigate = useNavigate();
 
-  // Function to handle local login
-  const handleLoginLocal = async (event: React.FormEvent<HTMLFormElement>) => {
-    // Använd handleLoginAndRedirect från AuthUtils för inloggning och omdirigering
-    await handleLoginAndRedirect(navigate);
+  useEffect(() => {
+    // Check if the user is already logged in, if yes redirect to profile page
+    const checkLoginStatus = async () => {
+      try {
+        const response = await axios.get("/api/users/authorize");
+        const userIsLoggedIn = response.data._id;
 
-    // Använd handleLogin från SignInUtils för att kontrollera sessionsstatus
-    await handleLogin(event, navigate);
+        if (userIsLoggedIn) {
+          navigate("/profile-page");
+        }
+      } catch (error) {
+        console.error("Fel vid kontroll av inloggningsstatus:", error);
+      }
+    };
+
+    checkLoginStatus();
+  }, [navigate]);
+
+  const handleLoginAndRedirectLocal = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    await handleLogin(e);
+    e.preventDefault();
+    await handleLoginAndRedirect(navigate);
   };
 
   return (
-    <form onSubmit={handleLoginLocal}>
+    <form onSubmit={handleLoginAndRedirectLocal}>
       <Grid>
         <Paper elevation={10} style={paperStyle}>
           <Grid container direction="column" alignItems="center">
