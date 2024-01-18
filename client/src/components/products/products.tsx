@@ -9,7 +9,11 @@ import "./products.css";
 const Products = () => {
   // State to store the list of products
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>([]);
+  // Use storedCart within useState to initialize cart
+  const [cart, setCart] = useState<Product[]>(() => {
+    const storedCart = localStorage.getItem("cart");
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
   //Products from database
   useEffect(() => {
@@ -23,13 +27,15 @@ const Products = () => {
       });
   }, []);
 
-  // Function to handle adding a product to the cart
   const addToCart = (product: Product) => {
-    // Lägg till produkten i varukorgen
-    setCart((prevCart) => [...prevCart, product]);
+    setCart((prevCart) => {
+      const newCart = [...prevCart, product];
+      // Spara varukorgen i localStorage
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return newCart;
+    });
     console.log(`Lägg till ${product.title} i varukorgen`);
   };
-
   return (
     // Render component
     <div>
@@ -51,12 +57,12 @@ const Products = () => {
           />
         ))}
       </div>
-      <h2>Varukorg</h2>
+      {/* <h2>Varukorg</h2>
       <ul>
         {cart.map((item) => (
           <li key={item._id}>{item.title}</li>
         ))}
-      </ul>
+      </ul> */}
     </div>
   );
 };
