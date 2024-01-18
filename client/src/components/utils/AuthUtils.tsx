@@ -27,23 +27,23 @@ export const handleLogoutAndRedirect = async (navigate: any) => {
 };
 
 // // Function to log in and redirect
-// export const handleLoginAndRedirect = async (navigate: any) => {
-//   try {
-//     // Fetch user information to check if the user is logged in
-//     const response = await axios.get("/api/users/authorize");
-//     const userIsLoggedIn = response.data._id;
-//     console.log("User logged in successfully");
+export const handleLoginAndRedirect = async (navigate: any) => {
+  try {
+    // Fetch user information to check if the user is logged in
+    const response = await axios.get("/api/users/authorize");
+    const userIsLoggedIn = response.data._id;
+    console.log("User logged in successfully");
 
-//     // If the user is logged in, redirect to the profile page
-//     if (userIsLoggedIn) {
-//       navigate("/profile-page");
-//     } else {
-//       console.log("Du är inte inloggad.");
-//     }
-//   } catch (error) {
-//     console.error(
-//       "Authorize error:",
-//       (error as any).response?.data || (error as any).message
-//     );
-//   }
-// };
+    // If the user is logged in, redirect to the profile page
+    if (userIsLoggedIn) {
+      navigate("/profile-page");
+    } else {
+      console.log("Du är inte inloggad.");
+    }
+  } catch (error) {
+    console.error(
+      "Authorize error:",
+      (error as any).response?.data || (error as any).message
+    );
+  }
+};
