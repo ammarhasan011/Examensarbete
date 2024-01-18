@@ -1,3 +1,4 @@
+// Imports
 import React, { useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -11,7 +12,19 @@ import { handleLogin } from "../Utils/SignInUtils";
 import { handleLoginAndRedirect } from "../Utils/AuthUtils";
 import axios from "axios";
 
+// SignInForm Component
 const SignInForm = () => {
+  const paperStyle = {
+    padding: 20,
+    height: "70vh",
+    width: 300,
+    margin: "30px auto",
+  };
+
+  const avatarStyle = { backgroundColor: "#1976d2" };
+  const buttonStyle = { marginTop: 40, margin: "8px 0" };
+
+  // Get the navigate function from react-router-dom
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -32,16 +45,6 @@ const SignInForm = () => {
     checkLoginStatus();
   }, [navigate]);
 
-  const paperStyle = {
-    padding: 20,
-    height: "70vh",
-    width: 300,
-    margin: "30px auto",
-  };
-
-  const avatarStyle = { backgroundColor: "#1976d2" };
-  const buttonStyle = { marginTop: 40, margin: "8px 0" };
-
   const handleLoginAndRedirectLocal = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {
@@ -59,6 +62,9 @@ const SignInForm = () => {
               <PersonSharpIcon />
             </Avatar>
             <h2> logga in</h2>
+            <Typography variant="caption">
+              Logga in efter att du har skapat ett konto!
+            </Typography>
           </Grid>
           <TextField
             name="email"
@@ -66,16 +72,20 @@ const SignInForm = () => {
             variant="standard"
             placeholder="Ange ditt email"
             fullWidth
+            type="email"
             required
+            autoComplete="email"
           />
           <TextField
-            type="password"
+            type="text"
             name="password"
             label="Lösenord"
             variant="standard"
             placeholder="Ange ditt lösenord"
             fullWidth
+            inputProps={{ minLength: 5 }}
             required
+            autoComplete="current-password"
           />
           <Button
             type="submit"

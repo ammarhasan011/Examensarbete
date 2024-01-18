@@ -26,7 +26,7 @@ export const handleLogoutAndRedirect = async (navigate: any) => {
   }
 };
 
-// Function to log in and redirect
+// // Function to log in and redirect
 export const handleLoginAndRedirect = async (navigate: any) => {
   try {
     // Fetch user information to check if the user is logged in

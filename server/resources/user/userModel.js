@@ -23,7 +23,7 @@ const UserCreateValidationSchema = Joi.object({
   firstName: Joi.string().strict().required(),
   lastName: Joi.string().strict().required(),
   email: Joi.string().email().strict().required(),
-  password: Joi.string().strict().required(),
+  password: Joi.string().strict().min(5).required(),
   isAdmin: Joi.boolean().strict(),
 });
 

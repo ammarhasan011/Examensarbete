@@ -1,13 +1,11 @@
 //Imports
-
 import axios from "axios";
 
-//Security check to avoid 'null' error
+// Function to handle user registration
 export const handleRegistration = async (
-  //types up event so React understands
-  event: React.FormEvent<HTMLFormElement>
+  event: React.FormEvent<HTMLFormElement>,
+  navigate: any
 ) => {
-  // Prevent default form submission
   event.preventDefault();
 
   if (!event.target) {
@@ -31,12 +29,19 @@ export const handleRegistration = async (
   };
 
   try {
-    //Send a POST request to backend
+    // Send a POST request to backend
     const response = await axios.post(
       "http://localhost:3000/api/users/register",
       formData
     );
+    const userCreated = response.data;
 
+    if (userCreated) {
+      // Redirect to the sign-in page upon successful registration
+      navigate("/sign-in");
+    } else {
+      console.log("Användaren skapades inte");
+    }
     // Console the data from backend
     console.log(response.data);
   } catch (error) {

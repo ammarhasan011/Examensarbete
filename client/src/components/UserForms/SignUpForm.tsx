@@ -9,6 +9,7 @@ import Typography from "@mui/material/Typography";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link as RouterLink } from "react-router-dom";
 import { handleRegistration } from "../Utils/SignUpUtils";
+import { useNavigate } from "react-router-dom";
 
 // SignUnForm Component
 const SignUpForm = () => {
@@ -22,6 +23,17 @@ const SignUpForm = () => {
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
+
+  // Use the navigate hook from react-router-dom
+  const navigate = useNavigate();
+
+  // Function to handle local registration
+  const handleRegistrationLocal = async (
+    event: React.FormEvent<HTMLFormElement>
+  ) => {
+    // Call the handleRegistration function from SignUpUtils
+    await handleRegistration(event, navigate);
+  };
 
   return (
     // Render the sign-up form
@@ -40,10 +52,10 @@ const SignUpForm = () => {
           <h2 style={headerStyle}>Skapa konto</h2>
 
           <Typography variant="caption">
-            Fyll i formulären för att skapa ett konto!
+            Logga in efter att du har skapat ett konto!
           </Typography>
         </Grid>
-        <form onSubmit={handleRegistration}>
+        <form onSubmit={handleRegistrationLocal}>
           {" "}
           <TextField
             name="firstName"
@@ -64,6 +76,7 @@ const SignUpForm = () => {
           <TextField
             name="email"
             label="Email"
+            type="email"
             variant="standard"
             fullWidth
             placeholder="Ange ditt email"
@@ -71,9 +84,10 @@ const SignUpForm = () => {
           />
           <TextField
             name="password"
-            type="password"
+            type="text"
             label="Lösenord"
             variant="standard"
+            inputProps={{ minLength: 5 }}
             fullWidth
             placeholder="Ange ditt lösenord"
             required
