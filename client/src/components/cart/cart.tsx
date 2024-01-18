@@ -3,7 +3,8 @@ import Product from "../Interfaces/Product";
 
 const Cart = () => {
   // Hämta varukorgen från localStorage vid komponentens första render
-  const initialCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const storedCart: string | null = localStorage.getItem("cart");
+  const initialCart: Product[] = storedCart ? JSON.parse(storedCart) : [];
   const [cart, setCart] = useState<Product[]>(initialCart);
 
   // Uppdatera localStorage varje gång varukorgen ändras
