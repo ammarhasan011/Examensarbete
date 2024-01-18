@@ -1,13 +1,17 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Product from "../Interfaces/Product";
 
 const Cart = () => {
-  // State för varukorgen
-  const [cart, setCart] = useState([Product]);
+  // Hämta varukorgen från localStorage vid komponentens första render
+  const initialCart = JSON.parse(localStorage.getItem("cart")) || [];
+  const [cart, setCart] = useState<Product[]>(initialCart);
 
-  // Funktion för att lägga till en produkt i varukorgen
+  // Uppdatera localStorage varje gång varukorgen ändras
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
   const addToCart = (product: Product) => {
-    // Skapa en kopia av den befintliga varukorgen och lägg till den nya produkten
     const newCart = [...cart, product];
     setCart(newCart);
   };
@@ -15,12 +19,10 @@ const Cart = () => {
   return (
     <div>
       <h1>Varukorg</h1>
-      {/* Loopa igenom varukorgen och visa produkter */}
       {cart.map((product, index) => (
         <div key={index}>
           <p>{product.title}</p>
           <p>Pris: {product.price} kr</p>
-          {/* Eventuellt annan information om produkten */}
         </div>
       ))}
     </div>
