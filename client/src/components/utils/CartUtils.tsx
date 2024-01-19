@@ -9,14 +9,14 @@ export const createCartItem = (product: Product): CartItem => ({
   price: product.price,
 });
 
-export const updateCartQuantity = (
-  cart: CartItem[],
-  productId: string,
-  newQuantity: number
-): CartItem[] => {
-  return cart
-    .map((item) =>
-      item.product === productId ? { ...item, quantity: newQuantity } : item
-    )
-    .filter((item) => item.quantity > 0);
-};
+// export const updateCartQuantity = (
+//   cart: CartItem[],
+//   productId: string,
+//   newQuantity: number
+// ): CartItem[] => {
+//   return cart
+//     .map((item) =>
+//       item.product === productId ? { ...item, quantity: newQuantity } : item
+//     )
+//     .filter((item) => item.quantity > 0);
+// };
