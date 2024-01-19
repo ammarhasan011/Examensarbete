@@ -17,8 +17,9 @@ const Cart = () => {
   }, []);
 
   console.log("Cart:", cart);
+
   const calculateTotalPrice = () => {
-    return cart.reduce((total, item) => total + item.price, 0);
+    return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
   // const addToCart = (product: Product) => {
