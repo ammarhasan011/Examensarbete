@@ -5,6 +5,7 @@ interface CartItem {
   image: string;
   name: string;
   price: number;
+  inStock: number;
 }
 
 export default CartItem;

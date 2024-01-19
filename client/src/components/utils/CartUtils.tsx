@@ -7,4 +7,5 @@ export const createCartItem = (product: Product): CartItem => ({
   image: product.image,
   name: product.title,
   price: product.price,
+  inStock: product.inStock,
 });
