@@ -36,6 +36,31 @@ const Cart = () => {
     console.log(`Lagt till ${product.title} i varukorgen`);
   };
 
+  const increaseQuantity = (productId: string) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart.map((item) =>
+        item.product === productId
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
+
+  const decreaseQuantity = (productId: string) => {
+    setCart((prevCart) => {
+      const updatedCart = prevCart
+        .map((item) =>
+          item.product === productId
+            ? { ...item, quantity: item.quantity - 1 }
+            : item
+        )
+        .filter((item) => item.quantity > 0); // Remove items with quantity 0
+      localStorage.setItem("cart", JSON.stringify(updatedCart));
+      return updatedCart;
+    });
+  };
   const removeFromCart = (productId: string) => {
     setCart((prevCart) => {
       const newCart = prevCart.filter((item) => item.product !== productId);
@@ -43,18 +68,21 @@ const Cart = () => {
       return newCart;
     });
   };
+  console.log("Varukorg:", cart);
 
   return (
     <div>
       <h1>Varukorg</h1>
       {cart.map((item) => (
-        <div key={item.product}>
+        // <div key={item.product}>
+        <div key={`${item.product}-${item.quantity}`}>
           <p>{item.name}</p>
           <img src={item.image} alt={item.name} style={{ width: "100px" }} />
+          <p>Antal: {item.quantity}</p>
           <p>Pris: {item.price} kr</p>
-          <button onClick={() => removeFromCart(item.product)}>
-            Ta bort från varukorgen
-          </button>
+          <button onClick={() => increaseQuantity(item.product)}>+</button>
+          <button onClick={() => decreaseQuantity(item.product)}>-</button>
+          <button onClick={() => removeFromCart(item.product)}>Ta bort</button>
         </div>
       ))}
       <p>Totalt pris: {calculateTotalPrice()} kr</p>
