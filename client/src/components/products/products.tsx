@@ -9,11 +9,15 @@ import { createCartItem } from "../Utils/CartUtils";
 
 // Products Component Definition
 const Products = () => {
+  // State hooks to manage products and cart
   const [products, setProducts] = useState<Product[]>([]);
   const [cart, setCart] = useState<CartItem[]>(() => {
+    // Initialize cart state from localStorage or an empty array
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
+
+  // Fetch products from the server when the component mounts
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/products")
@@ -25,15 +29,16 @@ const Products = () => {
       });
   }, []);
 
+  // Function to add a product to the cart
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
-      // Kontrollerar om produkten redan finns i varukorgen
+      // Check if the product is already in the cart
       const existingItem = prevCart.find(
         (item) => item.product === product._id
       );
 
       if (existingItem) {
-        // Om produkten redan finns, öka bara kvantiteten om lagernivån tillåter det
+        // If the product is already in the cart, increment the quantity if the stock allows
         const updatedCart = prevCart.map((item) =>
           item.product === product._id
             ? {
@@ -48,7 +53,7 @@ const Products = () => {
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return updatedCart;
       } else {
-        // Om produkten inte finns, lägg till som ny post om lagernivån tillåter det
+        // If the product is not in the cart, add it as a new entry if the stock allows
         const newCart: CartItem[] =
           product.inStock > 0
             ? [
@@ -58,7 +63,7 @@ const Products = () => {
                   quantity: 1,
                 },
               ]
-            : [...prevCart]; // Lägg inte till om lagernivån är 0
+            : [...prevCart]; // Do not add if stock is 0
         localStorage.setItem("cart", JSON.stringify(newCart));
         return newCart;
       }
@@ -68,6 +73,7 @@ const Products = () => {
   };
   console.log(cart);
 
+  // Render the Products component with a list of product cards
   return (
     <div>
       <h1 className="Title">Produkter</h1>
