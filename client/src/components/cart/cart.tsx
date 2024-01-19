@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Product from "../Interfaces/Product";
 import CartItem from "../Interfaces/CartItem";
+import { createCartItem, updateCartQuantity } from "../Utils/CartUtils";
 
 // Cart Component Definition
 const Cart = () => {
@@ -12,28 +13,34 @@ const Cart = () => {
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
-    console.log("Stored Cart:", storedCart);
+    // console.log("Stored Cart:", storedCart);
   }, []);
 
+  console.log("Cart:", cart);
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price, 0);
   };
 
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
-      const newCart: CartItem[] = [
-        ...prevCart,
-        {
-          product: product._id,
-          quantity: 1,
-          image: product.image,
-          name: product.title,
-          price: product.price,
-        },
-      ];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
+      const existingItem = prevCart.find(
+        (item) => item.product === product._id
+      );
+      if (existingItem) {
+        const updatedCart = updateCartQuantity(
+          prevCart,
+          product._id,
+          existingItem.quantity + 1
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      } else {
+        const newCart: CartItem[] = [...prevCart, createCartItem(product)];
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        return newCart;
+      }
     });
+
     console.log(`Lagt till ${product.title} i varukorgen`);
   };
 
