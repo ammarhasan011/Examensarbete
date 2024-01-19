@@ -5,6 +5,7 @@ import Product from "../Interfaces/Product";
 import MultiActionAreaCard from "../Cards/Cards";
 import "./products.css";
 import CartItem from "../Interfaces/CartItem";
+import { createCartItem } from "../Utils/CartUtils";
 
 // Products Component Definition
 const Products = () => {
@@ -43,16 +44,7 @@ const Products = () => {
         return updatedCart;
       } else {
         // Om produkten inte finns, lägg till som ny post
-        const newCart: CartItem[] = [
-          ...prevCart,
-          {
-            product: product._id,
-            quantity: 1,
-            image: product.image,
-            name: product.title,
-            price: product.price,
-          },
-        ];
+        const newCart: CartItem[] = [...prevCart, createCartItem(product)];
         localStorage.setItem("cart", JSON.stringify(newCart));
         return newCart;
       }
