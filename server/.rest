@@ -29,11 +29,11 @@ Content-Type: application/json
 
 
 #Uppdate a product
-PUT http://localhost:3000/api/products/65a52915ff43b7edff2156a6
+PUT http://localhost:3000/api/products/65aaf5f8213ebc3a33aa8154
 Content-Type: application/json
 
 {
-  "_id": "65a5160df0a333a5755d188a",
+  "_id": "65aaf5f8213ebc3a33aa8154",
   "title": "TASMAN WEATHER HYBRID (FOREST NIGHT)",
   "description": "UGG:s Tasman Weather Hybrid (Forest Night) kombinerar elegans med praktisk användning. Den djupa skogsgröna färgen framhäver dess sofistikerade design.",
   "price": 4699,
@@ -45,7 +45,7 @@ Content-Type: application/json
 
 
 #Delete a product
-DELETE http://localhost:3000/api/products/65a52915ff43b7edff2156a6
+DELETE http://localhost:3000/api/products/65aaf645213ebc3a33aa8161
 
 ###
  
@@ -58,10 +58,10 @@ POST  http://localhost:3000/api/users/register
 Content-Type: application/json
 
 {
-    "firstName": "Admin",
-    "lastName":"Admin",
-    "password": "Admin",
-    "email":"marsh@gmail.se"
+    "firstName": "user",
+    "lastName":"user",
+    "password": "12345",
+    "email":"user@user.se"
 }
 
 ###
@@ -72,8 +72,8 @@ POST http://localhost:3000/api/users/login
 Content-Type: application/json
 
 {
-  "email": "Adminn@gmail.se",
-  "password": "Admin"
+  "email": "user@user.se",
+  "password": "12345"
 }
 
 ###
