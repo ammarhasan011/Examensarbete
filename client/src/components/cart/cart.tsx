@@ -1,31 +1,40 @@
+// Imports
 import { useState, useEffect } from "react";
 import Product from "../Interfaces/Product";
 
+// Cart Component Definition
 const Cart = () => {
-  // Hämta varukorgen från localStorage vid komponentens första render
-  const storedCart: string | null = localStorage.getItem("cart");
-  const initialCart: Product[] = storedCart ? JSON.parse(storedCart) : [];
-  const [cart, setCart] = useState<Product[]>(initialCart);
+  const [cart, setCart] = useState<Product[]>([]);
 
-  // Uppdatera localStorage varje gång varukorgen ändras
   useEffect(() => {
-    localStorage.setItem("cart", JSON.stringify(cart));
-  }, [cart]);
+    const storedCart = localStorage.getItem("cart");
+    if (storedCart) {
+      setCart(JSON.parse(storedCart));
+    }
+  }, []);
+  const calculateTotalPrice = () => {
+    return cart.reduce((total, product) => total + product.price, 0);
+  };
 
   const addToCart = (product: Product) => {
-    const newCart = [...cart, product];
-    setCart(newCart);
+    setCart((prevCart) => {
+      const newCart = [...prevCart, product];
+      localStorage.setItem("cart", JSON.stringify(newCart));
+      return newCart;
+    });
+    console.log(`Lagt till ${product.title} i varukorgen`);
   };
 
   return (
     <div>
       <h1>Varukorg</h1>
-      {cart.map((product, index) => (
-        <div key={index}>
+      {cart.map((product) => (
+        <div key={product._id}>
           <p>{product.title}</p>
           <p>Pris: {product.price} kr</p>
         </div>
       ))}
+      <p>Totalt pris: {calculateTotalPrice()} kr</p>
     </div>
   );
 };
