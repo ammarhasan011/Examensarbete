@@ -4,8 +4,10 @@ import CartItem from "../Interfaces/CartItem";
 
 // Cart Component Definition
 const Cart = () => {
+  // State hook to manage the cart items
   const [cart, setCart] = useState<CartItem[]>([]);
 
+  // Use effect to initialize the cart from localStorage on component mount
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
     if (storedCart) {
@@ -15,32 +17,22 @@ const Cart = () => {
 
   console.log("Cart:", cart);
 
+  // Function to calculate the total price of items in the cart
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
-  // const increaseQuantity = (productId: string) => {
-  //   setCart((prevCart) => {
-  //     const updatedCart = prevCart.map((item) =>
-  //       item.product === productId
-  //         ? { ...item, quantity: item.quantity + 1 }
-  //         : item
-  //     );
-  //     localStorage.setItem("cart", JSON.stringify(updatedCart));
-  //     return updatedCart;
-  //   });
-  // };
-
+  // Function to increase the quantity of a product in the cart
   const increaseQuantity = (productId: string) => {
     setCart((prevCart) => {
       const updatedCart = prevCart.map((item) => {
         if (item.product === productId) {
-          // Kolla om det finns tillräckligt med lager innan ökning av kvantitet
+          // Check if there is enough stock before increasing the quantity
           const newQuantity = item.quantity + 1;
           if (newQuantity <= item.inStock) {
             return { ...item, quantity: newQuantity };
           } else {
-            // Om lager är otillräckligt, returnera befintligt objekt utan att ändra det
+            // If stock is insufficient, return the existing item without modifying it
             return item;
           }
         } else {
@@ -53,6 +45,7 @@ const Cart = () => {
     });
   };
 
+  // Function to decrease the quantity of a product in the cart
   const decreaseQuantity = (productId: string) => {
     setCart((prevCart) => {
       const updatedCart = prevCart
@@ -66,6 +59,8 @@ const Cart = () => {
       return updatedCart;
     });
   };
+
+  // Function to remove a product from the cart
   const removeFromCart = (productId: string) => {
     setCart((prevCart) => {
       const newCart = prevCart.filter((item) => item.product !== productId);
@@ -74,6 +69,7 @@ const Cart = () => {
     });
   };
 
+  // Render the Cart component with a list of cart items
   return (
     <div>
       <h1>Varukorg</h1>
