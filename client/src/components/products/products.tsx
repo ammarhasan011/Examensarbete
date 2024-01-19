@@ -4,11 +4,12 @@ import axios from "axios";
 import Product from "../Interfaces/Product";
 import MultiActionAreaCard from "../Cards/Cards";
 import "./products.css";
+import CartItem from "../Interfaces/CartItem";
 
 // Products Component Definition
 const Products = () => {
   const [products, setProducts] = useState<Product[]>([]);
-  const [cart, setCart] = useState<Product[]>(() => {
+  const [cart, setCart] = useState<CartItem[]>(() => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
@@ -26,11 +27,38 @@ const Products = () => {
 
   const addToCart = (product: Product) => {
     setCart((prevCart) => {
-      const newCart = [...prevCart, product];
-      localStorage.setItem("cart", JSON.stringify(newCart));
-      return newCart;
+      // Kontrollerar om produkten redan finns i varukorgen
+      const existingItem = prevCart.find(
+        (item) => item.product === product._id
+      );
+
+      if (existingItem) {
+        // Om produkten redan finns, öka bara kvantiteten
+        const updatedCart = prevCart.map((item) =>
+          item.product === product._id
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
+        );
+        localStorage.setItem("cart", JSON.stringify(updatedCart));
+        return updatedCart;
+      } else {
+        // Om produkten inte finns, lägg till som ny post
+        const newCart: CartItem[] = [
+          ...prevCart,
+          {
+            product: product._id,
+            quantity: 1,
+            image: product.image,
+            name: product.title,
+            price: product.price,
+          },
+        ];
+        localStorage.setItem("cart", JSON.stringify(newCart));
+        return newCart;
+      }
     });
-    console.log(`Lägg till ${product.title} i varukorgen`);
+
+    console.log(`Produkten: ${product.title} är lagt i varukorgen`);
   };
 
   return (

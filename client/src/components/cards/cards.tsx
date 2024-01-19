@@ -11,7 +11,7 @@ import Product from "../Interfaces/Product";
 // Define the props for the MultiActionAreaCard component
 interface MultiActionAreaCardProps {
   product: Product;
-  addToCart: (product: Product) => void; // Lägg till denna prop för att skicka med addToCart-funktionen
+  addToCart: (product: Product) => void;
 }
 
 // dynamic card that adapts to each product
