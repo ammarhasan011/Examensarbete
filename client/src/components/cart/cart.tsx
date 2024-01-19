@@ -1,6 +1,5 @@
 // Imports
 import { useState, useEffect } from "react";
-// import Product from "../Interfaces/Product";
 import CartItem from "../Interfaces/CartItem";
 
 // Cart Component Definition
@@ -12,7 +11,6 @@ const Cart = () => {
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
-    // console.log("Stored Cart:", storedCart);
   }, []);
 
   console.log("Cart:", cart);
@@ -21,13 +19,35 @@ const Cart = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
 
+  // const increaseQuantity = (productId: string) => {
+  //   setCart((prevCart) => {
+  //     const updatedCart = prevCart.map((item) =>
+  //       item.product === productId
+  //         ? { ...item, quantity: item.quantity + 1 }
+  //         : item
+  //     );
+  //     localStorage.setItem("cart", JSON.stringify(updatedCart));
+  //     return updatedCart;
+  //   });
+  // };
+
   const increaseQuantity = (productId: string) => {
     setCart((prevCart) => {
-      const updatedCart = prevCart.map((item) =>
-        item.product === productId
-          ? { ...item, quantity: item.quantity + 1 }
-          : item
-      );
+      const updatedCart = prevCart.map((item) => {
+        if (item.product === productId) {
+          // Kolla om det finns tillräckligt med lager innan ökning av kvantitet
+          const newQuantity = item.quantity + 1;
+          if (newQuantity <= item.inStock) {
+            return { ...item, quantity: newQuantity };
+          } else {
+            // Om lager är otillräckligt, returnera befintligt objekt utan att ändra det
+            return item;
+          }
+        } else {
+          return item;
+        }
+      });
+
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       return updatedCart;
     });

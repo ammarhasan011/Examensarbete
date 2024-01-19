@@ -33,17 +33,32 @@ const Products = () => {
       );
 
       if (existingItem) {
-        // Om produkten redan finns, öka bara kvantiteten
+        // Om produkten redan finns, öka bara kvantiteten om lagernivån tillåter det
         const updatedCart = prevCart.map((item) =>
           item.product === product._id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? {
+                ...item,
+                quantity:
+                  item.quantity + 1 <= product.inStock
+                    ? item.quantity + 1
+                    : item.quantity,
+              }
             : item
         );
         localStorage.setItem("cart", JSON.stringify(updatedCart));
         return updatedCart;
       } else {
-        // Om produkten inte finns, lägg till som ny post
-        const newCart: CartItem[] = [...prevCart, createCartItem(product)];
+        // Om produkten inte finns, lägg till som ny post om lagernivån tillåter det
+        const newCart: CartItem[] =
+          product.inStock > 0
+            ? [
+                ...prevCart,
+                {
+                  ...createCartItem(product),
+                  quantity: 1,
+                },
+              ]
+            : [...prevCart]; // Lägg inte till om lagernivån är 0
         localStorage.setItem("cart", JSON.stringify(newCart));
         return newCart;
       }
