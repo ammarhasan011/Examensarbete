@@ -11,11 +11,18 @@ import Product from "../Interfaces/Product";
 // Define the props for the MultiActionAreaCard component
 interface MultiActionAreaCardProps {
   product: Product;
+  addToCart: (product: Product) => void;
 }
+
 // dynamic card that adapts to each product
 export default function MultiActionAreaCard({
   product,
+  addToCart,
 }: MultiActionAreaCardProps) {
+  const handleAddToCart = () => {
+    addToCart(product); // Anropa addToCart-funktionen med aktuell produkt
+  };
+
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardActionArea>
@@ -41,7 +48,7 @@ export default function MultiActionAreaCard({
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
+        <Button onClick={handleAddToCart} size="small" color="primary">
           Lägg till i varukorgen
         </Button>
       </CardActions>

@@ -50,7 +50,7 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            M Shop
+            MKicks
           </Typography>
 
           <Link
@@ -116,7 +116,7 @@ function Header() {
               textDecoration: "none",
             }}
           >
-            M Shop
+            MKicks
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}></Box>
 
