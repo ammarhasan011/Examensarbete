@@ -14,7 +14,6 @@ const Products = () => {
     const storedCart = localStorage.getItem("cart");
     return storedCart ? JSON.parse(storedCart) : [];
   });
-
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/products")
@@ -52,6 +51,7 @@ const Products = () => {
 
     console.log(`Produkten: ${product.title} är lagt i varukorgen`);
   };
+  console.log(cart);
 
   return (
     <div>
