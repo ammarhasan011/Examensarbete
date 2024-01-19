@@ -1,4 +1,4 @@
-// CartItem interface
+// CartItem interface defining the structure
 interface CartItem {
   product: string;
   quantity: number;

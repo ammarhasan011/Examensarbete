@@ -12,6 +12,7 @@ const Cart = () => {
     if (storedCart) {
       setCart(JSON.parse(storedCart));
     }
+    console.log("Stored Cart:", storedCart);
   }, []);
 
   const calculateTotalPrice = () => {
@@ -68,7 +69,6 @@ const Cart = () => {
       return newCart;
     });
   };
-  console.log("Varukorg:", cart);
 
   return (
     <div>
