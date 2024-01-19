@@ -2,7 +2,6 @@
 import { useState, useEffect } from "react";
 // import Product from "../Interfaces/Product";
 import CartItem from "../Interfaces/CartItem";
-// import { createCartItem, updateCartQuantity } from "../Utils/CartUtils";
 
 // Cart Component Definition
 const Cart = () => {
@@ -21,29 +20,6 @@ const Cart = () => {
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
   };
-
-  // const addToCart = (product: Product) => {
-  //   setCart((prevCart) => {
-  //     const existingItem = prevCart.find(
-  //       (item) => item.product === product._id
-  //     );
-  //     if (existingItem) {
-  //       const updatedCart = updateCartQuantity(
-  //         prevCart,
-  //         product._id,
-  //         existingItem.quantity + 1
-  //       );
-  //       localStorage.setItem("cart", JSON.stringify(updatedCart));
-  //       return updatedCart;
-  //     } else {
-  //       const newCart: CartItem[] = [...prevCart, createCartItem(product)];
-  //       localStorage.setItem("cart", JSON.stringify(newCart));
-  //       return newCart;
-  //     }
-  //   });
-
-  //   console.log(`Lagt till ${product.title} i varukorgen`);
-  // };
 
   const increaseQuantity = (productId: string) => {
     setCart((prevCart) => {
@@ -82,7 +58,6 @@ const Cart = () => {
     <div>
       <h1>Varukorg</h1>
       {cart.map((item) => (
-        // <div key={item.product}>
         <div key={`${item.product}-${item.quantity}`}>
           <p>{item.name}</p>
           <img src={item.image} alt={item.name} style={{ width: "100px" }} />
