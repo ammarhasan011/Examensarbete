@@ -1,4 +1,4 @@
-const Orders = (props: Props) => {
+const Orders = () => {
   return <div>Orders</div>;
 };
 
