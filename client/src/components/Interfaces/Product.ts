@@ -1,4 +1,4 @@
-// product nterface defining the structure
+// product interface defining the structure
 interface Product {
   _id: string;
   title: string;
@@ -7,6 +7,7 @@ interface Product {
   image: string;
   inStock: number;
   deleted?: boolean;
+  quantity: number;
 }
 
 export default Product;
