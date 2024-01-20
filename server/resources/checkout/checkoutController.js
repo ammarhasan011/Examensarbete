@@ -6,7 +6,7 @@ const createCheckoutSession = async (req, res) => {
 
     const session = await stripe.checkout.sessions.create({
       line_items: cart.map((item) => ({
-        price: item.price_id,
+        price: item.product,
         quantity: item.quantity,
       })),
 
