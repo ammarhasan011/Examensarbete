@@ -2,10 +2,10 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const createCheckoutSession = async (req, res) => {
   try {
-    const { cart } = req.body;
+    const { cartItems } = req.body;
 
     const session = await stripe.checkout.sessions.create({
-      line_items: cart.map((item) => ({
+      line_items: cartItems.map((item) => ({
         price: item.product,
         quantity: item.quantity,
       })),
