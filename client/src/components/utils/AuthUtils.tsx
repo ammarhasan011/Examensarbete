@@ -47,3 +47,22 @@ export const handleLoginAndRedirect = async (navigate: any) => {
     );
   }
 };
+
+// Funktion för att hantera inloggning
+// export const handleLogin = async () => {
+//   try {
+//     const response = await axios.get("/api/users/authorize");
+//     const userIsLoggedIn = response.data._id;
+
+//     if (!userIsLoggedIn) {
+//       console.log("There is no session");
+//     } else {
+//       // const customerId = response.data.customerId;
+//       // setcustomerId(customerId);
+//       isLoggedIn: userIsLoggedIn;
+//       console.log("There is session");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
