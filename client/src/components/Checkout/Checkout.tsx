@@ -16,6 +16,8 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
 
       if (!response.ok) {
         console.error("The request failed");
+        console.log(cartItems);
+
         return;
       }
       console.log("The request is good");
