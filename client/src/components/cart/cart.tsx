@@ -1,11 +1,13 @@
 // Imports
 import { useState, useEffect } from "react";
 import CartItem from "../Interfaces/CartItem";
+import Checkout from "../Checkout/Checkout";
 
 // Cart Component Definition
 const Cart = () => {
   // State hook to manage the cart items
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
   // Use effect to initialize the cart from localStorage on component mount
   useEffect(() => {
@@ -69,6 +71,25 @@ const Cart = () => {
     });
   };
 
+  // Effect to check login status
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const response = await fetch("/user/isLoggedIn");
+        if (response.ok) {
+          const data = await response.json();
+          setIsLoggedIn(data.loggedIn);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkLoginStatus();
+  }, []);
+
   // Render the Cart component with a list of cart items
   return (
     <div>
@@ -85,6 +106,11 @@ const Cart = () => {
         </div>
       ))}
       <p>Totalt pris: {calculateTotalPrice()} kr</p>
+      {isLoggedIn === true ? (
+        <Checkout />
+      ) : (
+        <p>Logga in för att kunna betala</p>
+      )}
     </div>
   );
 };
