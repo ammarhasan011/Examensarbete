@@ -85,7 +85,6 @@ const Cart = () => {
         </div>
       ))}
       <p>Totalt pris: {calculateTotalPrice()} kr</p>
-      {/* <button onClick={handlePurchase}>Köp</button> */}
     </div>
   );
 };
