@@ -9,6 +9,7 @@ import AboutUs from "./components/AboutUs/AboutUs";
 import Footer from "./components/Footer/Footer";
 import SignUpForm from "./components/UserForms/SignUpForm";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
+import Confirmation from "./components/Checkout/Confirmation";
 
 // Main component representing the entire application
 const App = () => {
@@ -24,6 +25,7 @@ const App = () => {
         <Route path="/sign-in" element={<SignInForm />} />
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/profile-page" element={<ProfilePage />} />
+        <Route path="/confirmation" element={<Confirmation />} />
       </Routes>
       <Footer />
     </Router>
