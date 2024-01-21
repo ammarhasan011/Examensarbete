@@ -40,4 +40,25 @@ const createCheckoutSession = async (req, res) => {
   }
 };
 
-module.exports = { createCheckoutSession };
+const confirmPayment = async (req, res) => {
+  try {
+    const { session_id } = req.query;
+    const orderData = {
+      orderNumber: "123456",
+      products: [
+        { productId: "1", name: "Product A", quantity: 2 },
+        { productId: "2", name: "Product B", quantity: 1 },
+      ],
+    };
+    // Gör vad du behöver göra för att bekräfta betalningen och uppdatera databasen här
+    console.log(orderData);
+    res
+      .status(200)
+      .json({ message: "Payment confirmed successfully!", data: orderData });
+  } catch (error) {
+    console.error("Error confirming payment:", error);
+    res.status(500).json({ error: "Failed to confirm payment." });
+  }
+};
+
+module.exports = { createCheckoutSession, confirmPayment };
