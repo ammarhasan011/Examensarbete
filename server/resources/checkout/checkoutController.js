@@ -3,6 +3,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const createCheckoutSession = async (req, res) => {
   try {
     const { cartItems } = req.body;
+    console.log("Received cartItems:", cartItems);
+    const customerEmail = req.session.customerEmail;
+    console.log("Received customerEmail:", customerEmail);
 
     // Skapa checkout-session med customerId
     const session = await stripe.checkout.sessions.create({
@@ -20,9 +23,12 @@ const createCheckoutSession = async (req, res) => {
       })),
       // customer_email: customerEmail,
       mode: "payment",
-      success_url: "http://localhost:5173/confirmation",
+      success_url:
+        "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "http://localhost:5173/cart",
     });
+
+    // await addOrder(req, res);
 
     res.status(200).json({ url: session.url, sessionId: session.id });
   } catch (error) {
