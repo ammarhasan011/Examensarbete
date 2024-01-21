@@ -22,9 +22,10 @@ const getOrder = async (req, res) => {
   }
   res.status(200).json(order);
 };
-const addOrder = async (req, res, next) => {
+
+const addOrder = async (req, res) => {
   try {
-    //Minska lagersaldot på beställda produkter
+    // Minska lagersaldot på beställda produkter
     for (const orderItem of req.body.orderItems) {
       let product = await ProductModel.findById(orderItem.product);
 
@@ -37,6 +38,7 @@ const addOrder = async (req, res, next) => {
 
     const order = new OrderModel({
       ...req.body,
+      //kan behöva använda req.session.email istället för req.session._id
       customerId: req.session._id,
       orderNumber: Math.floor(Math.random() * 1000000),
     });
@@ -44,7 +46,8 @@ const addOrder = async (req, res, next) => {
     await order.save();
     res.status(201).json(order);
   } catch (err) {
-    next(err);
+    console.error("Error adding order:", err);
+    res.status(500).json({ error: "Failed to add order." });
   }
 };
 
