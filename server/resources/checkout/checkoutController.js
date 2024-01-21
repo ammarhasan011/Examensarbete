@@ -2,12 +2,13 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const createCheckoutSession = async (req, res) => {
   try {
+    // Extract cartItems and customerEmail from the request body and session
     const { cartItems } = req.body;
     console.log("Received cartItems for checkout:", cartItems);
     const customerEmail = req.session.email;
     console.log("Received customerEmail for checkout:", customerEmail);
 
-    // Skapa checkout-session med customerId
+    // Create a checkout session with the Stripe API
     const session = await stripe.checkout.sessions.create({
       line_items: cartItems.map((item) => ({
         price_data: {
@@ -30,8 +31,10 @@ const createCheckoutSession = async (req, res) => {
 
     // await addOrder(req, res);
 
+    // Send the session URL and ID in the response
     res.status(200).json({ url: session.url, sessionId: session.id });
   } catch (error) {
+    // Send an error response if the checkout session creation fails
     console.error("Error creating checkout session:", error);
     res.status(500).json({ error: "Could not create checkout session" });
   }
