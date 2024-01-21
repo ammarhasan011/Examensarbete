@@ -1,10 +1,10 @@
 import CartItem from "../Interfaces/CartItem";
+
 interface CheckoutProps {
   cartItems: CartItem[];
-  customerId: string;
 }
 // Checkout Component Definition
-const Checkout: React.FC<CheckoutProps> = ({ cartItems, customerId }) => {
+const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
   async function handlePayment() {
     try {
       const response = await fetch("/api/create-checkout-session", {
@@ -12,7 +12,9 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems, customerId }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ cartItems, customerId }),
+        body: JSON.stringify({
+          cartItems,
+        }),
       });
 
       if (!response.ok) {
