@@ -1,10 +1,15 @@
 const express = require("express");
 const { Router } = require("express");
-const { createCheckoutSession } = require("./checkoutController");
+const {
+  createCheckoutSession,
+  confirmPayment,
+} = require("./checkoutController");
 
 const checkoutRouter = Router();
 
-checkoutRouter.post("/create-checkout-session", createCheckoutSession);
+checkoutRouter
+  .post("/create-checkout-session", createCheckoutSession)
+  .get("/confirm-payment", confirmPayment);
 
 //Export checkoutRouter
 module.exports = { checkoutRouter };
