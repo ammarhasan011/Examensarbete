@@ -3,7 +3,8 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const createCheckoutSession = async (req, res) => {
   try {
     const { cartItems } = req.body;
-
+    const customerId = req.session._id;
+    console.log("Received customerId:", customerId);
     const session = await stripe.checkout.sessions.create({
       line_items: cartItems.map((item) => ({
         price_data: {
@@ -17,7 +18,7 @@ const createCheckoutSession = async (req, res) => {
 
         quantity: item.quantity,
       })),
-
+      customer: customerId,
       mode: "payment",
       success_url: "http://localhost:5173/confirmation",
       cancel_url: "http://localhost:5173/cart",
