@@ -3,9 +3,9 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const createCheckoutSession = async (req, res) => {
   try {
     const { cartItems } = req.body;
-    console.log("Received cartItems:", cartItems);
-    const customerEmail = req.session.customerEmail;
-    console.log("Received customerEmail:", customerEmail);
+    console.log("Received cartItems for checkout:", cartItems);
+    const customerEmail = req.session.email;
+    console.log("Received customerEmail for checkout:", customerEmail);
 
     // Skapa checkout-session med customerId
     const session = await stripe.checkout.sessions.create({
@@ -21,7 +21,7 @@ const createCheckoutSession = async (req, res) => {
 
         quantity: item.quantity,
       })),
-      // customer_email: customerEmail,
+      customer_email: customerEmail,
       mode: "payment",
       success_url:
         "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}",
