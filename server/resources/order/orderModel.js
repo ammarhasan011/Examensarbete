@@ -26,7 +26,8 @@ const OrderSchema = new Schema({
     required: true,
     default: Math.floor(Math.random() * 1000000),
   },
-  customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  // customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
+  customerId: { type: Schema.Types.ObjectId, ref: "user", required: true },
   orderItems: { type: [OrderItemSchema], required: true },
   deliveryAddress: { type: AddressSchema, required: true },
 });
@@ -34,6 +35,7 @@ const OrderSchema = new Schema({
 const OrderModel = models.order || model("order", OrderSchema);
 
 const OrderCreateValidationSchema = Joi.object({
+  customerId: Joi.string().strict().required(),
   orderItems: Joi.array()
     .items(
       Joi.object({
