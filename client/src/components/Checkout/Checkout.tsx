@@ -23,7 +23,10 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
         return;
       }
       console.log("The request is good");
-      const { url } = await response.json();
+      const { url, sessionId } = await response.json();
+      localStorage.setItem("session-id", sessionId);
+      console.log("sessionId", sessionId);
+
       window.location.href = url;
     } catch (error) {
       console.error("Ett fel inträffade:", error);
