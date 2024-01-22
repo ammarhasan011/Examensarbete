@@ -27,8 +27,11 @@ const createCheckoutSession = async (req, res) => {
       customer_email: customerEmail,
       mode: "payment",
       success_url:
-        "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}",
+        "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}&orderNumber={ORDER_NUMBER}",
       cancel_url: "http://localhost:5173/cart",
+      metadata: {
+        cartItems: JSON.stringify(cartItems), // Lägger till denna rad för att inkludera cartItems i metadata
+      },
     });
 
     // Send the session URL and ID in the response
@@ -42,13 +45,18 @@ const createCheckoutSession = async (req, res) => {
 
 const confirmPayment = async (req, res) => {
   try {
-    const { session_id } = req.query;
+    const { session_id, orderNumber } = req.query;
     const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
 
-    const cartItems = (stripeSession.line_items || []).map((item) => ({
-      product: item.price.product,
-      quantity: item.quantity,
-    }));
+    console.log("sessiosId är:", session_id);
+    console.log("orderNumber är:", orderNumber); //får undefined
+
+    const cartItems = JSON.parse(stripeSession.metadata.cartItems || "[]").map(
+      (item) => ({
+        product: item.product,
+        quantity: item.quantity,
+      })
+    );
 
     const deliveryAddress = {
       street: "Sample Street",
@@ -65,14 +73,20 @@ const confirmPayment = async (req, res) => {
       },
       res
     );
+    console.log("cartItems som skickas till order:", cartItems);
 
     // Hämta den skapade ordern från databasen för att skapa response-data
     const order = await OrderModel.findOne({
       orderNumber: orderNumber,
-    }).populate("orderItems.product");
+    })
+      .populate("orderItems.product")
+      .populate("shippingMethod")
+      .populate("customerId");
 
+    console.log("ordernumber", orderNumber);
     if (!order) {
-      return res.status(404).json({ error: "Order not found." });
+      // return res.status(404).json({ error: "Order not found." });
+      console.log("Order not found.");
     }
 
     const orderData = {
@@ -83,10 +97,11 @@ const confirmPayment = async (req, res) => {
         quantity: item.quantity,
       })),
     };
-
-    res
-      .status(200)
-      .json({ message: "Payment confirmed successfully!", data: orderData });
+    if (!res.headersSent) {
+      res
+        .status(200)
+        .json({ message: "Payment confirmed successfully!", data: orderData });
+    }
   } catch (error) {
     console.error("Error confirming payment:", error);
     res.status(500).json({ error: "Failed to confirm payment." });
