@@ -50,6 +50,7 @@ const confirmPayment = async (req, res) => {
 
     console.log("sessiosId är:", session_id);
     console.log("orderNumber är:", orderNumber); //får undefined
+    // console.log("stripeSession är:", stripeSession);
 
     const cartItems = JSON.parse(stripeSession.metadata.cartItems || "[]").map(
       (item) => ({
@@ -75,30 +76,16 @@ const confirmPayment = async (req, res) => {
     );
     console.log("cartItems som skickas till order:", cartItems);
 
-    // Hämta den skapade ordern från databasen för att skapa response-data
-    const order = await OrderModel.findOne({
-      orderNumber: orderNumber,
-    })
-      .populate("orderItems.product")
-      .populate("shippingMethod")
-      .populate("customerId");
-
-    console.log("ordernumber", orderNumber);
-    if (!order) {
-      // return res.status(404).json({ error: "Order not found." });
-      console.log("Order not found.");
-    }
-
     const orderData = {
-      orderNumber: order.orderNumber,
-      products: order.orderItems.map((item) => ({
+      orderNumber: orderNumber,
+      products: cartItems.map((item) => ({
         productId: item.product._id,
         name: item.product.name,
         quantity: item.quantity,
       })),
     };
     if (!res.headersSent) {
-      res
+      return res
         .status(200)
         .json({ message: "Payment confirmed successfully!", data: orderData });
     }
