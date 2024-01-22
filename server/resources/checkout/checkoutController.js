@@ -1,4 +1,6 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+const { addOrder } = require("../order/orderController");
+const { OrderModel } = require("../order/orderModel");
 
 const createCheckoutSession = async (req, res) => {
   try {
@@ -29,8 +31,6 @@ const createCheckoutSession = async (req, res) => {
       cancel_url: "http://localhost:5173/cart",
     });
 
-    // await addOrder(req, res);
-
     // Send the session URL and ID in the response
     res.status(200).json({ url: session.url, sessionId: session.id });
   } catch (error) {
@@ -43,15 +43,47 @@ const createCheckoutSession = async (req, res) => {
 const confirmPayment = async (req, res) => {
   try {
     const { session_id } = req.query;
-    const orderData = {
-      orderNumber: "123456",
-      products: [
-        { productId: "1", name: "Product A", quantity: 2 },
-        { productId: "2", name: "Product B", quantity: 1 },
-      ],
+    const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
+
+    const cartItems = (stripeSession.line_items || []).map((item) => ({
+      product: item.price.product,
+      quantity: item.quantity,
+    }));
+
+    const deliveryAddress = {
+      street: "Sample Street",
+      zipcode: "12345",
+      city: "Sample City",
+      country: "Sample Country",
     };
-    // Gör vad du behöver göra för att bekräfta betalningen och uppdatera databasen här
-    console.log(orderData);
+
+    // Skicka informationen till addOrder för att skapa ordern
+    await addOrder(
+      {
+        body: { orderItems: cartItems, deliveryAddress },
+        session: req.session,
+      },
+      res
+    );
+
+    // Hämta den skapade ordern från databasen för att skapa response-data
+    const order = await OrderModel.findOne({
+      orderNumber: orderNumber,
+    }).populate("orderItems.product");
+
+    if (!order) {
+      return res.status(404).json({ error: "Order not found." });
+    }
+
+    const orderData = {
+      orderNumber: order.orderNumber,
+      products: order.orderItems.map((item) => ({
+        productId: item.product._id,
+        name: item.product.name,
+        quantity: item.quantity,
+      })),
+    };
+
     res
       .status(200)
       .json({ message: "Payment confirmed successfully!", data: orderData });
