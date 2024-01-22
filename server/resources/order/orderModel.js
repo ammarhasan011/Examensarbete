@@ -1,6 +1,16 @@
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
+const AddressSchema = new Schema(
+  {
+    street: { type: String, required: true },
+    zipcode: { type: String, required: true },
+    city: { type: String, required: true },
+    country: { type: String, required: true },
+  },
+  { _id: false }
+);
+
 const OrderItemSchema = new Schema(
   {
     product: { type: Schema.Types.ObjectId, ref: "product", required: true },
@@ -19,12 +29,12 @@ const OrderSchema = new Schema({
   // customer: { type: Schema.Types.ObjectId, ref: "user", required: true },
   customerId: { type: Schema.Types.ObjectId, ref: "user", required: true },
   orderItems: { type: [OrderItemSchema], required: true },
+  deliveryAddress: { type: AddressSchema, required: true },
 });
 
 const OrderModel = models.order || model("order", OrderSchema);
 
 const OrderCreateValidationSchema = Joi.object({
-  customerId: Joi.string().strict().required(),
   orderItems: Joi.array()
     .items(
       Joi.object({
@@ -33,6 +43,14 @@ const OrderCreateValidationSchema = Joi.object({
         price: Joi.number(),
       })
     )
+    .strict()
+    .required(),
+  deliveryAddress: Joi.object({
+    street: Joi.string().strict().required(),
+    zipcode: Joi.string().strict().required(),
+    city: Joi.string().strict().required(),
+    country: Joi.string().strict().required(),
+  })
     .strict()
     .required(),
 });
