@@ -49,7 +49,7 @@ const confirmPayment = async (req, res) => {
 
     console.log("sessiosId är:", session_id);
     console.log("orderNumber är:", orderNumber); //får undefined
-    // console.log("stripeSession är:", stripeSession);
+    console.log("stripeSession är:", stripeSession);
 
     const cartItems = JSON.parse(stripeSession.metadata.cartItems || "[]").map(
       (item) => ({
