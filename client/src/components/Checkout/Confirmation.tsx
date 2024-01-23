@@ -3,14 +3,14 @@ import { useLocation } from "react-router-dom";
 
 interface Product {
   productId: string;
-  name: string;
   quantity: number;
+  price: number;
 }
 
 interface OrderData {
   orderNumber: number;
-  customerEmail: string;
-  products: Product[];
+  customerId: string;
+  orderItems: Product[];
 }
 
 const Confirmation = () => {
@@ -18,18 +18,14 @@ const Confirmation = () => {
   const [orderData, setOrderData] = useState<OrderData | null>(null);
 
   useEffect(() => {
-    // Hämta session_id från URL-parametrarna
     const searchParams = new URLSearchParams(location.search);
     const sessionId = searchParams.get("session_id");
 
     console.log("sessionId", sessionId);
 
-    // Gör en anrop till servern för att hämta orderinformation baserat på session_id
-    // Exempel: /api/orders?session_id=cs_test_a1jnsCFL9dnkbznJNEtUtHrW2kAyJog1XFHOwolXQKqbiABOfRc9Luli7f
-    fetch(`/api/orders?session_id=${sessionId}`)
+    fetch(`/api/confirm-payment?session_id=${sessionId}`)
       .then((response) => response.json())
       .then((data: OrderData) => {
-        // Uppdatera state med orderinformationen
         setOrderData(data);
         console.log("Order Data:", data);
       })
@@ -46,18 +42,18 @@ const Confirmation = () => {
     <div>
       <h2>Order Confirmation</h2>
       <p>Order Number: {orderData.orderNumber}</p>
-      <p>Customer Email: {orderData.customerEmail}</p>
+      <p>Customer ID: {orderData.customerId}</p>
       <p>Products:</p>
       <ul>
-        {orderData.products ? (
-          orderData.products.map((product) => (
-            <li key={product.productId}>
-              {product.name} - Quantity: {product.quantity}
-            </li>
-          ))
-        ) : (
-          <li>No products found</li>
-        )}
+        {orderData.orderItems.map((product) => (
+          <li key={product.productId}>
+            {product.productId}
+            <br /> - Quantity: {product.quantity}
+            <br />- Price:
+            {product.price}
+            {"kr "}
+          </li>
+        ))}
       </ul>
     </div>
   );
