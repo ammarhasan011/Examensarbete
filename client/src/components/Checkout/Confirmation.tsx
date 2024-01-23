@@ -1,107 +1,64 @@
-// import { useEffect } from "react";
-
-// const Confirmation = () => {
-//   // Extract session_id from the URL
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const sessionId = urlParams.get("session_id");
-
-//   // Confirm the payment on the client side
-//   const confirmPayment = async () => {
-//     try {
-//       const response = await fetch(
-//         `/api/confirm-payment?session_id=${sessionId}`
-//       );
-//       if (response.ok) {
-//         const orderData = await response.json();
-//         console.log("Payment confirmed successfully!", orderData);
-//         // Perform additional actions as needed (e.g., show confirmation message)
-//         console.log("sessionId", sessionId);
-//       } else {
-//         console.error("Failed to confirm payment.");
-//       }
-//     } catch (error) {
-//       console.error("Error confirming payment:", error);
-//     }
-//   };
-
-//   // Call the function to confirm payment when the component mounts
-//   useEffect(() => {
-//     confirmPayment();
-//   }, []);
-
-//   return (
-//     <div>
-//       <h1>Betalning genomförd</h1>
-//       {/* Add additional content or components for the confirmation page */}
-//     </div>
-//   );
-// };
-
-// export default Confirmation;
-
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+
+interface Product {
+  productId: string;
+  name: string;
+  quantity: number;
+}
 
 interface OrderData {
-  orderNumber: string; // eller annan relevant datatyp
-  products: {
-    productId: string;
-    name: string;
-    quantity: number;
-  }[];
-  // Lägg till andra egenskaper om det finns ytterligare information om ordern
+  orderNumber: number;
+  customerEmail: string;
+  products: Product[];
 }
+
 const Confirmation = () => {
+  const location = useLocation();
   const [orderData, setOrderData] = useState<OrderData | null>(null);
 
-  // Extract session_id from the URL
-  const urlParams = new URLSearchParams(window.location.search);
-  const sessionId = urlParams.get("session_id");
-
-  // Confirm the payment on the client side
-  const confirmPayment = async () => {
-    try {
-      const response = await fetch(
-        `/api/confirm-payment?session_id=${sessionId}`
-      );
-      if (response.ok) {
-        // const orderData = await response.json();
-        console.log("Payment confirmed successfully!", orderData);
-        console.log("orderData!", orderData);
-
-        setOrderData(orderData);
-      } else {
-        console.error("Failed to confirm payment.");
-      }
-    } catch (error) {
-      console.error("Error confirming payment:", error);
-    }
-  };
-
-  // Call the function to confirm payment when the component mounts
   useEffect(() => {
-    confirmPayment();
-  }, []);
+    // Hämta session_id från URL-parametrarna
+    const searchParams = new URLSearchParams(location.search);
+    const sessionId = searchParams.get("session_id");
+
+    console.log("sessionId", sessionId);
+
+    // Gör en anrop till servern för att hämta orderinformation baserat på session_id
+    // Exempel: /api/orders?session_id=cs_test_a1jnsCFL9dnkbznJNEtUtHrW2kAyJog1XFHOwolXQKqbiABOfRc9Luli7f
+    fetch(`/api/orders?session_id=${sessionId}`)
+      .then((response) => response.json())
+      .then((data: OrderData) => {
+        // Uppdatera state med orderinformationen
+        setOrderData(data);
+        console.log("Order Data:", data);
+      })
+      .catch((error) => {
+        console.error("Error fetching order information:", error);
+      });
+  }, [location.search]);
+
+  if (!orderData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
-      <h1>Betalning genomförd</h1>
-      {orderData && orderData.products ? (
-        <div>
-          <h2>Tack för ditt köp!</h2>
-          <p>Ordernummer: {orderData.orderNumber}</p>
-          <h3>Produkter:</h3>
-          <ul>
-            {orderData.products.map((product) => (
-              <li key={product.productId}>
-                {product.name} - {product.quantity} st
-              </li>
-            ))}
-          </ul>
-          <p>handla mer?</p>
-        </div>
-      ) : (
-        <p>Ingen information om ordern hittades.</p>
-      )}
+      <h2>Order Confirmation</h2>
+      <p>Order Number: {orderData.orderNumber}</p>
+      <p>Customer Email: {orderData.customerEmail}</p>
+      <p>Products:</p>
+      <ul>
+        {orderData.products ? (
+          orderData.products.map((product) => (
+            <li key={product.productId}>
+              {product.name} - Quantity: {product.quantity}
+            </li>
+          ))
+        ) : (
+          <li>No products found</li>
+        )}
+      </ul>
     </div>
   );
 };
