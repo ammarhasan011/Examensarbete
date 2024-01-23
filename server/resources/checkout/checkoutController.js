@@ -1,6 +1,5 @@
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { addOrder } = require("../order/orderController");
-const { OrderModel } = require("../order/orderModel");
 
 const createCheckoutSession = async (req, res) => {
   try {
@@ -27,7 +26,7 @@ const createCheckoutSession = async (req, res) => {
       customer_email: customerEmail,
       mode: "payment",
       success_url:
-        "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}&orderNumber={ORDER_NUMBER}",
+        "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "http://localhost:5173/cart",
       metadata: {
         cartItems: JSON.stringify(cartItems), // Lägger till denna rad för att inkludera cartItems i metadata
@@ -87,8 +86,9 @@ const confirmPayment = async (req, res) => {
     if (!res.headersSent) {
       return res
         .status(200)
-        .json({ message: "Payment confirmed successfully!", data: orderData });
+        .json({ message: "Payment confirmed successfully!", orderData });
     }
+    console.log("orderdata är ", orderData);
   } catch (error) {
     console.error("Error confirming payment:", error);
     res.status(500).json({ error: "Failed to confirm payment." });
