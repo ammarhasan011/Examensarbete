@@ -1,7 +1,8 @@
 // Import
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { addOrder } = require("../order/orderController");
-
+// Temporary storage for session IDs
+const activeSessions = [];
 // Create a checkout session when initiating a payment
 const createCheckoutSession = async (req, res) => {
   try {
@@ -47,6 +48,16 @@ const createCheckoutSession = async (req, res) => {
 // Confirm payment and add order to the database
 const confirmPayment = async (req, res) => {
   try {
+    // Check if the session ID is already in the activeSessions array
+    if (activeSessions.includes(req.session.id)) {
+      return res
+        .status(400)
+        .json({ error: "Checkout session already in progress" });
+    }
+
+    // Add the session ID to activeSessions
+    activeSessions.push(req.session.id);
+
     // Extract session_id and orderNumber from the query parameters
     const { session_id, orderNumber } = req.query;
     // Retrieve Stripe session information
@@ -94,6 +105,12 @@ const confirmPayment = async (req, res) => {
   } catch (error) {
     console.error("Error confirming payment:", error);
     res.status(500).json({ error: "Failed to confirm payment." });
+  } finally {
+    // Remove the session ID from activeSessions after creating the session
+    const index = activeSessions.indexOf(req.session.id);
+    if (index !== -1) {
+      activeSessions.splice(index, 1);
+    }
   }
 };
 

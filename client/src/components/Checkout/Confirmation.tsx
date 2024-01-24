@@ -52,7 +52,7 @@ const Confirmation = () => {
   if (!orderData) {
     return <div>Loading...</div>;
   }
-
+  const orderItems = orderData?.orderItems || [];
   // Render the order confirmation details
   return (
     <div>
@@ -61,7 +61,7 @@ const Confirmation = () => {
       <p>Customer ID: {orderData.customerId}</p>
       <p>Products:</p>
       <ul>
-        {orderData.orderItems.map((product) => (
+        {orderItems.map((product) => (
           <li key={product.product}>
             {product.product}
             <br /> - Quantity: {product.quantity}
