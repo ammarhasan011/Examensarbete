@@ -1,6 +1,8 @@
+// Import
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const { addOrder } = require("../order/orderController");
 
+// Create a checkout session when initiating a payment
 const createCheckoutSession = async (req, res) => {
   try {
     // Extract cartItems and customerEmail from the request body and session
@@ -29,7 +31,7 @@ const createCheckoutSession = async (req, res) => {
         "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "http://localhost:5173/cart",
       metadata: {
-        cartItems: JSON.stringify(cartItems), // Lägger till denna rad för att inkludera cartItems i metadata
+        cartItems: JSON.stringify(cartItems), // Add this line to include cartItems in metadata
       },
     });
 
@@ -42,15 +44,19 @@ const createCheckoutSession = async (req, res) => {
   }
 };
 
+// Confirm payment and add order to the database
 const confirmPayment = async (req, res) => {
   try {
+    // Extract session_id and orderNumber from the query parameters
     const { session_id, orderNumber } = req.query;
+    // Retrieve Stripe session information
     const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
 
     console.log("sessiosId är:", session_id);
-    console.log("orderNumber är:", orderNumber); //får undefined
+    // console.log("orderNumber är:", orderNumber);
     console.log("stripeSession är:", stripeSession);
 
+    // Extract cartItems from Stripe session metadata
     const cartItems = JSON.parse(stripeSession.metadata.cartItems || "[]").map(
       (item) => ({
         product: item.product,
@@ -58,23 +64,17 @@ const confirmPayment = async (req, res) => {
       })
     );
 
-    const deliveryAddress = {
-      street: "Sample Street",
-      zipcode: "12345",
-      city: "Sample City",
-      country: "Sample Country",
-    };
-
-    // Skicka informationen till addOrder för att skapa ordern
+    // Send information to addOrder to create the order
     await addOrder(
       {
-        body: { orderItems: cartItems, deliveryAddress },
+        body: { orderItems: cartItems },
         session: req.session,
       },
       res
     );
     console.log("cartItems som skickas till order:", cartItems);
 
+    // Prepare order data for response
     const orderData = {
       orderNumber: orderNumber,
       products: cartItems.map((item) => ({
@@ -83,6 +83,8 @@ const confirmPayment = async (req, res) => {
         quantity: item.quantity,
       })),
     };
+
+    // Respond with a success message and order data
     if (!res.headersSent) {
       return res
         .status(200)
