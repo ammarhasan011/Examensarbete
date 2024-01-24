@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 interface Product {
-  productId: string;
+  product: string;
   quantity: number;
   price: number;
 }
@@ -46,8 +46,8 @@ const Confirmation = () => {
       <p>Products:</p>
       <ul>
         {orderData.orderItems.map((product) => (
-          <li key={product.productId}>
-            {product.productId}
+          <li key={product.product}>
+            {product.product}
             <br /> - Quantity: {product.quantity}
             <br />- Price:
             {product.price}
