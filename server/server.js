@@ -9,6 +9,7 @@ const { connectToDatabase } = require("./resources/db/dataBase");
 const productRouter = require("./resources/product/productRouter");
 const { userRouter } = require("./resources/user/userRouter");
 const { orderRouter } = require("./resources/order/orderRouter");
+const { checkoutRouter } = require("./resources/checkout/checkoutRouter");
 
 //Create an Express application
 const app = express();
@@ -38,6 +39,7 @@ app.use(
 app.use("/api", productRouter);
 app.use("/api", userRouter);
 app.use("/api", orderRouter);
+app.use("/api", checkoutRouter);
 
 //Starting server
 app.listen(3000, () => console.log("Server is up and runninnn...port3000"));

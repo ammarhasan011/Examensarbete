@@ -2,18 +2,19 @@ const { OrderModel } = require("./orderModel");
 const { ProductModel } = require("../product/productModel");
 
 const getAllOrders = async (req, res) => {
-  const query = req.session.isAdmin ? {} : { customer: req.session._id };
-  const orders = await OrderModel.find(query).populate("customer");
+  const query = req.session.isAdmin ? {} : { customerId: req.session._id };
+  const orders = await OrderModel.find(query).populate("customerId");
   res.status(200).json(orders);
 };
+
 const getOrder = async (req, res) => {
   const order = await OrderModel.findById(req.params.id)
-    .populate("customer")
+    .populate("customerId")
     .populate("orderItems.product")
     .populate("shippingMethod");
   if (
     !req.session.isAdmin &&
-    req.session._id.toString() !== order.customer._id.toString()
+    req.session._id.toString() !== order.customerId._id.toString()
   ) {
     return res
       .status(403)
@@ -21,9 +22,10 @@ const getOrder = async (req, res) => {
   }
   res.status(200).json(order);
 };
-const addOrder = async (req, res, next) => {
+
+const addOrder = async (req, res) => {
   try {
-    //Minska lagersaldot på beställda produkter
+    // Minska lagersaldot på beställda produkter
     for (const orderItem of req.body.orderItems) {
       let product = await ProductModel.findById(orderItem.product);
 
@@ -36,14 +38,16 @@ const addOrder = async (req, res, next) => {
 
     const order = new OrderModel({
       ...req.body,
-      customer: req.session._id,
+      //kan behöva använda req.session.email istället för req.session._id
+      customerId: req.session._id,
       orderNumber: Math.floor(Math.random() * 1000000),
     });
 
     await order.save();
     res.status(201).json(order);
   } catch (err) {
-    next(err);
+    console.error("Error adding order:", err);
+    res.status(500).json({ error: "Failed to add order." });
   }
 };
 

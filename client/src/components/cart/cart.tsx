@@ -1,12 +1,12 @@
 // Imports
 import { useState, useEffect } from "react";
 import CartItem from "../Interfaces/CartItem";
+import Checkout from "../Checkout/Checkout";
 
 // Cart Component Definition
 const Cart = () => {
   // State hook to manage the cart items
   const [cart, setCart] = useState<CartItem[]>([]);
-
   // Use effect to initialize the cart from localStorage on component mount
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
@@ -16,7 +16,6 @@ const Cart = () => {
   }, []);
 
   console.log("Cart:", cart);
-
   // Function to calculate the total price of items in the cart
   const calculateTotalPrice = () => {
     return cart.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -85,6 +84,8 @@ const Cart = () => {
         </div>
       ))}
       <p>Totalt pris: {calculateTotalPrice()} kr</p>
+
+      <Checkout cartItems={cart} />
     </div>
   );
 };

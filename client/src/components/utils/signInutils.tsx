@@ -30,7 +30,7 @@ export const handleLogin = async (
     const response = await axios.post("/api/users/login", formData);
 
     // Console the data from backend
-    console.log(response.data);
+    console.log("res.data", response.data);
   } catch (error) {
     console.error(error);
   }
