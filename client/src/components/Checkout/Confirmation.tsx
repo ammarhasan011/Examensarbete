@@ -1,5 +1,5 @@
 // Import
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 // Define interfaces for better type checking
@@ -20,6 +20,8 @@ const Confirmation = () => {
   const location = useLocation();
   // State to store order data
   const [orderData, setOrderData] = useState<OrderData | null>(null);
+  //Step rendering useEffect
+  const shouldNotRender = useRef(false);
 
   // useEffect to fetch order information when the component mounts or when the location.search changes
   useEffect(() => {
@@ -28,18 +30,22 @@ const Confirmation = () => {
     const sessionId = searchParams.get("session_id");
 
     console.log("sessionId", sessionId);
-
-    // Fetch order information using the session_id
-    fetch(`/api/confirm-payment?session_id=${sessionId}`)
-      .then((response) => response.json())
-      .then((data: OrderData) => {
-        // Set the order data in the state
-        setOrderData(data);
-        console.log("Order Data:", data);
-      })
-      .catch((error) => {
-        console.error("Error fetching order information:", error);
-      });
+    //check to render or not
+    if (!shouldNotRender.current) {
+      // Fetch order information using the session_id
+      fetch(`/api/confirm-payment?session_id=${sessionId}`)
+        .then((response) => response.json())
+        .then((data: OrderData) => {
+          // Set the order data in the state
+          setOrderData(data);
+          console.log("Order Data:", data);
+          shouldNotRender.current = true;
+          // Set shouldNotRender.current to true after the first render
+        })
+        .catch((error) => {
+          console.error("Error fetching order information:", error);
+        });
+    }
   }, [location.search]);
 
   // If orderData is not available yet, display a loading message
