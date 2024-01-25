@@ -12,6 +12,9 @@ const createCheckoutSession = async (req, res) => {
     const customerEmail = req.session.email;
     console.log("Received customerEmail for checkout:", customerEmail);
 
+    // Generate a unique cart ID
+    const cartId = generateUniqueCartId();
+
     // Create a checkout session with the Stripe API
     const session = await stripe.checkout.sessions.create({
       line_items: cartItems.map((item) => ({
@@ -32,9 +35,13 @@ const createCheckoutSession = async (req, res) => {
         "http://localhost:5173/confirmation?session_id={CHECKOUT_SESSION_ID}",
       cancel_url: "http://localhost:5173/cart",
       metadata: {
-        cartItems: JSON.stringify(cartItems), // Add this line to include cartItems in metadata
+        cartId: cartId,
+        // cartItems: JSON.stringify(cartItems), // Add this line to include cartItems in metadata
       },
     });
+    // Save the cartItems with cartId in activeSessions
+    activeSessions[cartId] = cartItems;
+    console.log("cartId", cartId);
 
     // Send the session URL and ID in the response
     res.status(200).json({ url: session.url, sessionId: session.id });
@@ -45,35 +52,27 @@ const createCheckoutSession = async (req, res) => {
   }
 };
 
-// Confirm payment and add order to the database
 const confirmPayment = async (req, res) => {
+  let cartId;
   try {
-    // Check if the session ID is already in the activeSessions array
-    if (activeSessions.includes(req.session.id)) {
-      return res
-        .status(400)
-        .json({ error: "Checkout session already in progress" });
-    }
-
-    // Add the session ID to activeSessions
-    activeSessions.push(req.session.id);
-
     // Extract session_id and orderNumber from the query parameters
     const { session_id, orderNumber } = req.query;
+
     // Retrieve Stripe session information
     const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
 
-    console.log("sessiosId är:", session_id);
-    // console.log("orderNumber är:", orderNumber);
-    console.log("stripeSession är:", stripeSession);
+    // Extract cartId from Stripe session metadata
+    const cartId = stripeSession.metadata.cartId;
 
-    // Extract cartItems from Stripe session metadata
-    const cartItems = JSON.parse(stripeSession.metadata.cartItems || "[]").map(
-      (item) => ({
-        product: item.product,
-        quantity: item.quantity,
-      })
-    );
+    // Check if the cartId is in activeSessions
+    if (!activeSessions[cartId]) {
+      return res
+        .status(400)
+        .json({ error: "Cart not found in activeSessions" });
+    }
+
+    // Extract cartItems from activeSessions using cartId
+    const cartItems = activeSessions[cartId];
 
     // Send information to addOrder to create the order
     await addOrder(
@@ -83,15 +82,17 @@ const confirmPayment = async (req, res) => {
       },
       res
     );
-    console.log("cartItems som skickas till order:", cartItems);
 
     // Prepare order data for response
     const orderData = {
-      orderNumber: orderNumber,
+      orderNumber: orderNumber, // får undefiend
+      customerId: req.session.email,
       products: cartItems.map((item) => ({
-        productId: item.product._id,
-        name: item.product.name,
+        productId: item._id, // får undefiend
+        image: item.image,
+        name: item.name,
         quantity: item.quantity,
+        price: item.price,
       })),
     };
 
@@ -106,12 +107,12 @@ const confirmPayment = async (req, res) => {
     console.error("Error confirming payment:", error);
     res.status(500).json({ error: "Failed to confirm payment." });
   } finally {
-    // Remove the session ID from activeSessions after creating the session
-    const index = activeSessions.indexOf(req.session.id);
-    if (index !== -1) {
-      activeSessions.splice(index, 1);
-    }
+    // Remove the cartId from activeSessions after creating the session
+    delete activeSessions[cartId];
   }
 };
 
+function generateUniqueCartId() {
+  return Math.random().toString(36).substring(7);
+}
 module.exports = { createCheckoutSession, confirmPayment };
