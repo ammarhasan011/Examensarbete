@@ -57,7 +57,7 @@ const confirmPayment = async (req, res) => {
   try {
     // Extract session_id and orderNumber from the query parameters
     const { session_id, orderNumber } = req.query;
-
+    console.log("60");
     // Retrieve Stripe session information
     const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
 
@@ -66,22 +66,37 @@ const confirmPayment = async (req, res) => {
 
     // Check if the cartId is in activeSessions
     if (!activeSessions[cartId]) {
-      return res
-        .status(400)
-        .json({ error: "Cart not found in activeSessions" });
+      // res.status(400).json({ error: "Cart not found in activeSessions" });
+      console.error("Cart not found in activeSessions");
     }
+    console.log("73");
 
     // Extract cartItems from activeSessions using cartId
     const cartItems = activeSessions[cartId];
-
+    console.log("77");
     // Send information to addOrder to create the order
-    await addOrder(
-      {
+    // await addOrder(
+    //   {
+    //     body: { orderItems: cartItems },
+    //     session: req.session,
+    //   },
+    //   res
+    // );
+    try {
+      // Send information to addOrder to create the order
+      await addOrder({
         body: { orderItems: cartItems },
         session: req.session,
-      },
-      res
-    );
+      });
+      console.log("Order created successfully");
+    } catch (error) {
+      console.error("Error creating order:", error);
+      // Om det uppstår ett fel kan du logga det här, eller vidta andra åtgärder efter behov
+    }
+
+    // Fortsätt med resten av koden...
+
+    console.log("86");
 
     // Prepare order data for response
     const orderData = {
@@ -95,14 +110,15 @@ const confirmPayment = async (req, res) => {
         price: item.price,
       })),
     };
+    console.log("100");
 
     // Respond with a success message and order data
-    if (!res.headersSent) {
-      return res
-        .status(200)
-        .json({ message: "Payment confirmed successfully!", orderData });
-    }
+    res
+      .status(200)
+      .json({ message: "Payment confirmed successfully!", orderData });
+
     console.log("orderdata är ", orderData);
+    console.log("108");
   } catch (error) {
     console.error("Error confirming payment:", error);
     res.status(500).json({ error: "Failed to confirm payment." });
