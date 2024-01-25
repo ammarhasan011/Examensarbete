@@ -40,7 +40,7 @@ With MKicks Online Store, we aim to provide a convenient and accessible way for 
 - MongoDB
 - Stripe (for payment processing)
 
-To run the project
+## To install the project
 
 You need to install all apps and packages, run the commandes:
 
@@ -58,16 +58,16 @@ $ cd server
 $ npm install
 ```
 
-then run the commands:
-
-### Client:
+## To run the project
 
 ```bash
-$ npm run dev
-```
+Client:
 
-### Server:
-
-```bash
 $ npm run dev
+
+
+ Server:
+
+$ npm run dev
+
 ```
