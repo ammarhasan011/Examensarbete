@@ -51,6 +51,8 @@ With MKicks Online Store, we aim to provide a convenient and accessible way for 
 - React: ^17.0.2
 - Node.js: ^14.17.6
 - Material-UI: ^4.11.0
+- you need to have an `.env` file in the server with:
+  MONGODB_CONNECTION_STRING & STRIPE_SECRET_KEY.
 
 ## To install the project
 
