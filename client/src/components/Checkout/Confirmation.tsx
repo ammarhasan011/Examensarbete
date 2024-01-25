@@ -7,6 +7,8 @@ interface Product {
   product: string;
   quantity: number;
   price: number;
+  name: string;
+  image: string;
 }
 
 interface OrderData {
@@ -33,12 +35,31 @@ const Confirmation = () => {
     //check to render or not
     if (!shouldNotRender.current) {
       // Fetch order information using the session_id
+      // fetch(`/api/confirm-payment?session_id=${sessionId}`)
+      //   .then((response) => response.json())
+      //   .then((data: OrderData) => {
+      //     // Set the order data in the state
+      //     setOrderData(data);
+      //     console.log("Order Data:", data);
+      //     console.log("OrderData:", OrderData);
       fetch(`/api/confirm-payment?session_id=${sessionId}`)
         .then((response) => response.json())
-        .then((data: OrderData) => {
+        .then((data) => {
+          // Anpassa strukturen för att matcha din förväntade struktur
+          const adaptedData = {
+            orderNumber: data.orderNumber,
+            customerId: data.customerId,
+            orderItems: data.orderItems.map((item: Product) => ({
+              name: item.name,
+              image: item.image,
+              quantity: item.quantity,
+              price: item.price,
+            })),
+          };
+
           // Set the order data in the state
-          setOrderData(data);
-          console.log("Order Data:", data);
+          setOrderData(adaptedData);
+          console.log("Order Data:", adaptedData);
           shouldNotRender.current = true;
           // Set shouldNotRender.current to true after the first render
         })
@@ -59,14 +80,17 @@ const Confirmation = () => {
       <h2>Order Confirmation</h2>
       <p>Order Number: {orderData.orderNumber}</p>
       <p>Customer ID: {orderData.customerId}</p>
+      {/* <p>Customer Email: {orderData.customerId}</p> */}
+
       <p>Products:</p>
       <ul>
         {orderItems.map((product) => (
-          <li key={product.product}>
-            {product.product}
-            <br /> - Quantity: {product.quantity}
-            <br />- Price:
-            {product.price}
+          <li key={orderData.orderNumber}>
+            Name:{product.name} <br />
+            Image: {product.name} <br />
+            {/* Id:{product.product} <br /> */}
+            Quantity: {product.quantity} <br />
+            Price {product.price}
             {"kr "}
           </li>
         ))}
