@@ -40,6 +40,18 @@ With MKicks Online Store, we aim to provide a convenient and accessible way for 
 - MongoDB
 - Stripe (for payment processing)
 
+## System Requirements
+
+- Node.js: >= 14.0.0
+- Supported Browsers: Chrome (latest), Safari (latest)
+- Operating Systems: Windows, macOS
+
+## Dependencies
+
+- React: ^17.0.2
+- Node.js: ^14.17.6
+- Material-UI: ^4.11.0
+
 ## To install the project
 
 You need to install all apps and packages, run the commandes:
@@ -60,14 +72,16 @@ $ npm install
 
 ## To run the project
 
+Then run the commands:
+
+### Client:
+
 ```bash
-Client:
-
 $ npm run dev
+```
 
+### Server:
 
- Server:
-
+```bash
 $ npm run dev
-
 ```
