@@ -1,7 +1,5 @@
 # MKicks
 
----
-
 ## About MKicks
 
 MKicks is a unique online store specializing in hard-to-find, limited edition, and exclusive sneakers. Our platform is dedicated to providing sneaker enthusiasts with a curated selection of rare kicks that are often challenging to acquire through conventional means.
@@ -9,8 +7,6 @@ MKicks is a unique online store specializing in hard-to-find, limited edition, a
 Traditional merchandise stores often grapple with the challenge of sourcing and providing access to rare, limited edition, and high-end sneakers. MKicks was born out of the desire to bridge this gap and bring these elusive treasures directly to your fingertips, regardless of their scarcity or exclusivity.
 
 With MKicks Online Store, we aim to provide a convenient and accessible way for users to purchase merchandise items from the comfort of their homes.
-
----
 
 ## Sneaker Brands
 
@@ -21,16 +17,12 @@ With MKicks Online Store, we aim to provide a convenient and accessible way for 
 - Off-White
 - and many more.
 
----
-
 ## Features
 
 - Explore a handpicked collection of rare and limited edition sneakers.
 - Overcome the challenges of finding elusive footwear in traditional stores.
 - Secure iconic kicks that are typically difficult to locate and obtain.
 - Enjoy a seamless and secure checkout process.
-
----
 
 ## Technologies Used
 
@@ -48,8 +40,6 @@ With MKicks Online Store, we aim to provide a convenient and accessible way for 
 - MongoDB
 - Stripe (for payment processing)
 
----
-
 To run the project
 
 You need to install all apps and packages, run the commandes:
@@ -59,21 +49,25 @@ You need to install all apps and packages, run the commandes:
 ```bash
 $ cd client
 $ npm install
+```
 
 ### Server:
 
+```bash
 $ cd server
 $ npm install
+```
 
 then run the commands:
 
 ### Client:
 
+```bash
 $ npm run dev
+```
 
 ### Server:
 
+```bash
 $ npm run dev
-
----
 ```
