@@ -66,8 +66,8 @@ const Confirmation = () => {
 
       <p>Products:</p>
       <ul>
-        {orderItems.map((product) => (
-          <li key={product._id} style={{ marginBottom: "20px" }}>
+        {orderItems.map((product, index) => (
+          <li key={index} style={{ marginBottom: "20px" }}>
             Name: {product.name} <br />
             <img
               style={{ maxWidth: "100px", height: "auto" }}
