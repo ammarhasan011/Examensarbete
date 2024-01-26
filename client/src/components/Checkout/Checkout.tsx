@@ -34,6 +34,7 @@ const Checkout: React.FC<CheckoutProps> = ({ cartItems }) => {
 
       // Redirect the user to the Stripe Checkout page
       window.location.href = url;
+      localStorage.removeItem("cart");
     } catch (error) {
       console.error("Ett fel inträffade:", error);
     }
