@@ -46,7 +46,8 @@ const addOrder = async (req, res) => {
     await order.save();
     // res.status(201).json(order);
     console.log("Order created successfully");
-    return { status: 201, order };
+    // Return order och orderNumber
+    return { status: 201, order, orderNumber: order.orderNumber };
   } catch (err) {
     console.error("Error adding order:", err);
     // res.status(500).json({ error: "Failed to add order." });
