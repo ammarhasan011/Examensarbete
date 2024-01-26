@@ -91,7 +91,7 @@ const confirmPayment = async (req, res) => {
       orderNumber: orderNumber, // får undefiend
       customerId: req.session.email,
       products: cartItems.map((item) => ({
-        productId: item._id, // får undefiend
+        productId: item.product, // får undefiend
         image: item.image,
         name: item.name,
         quantity: item.quantity,
