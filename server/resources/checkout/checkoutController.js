@@ -36,7 +36,6 @@ const createCheckoutSession = async (req, res) => {
       cancel_url: "http://localhost:5173/cart",
       metadata: {
         cartId: cartId,
-        // cartItems: JSON.stringify(cartItems), // Add this line to include cartItems in metadata
       },
     });
     // Save the cartItems with cartId in activeSessions
@@ -54,9 +53,10 @@ const createCheckoutSession = async (req, res) => {
 
 const confirmPayment = async (req, res) => {
   let cartId;
+  let orderNumber;
   try {
     // Extract session_id and orderNumber from the query parameters
-    const { session_id, orderNumber } = req.query;
+    const { session_id } = req.query;
     console.log("60");
     // Retrieve Stripe session information
     const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
@@ -75,11 +75,12 @@ const confirmPayment = async (req, res) => {
 
     try {
       // Send information to addOrder to create the order
-      await addOrder({
+      const { orderNumber: createdOrderNumber } = await addOrder({
         body: { orderItems: cartItems },
         session: req.session,
       });
       console.log("Order created successfully");
+      orderNumber = createdOrderNumber;
     } catch (error) {
       console.error("Error creating order:", error);
     }
@@ -88,10 +89,10 @@ const confirmPayment = async (req, res) => {
 
     // Prepare order data for response
     const orderData = {
-      orderNumber: orderNumber, // får undefiend
+      orderNumber: orderNumber,
       customerId: req.session.email,
       products: cartItems.map((item) => ({
-        productId: item.product, // får undefiend
+        productId: item.product,
         image: item.image,
         name: item.name,
         quantity: item.quantity,
