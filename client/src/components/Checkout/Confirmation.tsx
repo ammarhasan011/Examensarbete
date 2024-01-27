@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
 interface Product {
@@ -19,31 +19,34 @@ const Confirmation = () => {
   const location = useLocation();
   const [orderData, setOrderData] = useState<OrderData | null>(null);
   const [dataLoaded, setDataLoaded] = useState(false);
-  //   const shouldNotRender = useRef(false);
-  //     if (!shouldNotRender.current) {
-  //     }
+  const shouldNotRender = useRef(false);
+
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const searchParams = new URLSearchParams(location.search);
-        const sessionId = searchParams.get("session_id");
+    //stop rendering useEffect
+    if (!shouldNotRender.current) {
+      const fetchData = async () => {
+        try {
+          const searchParams = new URLSearchParams(location.search);
+          const sessionId = searchParams.get("session_id");
 
-        console.log("sessionId", sessionId);
+          console.log("sessionId", sessionId);
 
-        const response = await fetch(
-          `/api/confirm-payment?session_id=${sessionId}`
-        );
-        const data: { orderData: OrderData } = await response.json();
+          const response = await fetch(
+            `/api/confirm-payment?session_id=${sessionId}`
+          );
+          const data: { orderData: OrderData } = await response.json();
 
-        setOrderData(data.orderData);
-        console.log("Order Data:", data.orderData);
-        setDataLoaded(true);
-      } catch (error) {
-        console.error("Error fetching order information:", error);
-      }
-    };
+          setOrderData(data.orderData);
+          console.log("Order Data:", data.orderData);
+          setDataLoaded(true);
+        } catch (error) {
+          console.error("Error fetching order information:", error);
+        }
+      };
 
-    fetchData();
+      fetchData();
+      shouldNotRender.current = true;
+    }
   }, [location.search]);
 
   console.log("Rendering Order Data:", orderData);
