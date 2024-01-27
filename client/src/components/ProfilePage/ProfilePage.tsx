@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
+import OrderHistory from "../OrderHistory/OrderHistory";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { handleLogoutAndRedirect } from "../Utils/AuthUtils";
@@ -43,6 +44,7 @@ const ProfilePage = () => {
             >
               Logga ut
             </Button>
+            <OrderHistory />
           </Grid>
         </Paper>
       </Grid>
