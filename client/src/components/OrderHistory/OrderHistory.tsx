@@ -4,9 +4,7 @@ import axios from "axios";
 interface Order {
   _id: string;
   orderNumber: number;
-  total: number;
-  createdAt: string; // Anpassa typen baserat på hur createdAt är formatterad
-  // Lägg till andra fält om det behövs
+  // Ta bort total och createdAt här
 }
 
 const OrderHistory = () => {
@@ -14,7 +12,7 @@ const OrderHistory = () => {
 
   const getOrders = async () => {
     try {
-      const response = await axios.get("/api/orders"); // Använd rätt endpoint
+      const response = await axios.get("/api/orders");
       setOrders(response.data);
     } catch (error) {
       console.error("Error fetching orders:", error);
@@ -22,9 +20,8 @@ const OrderHistory = () => {
   };
 
   useEffect(() => {
-    // Ladda användarens ordrar när komponenten monteras
     getOrders();
-  }, []); // Använd en tom beroendelista för att köra effekten bara en gång när komponenten monteras
+  }, []);
 
   return (
     <div>
@@ -32,9 +29,8 @@ const OrderHistory = () => {
       <ul>
         {orders.map((order) => (
           <li key={order._id}>
-            {/* Visa information om varje order här */}
-            OrderNumber: {order.orderNumber}, Total: {order.total}, Datum:{" "}
-            {order.createdAt}
+            OrderNumber: {order.orderNumber}
+            {/* Ta bort total och createdAt här */}
           </li>
         ))}
       </ul>
