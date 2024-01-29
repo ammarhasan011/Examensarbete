@@ -39,7 +39,7 @@ const ProfilePage = () => {
             >
               Logga ut
             </Button>
-            //show orders
+            {/* show orders */}
             <OrderHistory />
           </Grid>
         </Paper>
