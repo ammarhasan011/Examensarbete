@@ -44,6 +44,7 @@ const ProfilePage = () => {
             >
               Logga ut
             </Button>
+            //show orders
             <OrderHistory />
           </Grid>
         </Paper>
