@@ -3,7 +3,9 @@ const { ProductModel } = require("../product/productModel");
 
 const getAllOrders = async (req, res) => {
   const query = req.session.isAdmin ? {} : { customerId: req.session._id };
-  const orders = await OrderModel.find(query).populate("customerId");
+  const orders = await OrderModel.find(query)
+    .populate("customerId")
+    .populate("orderItems.product"); // Uppdatera här för att inkludera orderItems
   res.status(200).json(orders);
 };
 
