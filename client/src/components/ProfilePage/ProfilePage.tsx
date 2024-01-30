@@ -1,4 +1,5 @@
-// Import Material-UI components and styles
+// ProfilePage.jsx
+import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -6,21 +7,41 @@ import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
 import OrderHistory from "../OrderHistory/OrderHistory";
-// import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { handleLogoutAndRedirect } from "../Utils/AuthUtils";
+import {
+  handleLogoutAndRedirect,
+  handleLoginAndRedirect,
+  checkAdminStatus,
+} from "../Utils/AuthUtils";
 import "./ProfilePage.css";
 
-// ProfilePage Component
 const ProfilePage = () => {
-  //useNavigate-hook redirecting
   const navigate = useNavigate();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        await handleLoginAndRedirect(navigate);
+        const adminStatus = await checkAdminStatus();
+        setIsAdmin(adminStatus);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [navigate]);
 
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
   const avatarStyle = { backgroundColor: "#1976d2" };
 
+  const handleProductManagement = () => {
+    // Navigera till komponenten ProductManagement
+    navigate("/product-management");
+  };
+
   return (
-    // Render the sign-in form
     <div>
       <Grid>
         <Paper elevation={20} className="profile-paper">
@@ -39,7 +60,16 @@ const ProfilePage = () => {
             >
               Logga ut
             </Button>
-            {/* show orders */}
+            {isAdmin && (
+              <Button
+                color="primary"
+                variant="contained"
+                style={buttonStyle}
+                onClick={handleProductManagement}
+              >
+                Ändra på produkter
+              </Button>
+            )}
             <OrderHistory />
           </Grid>
         </Paper>
