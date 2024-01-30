@@ -113,6 +113,7 @@ const ProductManagement = () => {
     <div>
       <h1>Produkthantering</h1>
       <form onSubmit={addProduct}>
+        <h2>Lägg till produkt</h2>
         <label>
           Titel:
           <input
@@ -165,10 +166,20 @@ const ProductManagement = () => {
         <br />
         <button type="submit">Lägg till produkt</button>
       </form>
+      <h2>radera eller ändra produkt</h2>
       <ul>
         {products.map((product) => (
           <li key={product._id}>
             <p>{product.title}</p>
+            <img
+              src={product.image}
+              alt={product.title}
+              style={{ maxWidth: "100px", height: "auto" }}
+            />
+            <p>Beskrivning: {product.description} </p>
+            <p>Pris: {product.price} Kr</p>
+            <p>Antal: {product.inStock} St</p>
+
             <button
               onClick={() =>
                 updateProduct(product._id, { title: "Uppdaterad produkt" })
