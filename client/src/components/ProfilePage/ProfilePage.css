@@ -1,0 +1,10 @@
+/* ProfilePage.css */
+.profile-paper {
+    padding: 30px 20px;
+    width: 800px;
+    margin: 20px auto;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+  }
+  

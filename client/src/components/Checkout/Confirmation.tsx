@@ -1,10 +1,9 @@
-// Import
 import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 
-// Define interfaces for better type checking
+// Define the types for Product and OrderData
 interface Product {
-  product: string;
+  _id: string;
   quantity: number;
   price: number;
   name: string;
@@ -14,84 +13,87 @@ interface Product {
 interface OrderData {
   orderNumber: number;
   customerId: string;
-  orderItems: Product[];
+  products: Product[];
 }
 
 const Confirmation = () => {
-  // Get the current location using useLocation hook from react-router-dom
+  // Get the current URL location
   const location = useLocation();
   // State to store order data
   const [orderData, setOrderData] = useState<OrderData | null>(null);
-  //Step rendering useEffect
+  // State to track if data is loaded
+  const [dataLoaded, setDataLoaded] = useState(false);
+  // Ref to determine whether to render or not
   const shouldNotRender = useRef(false);
 
-  // useEffect to fetch order information when the component mounts or when the location.search changes
   useEffect(() => {
-    // Extract session_id from the query parameters
-    const searchParams = new URLSearchParams(location.search);
-    const sessionId = searchParams.get("session_id");
-
-    console.log("sessionId", sessionId);
-    //check to render or not
+    // Check if rendering is allowed
     if (!shouldNotRender.current) {
-      // Fetch order information using the session_id
-      // fetch(`/api/confirm-payment?session_id=${sessionId}`)
-      //   .then((response) => response.json())
-      //   .then((data: OrderData) => {
-      //     // Set the order data in the state
-      //     setOrderData(data);
-      //     console.log("Order Data:", data);
-      //     console.log("OrderData:", OrderData);
-      fetch(`/api/confirm-payment?session_id=${sessionId}`)
-        .then((response) => response.json())
-        .then((data) => {
-          // Anpassa strukturen för att matcha din förväntade struktur
-          const adaptedData = {
-            orderNumber: data.orderNumber,
-            customerId: data.customerId,
-            orderItems: data.orderItems.map((item: Product) => ({
-              name: item.name,
-              image: item.image,
-              quantity: item.quantity,
-              price: item.price,
-            })),
-          };
+      // Fetch order data when the component mounts
+      const fetchData = async () => {
+        try {
+          // Extract session_id from URL search parameters
+          const searchParams = new URLSearchParams(location.search);
+          const sessionId = searchParams.get("session_id");
 
-          // Set the order data in the state
-          setOrderData(adaptedData);
-          console.log("Order Data:", adaptedData);
-          shouldNotRender.current = true;
-          // Set shouldNotRender.current to true after the first render
-        })
-        .catch((error) => {
+          console.log("sessionId", sessionId);
+
+          // Fetch order data from the server
+          const response = await fetch(
+            `/api/confirm-payment?session_id=${sessionId}`
+          );
+          const data: { orderData: OrderData } = await response.json();
+
+          // Update state with the fetched order data
+          setOrderData(data.orderData);
+          console.log("Order Data:", data.orderData);
+
+          // Set dataLoaded to true to indicate that data has been loaded
+          setDataLoaded(true);
+        } catch (error) {
           console.error("Error fetching order information:", error);
-        });
+        }
+      };
+      // Call the fetchData function
+      fetchData();
+      // Update shouldNotRender ref to prevent further rendering
+      shouldNotRender.current = true;
     }
   }, [location.search]);
 
-  // If orderData is not available yet, display a loading message
-  if (!orderData) {
+  console.log("Rendering Order Data:", orderData);
+
+  // Display loading message while data is being fetched
+  if (!dataLoaded) {
     return <div>Loading...</div>;
   }
-  const orderItems = orderData?.orderItems || [];
-  // Render the order confirmation details
+
+  // Display error message if order data is not available
+  if (!orderData) {
+    return <div>Error loading order data.</div>;
+  }
+  // Extract order items from orderData
+  const orderItems = orderData.products || [];
+
   return (
     <div>
-      <h2>Order Confirmation</h2>
-      <p>Order Number: {orderData.orderNumber}</p>
-      <p>Customer ID: {orderData.customerId}</p>
-      {/* <p>Customer Email: {orderData.customerId}</p> */}
+      <h2>Orderbekräftelse</h2>
+      <p>Ordernummer: {orderData.orderNumber}</p>
+      <p>Kundens E-post: {orderData.customerId}</p>
 
-      <p>Products:</p>
+      <p>Köpta produkter:</p>
       <ul>
-        {orderItems.map((product) => (
-          <li key={orderData.orderNumber}>
-            Name:{product.name} <br />
-            Image: {product.name} <br />
-            {/* Id:{product.product} <br /> */}
-            Quantity: {product.quantity} <br />
-            Price {product.price}
-            {"kr "}
+        {orderItems.map((product, index) => (
+          <li key={index} style={{ marginBottom: "20px" }}>
+            Namn: {product.name} <br />
+            <img
+              style={{ maxWidth: "100px", height: "auto" }}
+              src={product.image}
+              alt={product.name}
+            />{" "}
+            <br />
+            Antal: {product.quantity} <br />
+            Pris: {product.price} kr <br />
           </li>
         ))}
       </ul>

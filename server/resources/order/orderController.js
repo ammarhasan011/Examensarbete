@@ -3,7 +3,9 @@ const { ProductModel } = require("../product/productModel");
 
 const getAllOrders = async (req, res) => {
   const query = req.session.isAdmin ? {} : { customerId: req.session._id };
-  const orders = await OrderModel.find(query).populate("customerId");
+  const orders = await OrderModel.find(query)
+    .populate("customerId")
+    .populate("orderItems.product"); // Uppdatera här för att inkludera orderItems
   res.status(200).json(orders);
 };
 
@@ -44,10 +46,13 @@ const addOrder = async (req, res) => {
     });
 
     await order.save();
-    res.status(201).json(order);
+    // res.status(201).json(order);
+    console.log("Order created successfully");
+    // Return order och orderNumber
+    return { status: 201, order, orderNumber: order.orderNumber };
   } catch (err) {
     console.error("Error adding order:", err);
-    res.status(500).json({ error: "Failed to add order." });
+    // res.status(500).json({ error: "Failed to add order." });
   }
 };
 

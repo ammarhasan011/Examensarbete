@@ -5,21 +5,17 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
+import OrderHistory from "../OrderHistory/OrderHistory";
 // import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { handleLogoutAndRedirect } from "../Utils/AuthUtils";
+import "./ProfilePage.css";
 
 // ProfilePage Component
 const ProfilePage = () => {
   //useNavigate-hook redirecting
   const navigate = useNavigate();
 
-  const paperStyle = {
-    padding: "30px 20px",
-    width: 800,
-    margin: "20px auto",
-    height: "60vh",
-  };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
   const avatarStyle = { backgroundColor: "#1976d2" };
 
@@ -27,7 +23,7 @@ const ProfilePage = () => {
     // Render the sign-in form
     <div>
       <Grid>
-        <Paper elevation={20} style={paperStyle}>
+        <Paper elevation={20} className="profile-paper">
           <Grid container direction="column" alignItems="center">
             <Avatar style={avatarStyle}>
               <PersonIcon />
@@ -43,6 +39,8 @@ const ProfilePage = () => {
             >
               Logga ut
             </Button>
+            {/* show orders */}
+            <OrderHistory />
           </Grid>
         </Paper>
       </Grid>

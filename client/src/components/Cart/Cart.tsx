@@ -7,6 +7,27 @@ import Checkout from "../Checkout/Checkout";
 const Cart = () => {
   // State hook to manage the cart items
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    // Hämta användarstatus när komponenten monteras
+    const checkUserLoginStatus = async () => {
+      try {
+        const response = await fetch("/api/users/authorize");
+        if (response.ok) {
+          const data = await response.json();
+          setIsLoggedIn(data._id);
+          console.log("data.loggedIn", data._id);
+        } else {
+          setIsLoggedIn(false);
+        }
+      } catch (error) {
+        setIsLoggedIn(false);
+      }
+    };
+
+    checkUserLoginStatus();
+  }, []);
   // Use effect to initialize the cart from localStorage on component mount
   useEffect(() => {
     const storedCart = localStorage.getItem("cart");
@@ -85,7 +106,12 @@ const Cart = () => {
       ))}
       <p>Totalt pris: {calculateTotalPrice()} kr</p>
 
-      <Checkout cartItems={cart} />
+      {/* <Checkout cartItems={cart} /> */}
+      {isLoggedIn ? (
+        <Checkout cartItems={cart} />
+      ) : (
+        <p>Vänligen logga in för att kunna betala</p>
+      )}
     </div>
   );
 };

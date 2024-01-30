@@ -10,6 +10,7 @@ import Footer from "./components/Footer/Footer";
 import SignUpForm from "./components/UserForms/SignUpForm";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import Confirmation from "./components/Checkout/Confirmation";
+import OrderHistory from "./components/OrderHistory/OrderHistory";
 
 // Main component representing the entire application
 const App = () => {
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/sign-up" element={<SignUpForm />} />
         <Route path="/profile-page" element={<ProfilePage />} />
         <Route path="/confirmation" element={<Confirmation />} />
+        <Route path="/order-history" element={<OrderHistory />} />
       </Routes>
       <Footer />
     </Router>

@@ -36,7 +36,6 @@ const createCheckoutSession = async (req, res) => {
       cancel_url: "http://localhost:5173/cart",
       metadata: {
         cartId: cartId,
-        // cartItems: JSON.stringify(cartItems), // Add this line to include cartItems in metadata
       },
     });
     // Save the cartItems with cartId in activeSessions
@@ -54,10 +53,11 @@ const createCheckoutSession = async (req, res) => {
 
 const confirmPayment = async (req, res) => {
   let cartId;
+  let orderNumber;
   try {
     // Extract session_id and orderNumber from the query parameters
-    const { session_id, orderNumber } = req.query;
-
+    const { session_id } = req.query;
+    console.log("60");
     // Retrieve Stripe session information
     const stripeSession = await stripe.checkout.sessions.retrieve(session_id);
 
@@ -66,29 +66,33 @@ const confirmPayment = async (req, res) => {
 
     // Check if the cartId is in activeSessions
     if (!activeSessions[cartId]) {
-      return res
-        .status(400)
-        .json({ error: "Cart not found in activeSessions" });
+      // res.status(400).json({ error: "Cart not found in activeSessions" });
+      console.error("Cart not found in activeSessions");
     }
 
     // Extract cartItems from activeSessions using cartId
     const cartItems = activeSessions[cartId];
 
-    // Send information to addOrder to create the order
-    await addOrder(
-      {
+    try {
+      // Send information to addOrder to create the order
+      const { orderNumber: createdOrderNumber } = await addOrder({
         body: { orderItems: cartItems },
         session: req.session,
-      },
-      res
-    );
+      });
+      console.log("Order created successfully");
+      orderNumber = createdOrderNumber;
+    } catch (error) {
+      console.error("Error creating order:", error);
+    }
+
+    // Fortsätt med resten av koden...
 
     // Prepare order data for response
     const orderData = {
-      orderNumber: orderNumber, // får undefiend
+      orderNumber: orderNumber,
       customerId: req.session.email,
       products: cartItems.map((item) => ({
-        productId: item._id, // får undefiend
+        productId: item.product,
         image: item.image,
         name: item.name,
         quantity: item.quantity,
@@ -96,12 +100,11 @@ const confirmPayment = async (req, res) => {
       })),
     };
 
-    // Respond with a success message and order data
-    if (!res.headersSent) {
-      return res
-        .status(200)
-        .json({ message: "Payment confirmed successfully!", orderData });
-    }
+    // // Respond with a success message and order data
+    res
+      .status(200)
+      .json({ message: "Payment confirmed successfully!", orderData });
+
     console.log("orderdata är ", orderData);
   } catch (error) {
     console.error("Error confirming payment:", error);
