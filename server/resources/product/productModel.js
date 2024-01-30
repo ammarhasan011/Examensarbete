@@ -18,7 +18,6 @@ const ProductSchema = new Schema(
 
 // Creating a Mongoose model, products
 const ProductModel = models.product || model("product", ProductSchema);
-// console.log("modell");
 
 // Validation schema for creating products/validating incoming data
 const ProductCreateValidationSchema = Joi.object({

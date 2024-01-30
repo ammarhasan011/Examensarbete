@@ -21,6 +21,7 @@ const SignInForm = () => {
     margin: "30px auto",
   };
 
+  //CSS
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
 
@@ -41,10 +42,11 @@ const SignInForm = () => {
         console.error("Fel vid kontroll av inloggningsstatus:", error);
       }
     };
-
+    // Call the checkLoginStatus function on component mount
     checkLoginStatus();
   }, [navigate]);
 
+  // Login handler and redirection
   const handleLoginAndRedirectLocal = async (
     e: React.FormEvent<HTMLFormElement>
   ) => {

@@ -51,6 +51,7 @@ const createCheckoutSession = async (req, res) => {
   }
 };
 
+// Confirm payment endpoint
 const confirmPayment = async (req, res) => {
   let cartId;
   let orderNumber;
@@ -66,13 +67,13 @@ const confirmPayment = async (req, res) => {
 
     // Check if the cartId is in activeSessions
     if (!activeSessions[cartId]) {
-      // res.status(400).json({ error: "Cart not found in activeSessions" });
       console.error("Cart not found in activeSessions");
     }
 
     // Extract cartItems from activeSessions using cartId
     const cartItems = activeSessions[cartId];
 
+    // Try to add order using cartItems
     try {
       // Send information to addOrder to create the order
       const { orderNumber: createdOrderNumber } = await addOrder({
@@ -84,8 +85,6 @@ const confirmPayment = async (req, res) => {
     } catch (error) {
       console.error("Error creating order:", error);
     }
-
-    // Fortsätt med resten av koden...
 
     // Prepare order data for response
     const orderData = {
@@ -100,7 +99,7 @@ const confirmPayment = async (req, res) => {
       })),
     };
 
-    // // Respond with a success message and order data
+    // Respond with a success message and order data
     res
       .status(200)
       .json({ message: "Payment confirmed successfully!", orderData });
@@ -115,6 +114,7 @@ const confirmPayment = async (req, res) => {
   }
 };
 
+// Fortsätt med resten av koden...
 function generateUniqueCartId() {
   return Math.random().toString(36).substring(7);
 }
