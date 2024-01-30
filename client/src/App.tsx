@@ -11,6 +11,7 @@ import SignUpForm from "./components/UserForms/SignUpForm";
 import ProfilePage from "./components/ProfilePage/ProfilePage";
 import Confirmation from "./components/Checkout/Confirmation";
 import OrderHistory from "./components/OrderHistory/OrderHistory";
+import ProductManagement from "./components/ProductManagement/ProductManagement";
 
 // Main component representing the entire application
 const App = () => {
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/profile-page" element={<ProfilePage />} />
         <Route path="/confirmation" element={<Confirmation />} />
         <Route path="/order-history" element={<OrderHistory />} />
+        <Route path="/product-management" element={<ProductManagement />} />
       </Routes>
       <Footer />
     </Router>

@@ -48,17 +48,22 @@ const OrderHistory = () => {
             <ul>
               {order.orderItems.map((orderItem, index) => (
                 <li key={index} style={{ marginBottom: "10px" }}>
-                  Produkt: {orderItem.product.title} <br />
-                  <img
-                    src={orderItem.product.image}
-                    style={{ maxWidth: "100px", height: "auto" }}
-                  />{" "}
-                  <br />
-                  Antal:{orderItem.quantity}
-                  {" St"} <br />
-                  Pris: {orderItem.product.price}
-                  {" Kr"}
-                  <br />
+                  {/* Use optional chaining to avoid errors */}
+                  Produkt:{" "}
+                  {orderItem.product?.title || "Produkten finns ej kvar"} <br />
+                  {orderItem.product && (
+                    <>
+                      <img
+                        src={orderItem.product.image}
+                        style={{ maxWidth: "100px", height: "auto" }}
+                        alt={orderItem.product.title}
+                      />
+                      <br />
+                      Antal:{orderItem.quantity} St <br />
+                      Pris: {orderItem.product.price} Kr
+                      <br />
+                    </>
+                  )}
                 </li>
               ))}
             </ul>
