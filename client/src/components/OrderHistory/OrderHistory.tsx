@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
+// Define the types for Order and OrderItem
 interface Order {
   _id: string;
   orderNumber: number;
@@ -18,8 +19,10 @@ interface OrderItem {
 }
 
 const OrderHistory = () => {
+  // State to store orders
   const [orders, setOrders] = useState<Order[]>([]);
 
+  // Function to fetch orders from the server
   const getOrders = async () => {
     try {
       const response = await axios.get("/api/orders");
@@ -30,6 +33,7 @@ const OrderHistory = () => {
     }
   };
 
+  // useEffect to fetch orders when the component mounts
   useEffect(() => {
     getOrders();
   }, []);
