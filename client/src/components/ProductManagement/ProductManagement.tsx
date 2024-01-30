@@ -66,13 +66,20 @@ const ProductManagement = () => {
     }
   };
 
+  const [updateFormData, setUpdateFormData] = useState({
+    title: "",
+    description: "",
+    price: 0,
+    image: "",
+    inStock: 0,
+  });
   // Funktion för att uppdatera en befintlig produkt
-  const updateProduct = async (
-    productId: string,
-    updatedData: Partial<Product>
-  ) => {
+  const updateProductDynamic = async (productId: string) => {
     try {
-      // Skicka en PUT-förfrågan för att uppdatera produkten
+      // Skapa en kopia av det aktuella tillståndet för uppdateringsformuläret
+      const updatedData = { ...updateFormData, _id: productId };
+
+      // Skicka en PUT-förfrågan för att uppdatera produkten med de dynamiska värdena
       const response: AxiosResponse<Product> = await axios.put(
         `/api/products/${productId}`,
         updatedData
@@ -84,9 +91,24 @@ const ProductManagement = () => {
           product._id === productId ? response.data : product
         )
       );
+
+      // Återställ uppdateringsformuläret
+      setUpdateFormData({
+        title: "",
+        description: "",
+        price: 0,
+        image: "",
+        inStock: 0,
+      });
     } catch (error) {
       console.error("Fel vid uppdatering av produkt:", error);
     }
+  };
+
+  // Funktion för att hantera ändringar i uppdateringsformuläret
+  const handleUpdateFormChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setUpdateFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   // Funktion för att ta bort en produkt
@@ -166,7 +188,60 @@ const ProductManagement = () => {
         <br />
         <button type="submit">Lägg till produkt</button>
       </form>
-      <h2>radera eller ändra produkt</h2>
+      <br />
+      <h2> Ändra produkt</h2>
+      {/* Dynamiskt uppdateringsformulär */}
+      <label>
+        Ny titel:
+        <input
+          type="text"
+          name="title"
+          value={updateFormData.title}
+          onChange={handleUpdateFormChange}
+        />
+      </label>
+
+      <label>
+        Ny beskrivning:
+        <input
+          type="text"
+          name="description"
+          value={updateFormData.description}
+          onChange={handleUpdateFormChange}
+        />
+      </label>
+
+      <label>
+        Nytt pris:
+        <input
+          type="number"
+          name="price"
+          value={updateFormData.price}
+          onChange={handleUpdateFormChange}
+        />
+      </label>
+
+      <label>
+        Ny bild (URL):
+        <input
+          type="text"
+          name="image"
+          value={updateFormData.image}
+          onChange={handleUpdateFormChange}
+        />
+      </label>
+
+      <label>
+        Nytt antal i lager:
+        <input
+          type="number"
+          name="inStock"
+          value={updateFormData.inStock}
+          onChange={handleUpdateFormChange}
+        />
+      </label>
+
+      <h2>Radera eller ändra produkt</h2>
       <ul>
         {products.map((product) => (
           <li key={product._id}>
@@ -180,13 +255,10 @@ const ProductManagement = () => {
             <p>Pris: {product.price} Kr</p>
             <p>Antal: {product.inStock} St</p>
 
-            <button
-              onClick={() =>
-                updateProduct(product._id, { title: "Uppdaterad produkt" })
-              }
-            >
-              Uppdatera
+            <button onClick={() => updateProductDynamic(product._id)}>
+              Uppdatera Dynamiskt
             </button>
+
             <button onClick={() => deleteProduct(product._id)}>Ta bort</button>
           </li>
         ))}
