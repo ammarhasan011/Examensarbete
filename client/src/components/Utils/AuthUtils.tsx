@@ -48,21 +48,18 @@ export const handleLoginAndRedirect = async (navigate: any) => {
   }
 };
 
-// Funktion för att hantera inloggning
-// export const handleLogin = async () => {
-//   try {
-//     const response = await axios.get("/api/users/authorize");
-//     const userIsLoggedIn = response.data._id;
+// Function to check if the user is an admin
+export const checkAdminStatus = async () => {
+  try {
+    const response = await axios.get("/api/users/authorize");
+    const isAdmin = response.data.isAdmin;
 
-//     if (!userIsLoggedIn) {
-//       console.log("There is no session");
-//     } else {
-//       // const customerId = response.data.customerId;
-//       // setcustomerId(customerId);
-//       isLoggedIn: userIsLoggedIn;
-//       console.log("There is session");
-//     }
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
+    return isAdmin;
+  } catch (error) {
+    console.error(
+      "Error checking admin status:",
+      (error as any).response?.data || (error as any).message
+    );
+    return false; // Return false in case of an error
+  }
+};
