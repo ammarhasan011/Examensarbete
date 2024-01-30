@@ -1,4 +1,4 @@
-// ProfilePage.jsx
+// Imports
 import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -16,13 +16,18 @@ import {
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
+  // Use the useNavigate hook from React Router
   const navigate = useNavigate();
+  // State to track if the user is an admin
   const [isAdmin, setIsAdmin] = useState(false);
 
+  // useEffect to fetch user data on component mount
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        // Check if the user is logged in and redirect if necessary
         await handleLoginAndRedirect(navigate);
+        // Fetch and set the admin status
         const adminStatus = await checkAdminStatus();
         setIsAdmin(adminStatus);
       } catch (error) {
@@ -30,14 +35,16 @@ const ProfilePage = () => {
       }
     };
 
+    // Call the fetchUserData function
     fetchUserData();
-  }, [navigate]);
+  }, [navigate]); // useEffect dependency on navigate
 
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
   const avatarStyle = { backgroundColor: "#1976d2" };
 
+  // Click handler for the "Ändra på produkter" button
   const handleProductManagement = () => {
-    // Navigera till komponenten ProductManagement
+    // Navigate to the ProductManagement component
     navigate("/product-management");
   };
 
