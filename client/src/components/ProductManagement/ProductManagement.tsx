@@ -1,6 +1,7 @@
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import axios, { AxiosResponse } from "axios";
 
+// Define the Product interface
 interface Product {
   _id: string;
   title: string;
@@ -11,7 +12,7 @@ interface Product {
 }
 
 const ProductManagement = () => {
-  // State för att lagra produktdata
+  // State to store product data
   const [products, setProducts] = useState<Product[]>([]);
   const [newProduct, setNewProduct] = useState({
     title: "",
@@ -21,11 +22,11 @@ const ProductManagement = () => {
     inStock: 0,
   });
 
-  // Effekt för att hämta produktdata vid montering av komponenten
+  // Effect to fetch product data on component mount
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // Hämta alla produkter från servern
+        // Fetch all products from the server
         const response: AxiosResponse<Product[]> = await axios.get(
           "/api/products"
         );
@@ -35,25 +36,25 @@ const ProductManagement = () => {
       }
     };
 
-    // Anropa funktionen fetchProducts
+    // Call the fetchProducts function
     fetchProducts();
-  }, []); // useEffects beroendearray är tom, så den körs endast en gång vid montering
+  }, []); // useEffect dependency array is empty, so it runs only once on mount
 
-  // Funktion för att lägga till en ny produkt
+  // Function to add a new product
   const addProduct = async (event: FormEvent) => {
     event.preventDefault();
 
     try {
-      // Skicka en POST-förfrågan för att lägga till produkten
+      // Send a POST request to add the product
       const response: AxiosResponse<Product> = await axios.post(
         "/api/products",
         newProduct
       );
 
-      // Uppdatera det lokala tillståndet med den nya produkten
+      // Update the local state with the new product
       setProducts([...products, response.data]);
 
-      // Återställ formuläret
+      // Reset the form
       setNewProduct({
         title: "",
         description: "",
@@ -66,6 +67,7 @@ const ProductManagement = () => {
     }
   };
 
+  // State for update form data
   const [updateFormData, setUpdateFormData] = useState({
     title: "",
     description: "",
@@ -73,26 +75,27 @@ const ProductManagement = () => {
     image: "",
     inStock: 0,
   });
-  // Funktion för att uppdatera en befintlig produkt
+
+  // Function to update an existing product
   const updateProductDynamic = async (productId: string) => {
     try {
-      // Skapa en kopia av det aktuella tillståndet för uppdateringsformuläret
+      // Create a copy of the current state for the update form
       const updatedData = { ...updateFormData, _id: productId };
 
-      // Skicka en PUT-förfrågan för att uppdatera produkten med de dynamiska värdena
+      // Send a PUT request to update the product with dynamic values
       const response: AxiosResponse<Product> = await axios.put(
         `/api/products/${productId}`,
         updatedData
       );
 
-      // Uppdatera det lokala tillståndet med den uppdaterade produkten
+      // Update the local state with the updated product
       setProducts(
         products.map((product) =>
           product._id === productId ? response.data : product
         )
       );
 
-      // Återställ uppdateringsformuläret
+      // Reset the update form
       setUpdateFormData({
         title: "",
         description: "",
@@ -105,7 +108,7 @@ const ProductManagement = () => {
     }
   };
 
-  // Funktion för att hantera ändringar i uppdateringsformuläret
+  // Function to handle changes in the update form
   const handleUpdateFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setUpdateFormData((prevData) => ({ ...prevData, [name]: value }));
@@ -114,23 +117,23 @@ const ProductManagement = () => {
   // Funktion för att ta bort en produkt
   const deleteProduct = async (productId: string) => {
     try {
-      // Skicka en DELETE-förfrågan för att ta bort produkten
+      // Send a DELETE request to remove the product
       await axios.delete(`/api/products/${productId}`);
 
-      // Uppdatera det lokala tillståndet genom att ta bort den borttagna produkten
+      // Update the local state by removing the deleted product
       setProducts(products.filter((product) => product._id !== productId));
     } catch (error) {
       console.error("Fel vid borttagning av produkt:", error);
     }
   };
 
-  // Funktion för att hantera ändringar i formuläret för ny produkt
+  // Function to handle changes in the new product form
   const handleNewProductChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setNewProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
-  // Rendera produktdata och ge användargränssnitt för produktadministration
+  // Render product data and provide a user interface for product management
   return (
     <div>
       <h1>Produkthantering</h1>
@@ -190,7 +193,7 @@ const ProductManagement = () => {
       </form>
       <br />
       <h2> Ändra produkt</h2>
-      {/* Dynamiskt uppdateringsformulär */}
+      {/* uppdateringsformulär */}
       <label>
         Ny titel:
         <input
@@ -200,7 +203,7 @@ const ProductManagement = () => {
           onChange={handleUpdateFormChange}
         />
       </label>
-
+      <br />
       <label>
         Ny beskrivning:
         <input
@@ -210,7 +213,7 @@ const ProductManagement = () => {
           onChange={handleUpdateFormChange}
         />
       </label>
-
+      <br />
       <label>
         Nytt pris:
         <input
@@ -220,7 +223,7 @@ const ProductManagement = () => {
           onChange={handleUpdateFormChange}
         />
       </label>
-
+      <br />
       <label>
         Ny bild (URL):
         <input
@@ -230,7 +233,7 @@ const ProductManagement = () => {
           onChange={handleUpdateFormChange}
         />
       </label>
-
+      <br />
       <label>
         Nytt antal i lager:
         <input
@@ -240,7 +243,6 @@ const ProductManagement = () => {
           onChange={handleUpdateFormChange}
         />
       </label>
-
       <h2>Radera eller ändra produkt</h2>
       <ul>
         {products.map((product) => (
@@ -256,7 +258,7 @@ const ProductManagement = () => {
             <p>Antal: {product.inStock} St</p>
 
             <button onClick={() => updateProductDynamic(product._id)}>
-              Uppdatera Dynamiskt
+              Uppdatera
             </button>
 
             <button onClick={() => deleteProduct(product._id)}>Ta bort</button>
