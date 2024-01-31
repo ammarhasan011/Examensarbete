@@ -271,12 +271,12 @@
 
 // export default ProductManagement;
 
-// ProductManagement.tsx
-// ProductManagement.tsx
 import React from "react";
 import useProductManagementLogic from "./ProductManagementLogic";
 
+// Define the ProductManagement component
 const ProductManagement: React.FC = () => {
+  // Destructure values and functions from the custom hook
   const {
     products,
     newProduct,
@@ -288,9 +288,11 @@ const ProductManagement: React.FC = () => {
     handleNewProductChange,
   } = useProductManagementLogic();
 
+  // Render the ProductManagement component
   return (
     <div>
       <h1>Produkthantering</h1>
+      {/* Form for adding a new product */}
       <form onSubmit={addProduct}>
         <h2>Lägg till produkt</h2>
         <label>

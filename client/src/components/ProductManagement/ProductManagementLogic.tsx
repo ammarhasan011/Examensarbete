@@ -1,7 +1,8 @@
-// ProductManagementLogic.tsx
+// Imports
 import { useState, useEffect, ChangeEvent, FormEvent } from "react";
 import axios, { AxiosResponse } from "axios";
 
+// Define the Product interface with its properties
 interface Product {
   _id: string;
   title: string;
@@ -11,6 +12,7 @@ interface Product {
   inStock: number;
 }
 
+// Define the props interface for the ProductManagementLogic component
 interface ProductManagementLogicProps {
   products: Product[];
   newProduct: Product;
@@ -22,6 +24,7 @@ interface ProductManagementLogicProps {
   handleNewProductChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
+// Custom hook to encapsulate product management logic
 const useProductManagementLogic = (): ProductManagementLogicProps => {
   // State to store product data
   const [products, setProducts] = useState<Product[]>([]);
@@ -57,26 +60,23 @@ const useProductManagementLogic = (): ProductManagementLogicProps => {
     event.preventDefault();
 
     try {
-      // Send a POST request to add the product
+      // Extract relevant properties from newProduct
+      const { title, description, price, image, inStock } = newProduct;
       const response: AxiosResponse<Product> = await axios.post(
         "/api/products",
-        newProduct
+        { title, description, price, image, inStock }
       );
 
       // Update the local state with the new product
       setProducts([...products, response.data]);
 
-      // Reset the form
-      setNewProduct({
-        _id: "",
-        title: "",
-        description: "",
-        price: 0,
-        image: "",
-        inStock: 0,
-      });
+      // Reset the newProduct form, retaining _id as an empty string
+      setNewProduct((prevProduct) => ({
+        ...prevProduct,
+        _id: "", // Reset _id to empty string
+      }));
     } catch (error) {
-      console.error("Fel vid tillägg av produkt:", error);
+      console.error("Error adding product:", error);
     }
   };
 
@@ -90,7 +90,7 @@ const useProductManagementLogic = (): ProductManagementLogicProps => {
     inStock: 0,
   });
 
-  // Function to update an existing product
+  // Function to update an existing product dynamically
   const updateProductDynamic = async (productId: string) => {
     try {
       // Create a copy of the current state for the update form
@@ -126,12 +126,14 @@ const useProductManagementLogic = (): ProductManagementLogicProps => {
   // Function to handle changes in the update form
   const handleUpdateFormChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    // Update the updateFormData state with the changed input values
     setUpdateFormData((prevData) => ({ ...prevData, [name]: value }));
   };
 
   // Function to handle changes in the new product form
   const handleNewProductChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    // Update the newProduct state with the changed input values
     setNewProduct((prevProduct) => ({ ...prevProduct, [name]: value }));
   };
 
@@ -148,6 +150,7 @@ const useProductManagementLogic = (): ProductManagementLogicProps => {
     }
   };
 
+  // Return the necessary state and functions as props for the component
   return {
     products,
     newProduct,
@@ -160,4 +163,5 @@ const useProductManagementLogic = (): ProductManagementLogicProps => {
   };
 };
 
+// Export the custom hook for use in other components
 export default useProductManagementLogic;
