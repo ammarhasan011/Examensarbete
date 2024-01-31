@@ -20,6 +20,7 @@ const SignUpForm = () => {
     margin: "20px auto",
   };
 
+  //CSS
   const headerStyle = { margin: 0 };
   const avatarStyle = { backgroundColor: "#1976d2" };
   const buttonStyle = { marginTop: 40, margin: "8px 0" };

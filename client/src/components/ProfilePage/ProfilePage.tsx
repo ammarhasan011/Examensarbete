@@ -1,4 +1,4 @@
-// Imports
+// Import
 import { useState, useEffect } from "react";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import PersonIcon from "@mui/icons-material/Person";
 import Button from "@mui/material/Button";
-import OrderHistory from "../OrderHistory/OrderHistory";
 import { useNavigate } from "react-router-dom";
 import {
   handleLogoutAndRedirect,
@@ -15,6 +14,7 @@ import {
 } from "../Utils/AuthUtils";
 import "./ProfilePage.css";
 
+// Functional component for the user's profile page
 const ProfilePage = () => {
   // Use the useNavigate hook from React Router
   const navigate = useNavigate();
@@ -37,8 +37,9 @@ const ProfilePage = () => {
 
     // Call the fetchUserData function
     fetchUserData();
-  }, [navigate]); // useEffect dependency on navigate
+  }, [navigate]);
 
+  // Styles for buttons and avatar
   const buttonStyle = { marginTop: 40, margin: "8px 0" };
   const avatarStyle = { backgroundColor: "#1976d2" };
 
@@ -46,6 +47,11 @@ const ProfilePage = () => {
   const handleProductManagement = () => {
     // Navigate to the ProductManagement component
     navigate("/product-management");
+  };
+
+  // Navigational function to go directly to OrderHistory
+  const goToOrderHistory = () => {
+    navigate("/order-history");
   };
 
   return (
@@ -77,7 +83,15 @@ const ProfilePage = () => {
                 Ändra på produkter
               </Button>
             )}
-            <OrderHistory />
+            {/* Knapp för att navigera direkt till OrderHistory */}
+            <Button
+              color="primary"
+              variant="contained"
+              style={buttonStyle}
+              onClick={goToOrderHistory}
+            >
+              Visa äldre beställningar
+            </Button>
           </Grid>
         </Paper>
       </Grid>

@@ -1,6 +1,7 @@
 const { model, Schema, models } = require("mongoose");
 const Joi = require("joi");
 
+// Define the schema for individual order items
 const OrderItemSchema = new Schema(
   {
     product: { type: Schema.Types.ObjectId, ref: "product", required: true },
@@ -10,6 +11,7 @@ const OrderItemSchema = new Schema(
   { _id: false }
 );
 
+// Define the main order schema
 const OrderSchema = new Schema({
   orderNumber: {
     type: Number,
@@ -20,8 +22,10 @@ const OrderSchema = new Schema({
   orderItems: { type: [OrderItemSchema], required: true },
 });
 
+// Create or retrieve the OrderModel based on the presence of an existing model
 const OrderModel = models.order || model("order", OrderSchema);
 
+// Define validation schemas for order creation and update
 const OrderCreateValidationSchema = Joi.object({
   orderItems: Joi.array()
     .items(
