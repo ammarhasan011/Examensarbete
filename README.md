@@ -51,8 +51,17 @@ With MKicks Online Store, we aim to provide a convenient and accessible way for 
 - React: ^17.0.2
 - Node.js: ^14.17.6
 - Material-UI: ^4.11.0
-- you need to have an `.env` file in the server with:
-  MONGODB_CONNECTION_STRING & STRIPE_SECRET_KEY.
+- you need to include an `.env` file in the server folder with:
+  MONGODB_CONNECTION_STRING, PORT & STRIPE_SECRET_KEY.
+
+  once you've included the .env file, you can paste the following code into it:
+
+```bash
+MONGODB_CONNECTION_STRING=mongodb+srv://ammarhasan011:WhgrDMbkNmi7VxNK@cluster0.uyrlsu9.mongodb.net/?retryWrites=true&w=majority
+PORT=4000
+
+STRIPE_SECRET_KEY=sk_test_51OacrtDugUdthfjaFc5Rpg5mQqnPbKfiSwYWKZDSh2FXEPZJK2KtEupXsaLGIUgmWIy4HQOAGECmhr40DY9E1lhL00vcyYFlPj
+```
 
 ## To install the project
 
