@@ -80,7 +80,6 @@ const Confirmation = () => {
       <h2>Orderbekräftelse</h2>
       <p>Ordernummer: {orderData.orderNumber}</p>
       <p>Kundens E-post: {orderData.customerId}</p>
-
       <p>Köpta produkter:</p>
       <ul>
         {orderItems.map((product, index) => (

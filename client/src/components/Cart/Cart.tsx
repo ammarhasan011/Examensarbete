@@ -106,7 +106,6 @@ const Cart = () => {
       ))}
       <p>Totalt pris: {calculateTotalPrice()} kr</p>
 
-      {/* <Checkout cartItems={cart} /> */}
       {isLoggedIn ? (
         <Checkout cartItems={cart} />
       ) : (
